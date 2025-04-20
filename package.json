@@ -1,0 +1,26 @@
+{
+  "name": "seekeraug",
+  "version": "0.1.0",
+  "description": "SeekerAug: Local Computer Vision Development Suite",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "build:renderer": "webpack --config webpack.renderer.config.js",
+    "dev": "npm run build:renderer && electron ."
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^35.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "babel-loader": "^10.0.0",
+    "webpack": "^5.99.6",
+    "webpack-cli": "^6.0.1"
+  }
+}
