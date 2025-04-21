@@ -2,29 +2,34 @@
 
 ## Current Work Focus
 
-- Completing the initial setup for SeekerAug: project structure, backend skeleton, and documentation.
-- Preparing for frontend (React) and backend (Python) integration and further module development.
+- Robust, project-isolated dataset management with a professional, workstation-grade UI.
+- End-to-end workflow: project creation, raw dataset import (including TIFFs), dataset processing (JPG conversion, metadata extraction), and dataset history/audit trail.
+- Preparing for annotation, augmentation, and training integration.
 
 ## Recent Changes
 
-- Ingested the full PRD from Docs/sdat.md.
-- Created core Memory Bank files: projectbrief.md, productContext.md, systemPatterns.md, techContext.md.
-- Populated each file with synthesized, project-specific content.
-- Scaffolded the initial project directory structure (src/main, src/renderer, src/python, src/shared, assets/icons).
-- Created package.json and .gitignore.
-- Set up Electron main process (src/main/index.js), renderer HTML (src/renderer/index.html), and Python backend skeleton (src/python/api.py).
+- Projects are now fully isolated: each has its own directory, database, and raw/processed datasets.
+- Raw dataset workflow: supports import of images (jpg, png, tif, etc.) with original filenames preserved for user clarity.
+- Refined dataset workflow: all raw images can be processed to high-quality JPGs, with metadata (dimensions, format, TIFF tags, etc.) extracted and stored.
+- Dataset history: all additions/removals to the raw dataset are logged in a per-project audit trail, viewable in the UI.
+- UI/UX: Wide, responsive image grid; original filenames shown; VS Code-like navigation, command palette, and context menus.
+- Immediate import for empty projects; staged import for non-empty projects.
+- Backend endpoints for all major operations, with strict project scoping.
 
 ## Next Steps
 
-- Set up the React frontend entry point and initial App component.
-- Add development tooling (Webpack, TypeScript config, etc.).
-- Implement the Electron-Python communication bridge.
-- Begin developing core modules (dataset management, annotation, augmentation, training, export).
-- Continue to document progress and update the Memory Bank as implementation proceeds.
+- Implement annotation workflow: annotation UI, backend endpoints, and storage (COCO, YOLO, etc.).
+- Develop augmentation pipeline: UI for building augmentation steps, backend for applying them, and visualization of augmented data.
+- Integrate model training: training config UI, backend job management, and training dashboard.
+- Advanced metadata: support for geospatial/scale info, especially for scientific/aerial imagery.
+- Dataset/annotation versioning and diff tools.
+- Continue to refine the UI for a dense, information-rich, and professional experience.
+- Plan for future collaborative features (multi-client, P2P, real-time sync).
 
 ## Active Decisions & Considerations
 
-- Strictly following the PRD for architecture, technology choices, and workflow.
-- All implementation and documentation will be kept in sync via the Memory Bank.
-- Initial development targets Linux (Debian/Ubuntu) with .deb packaging.
-- All user data and computation will remain local, with no cloud dependencies.
+- All dataset operations are strictly project-scoped; no cross-project data leakage.
+- Raw and refined datasets are clearly separated, with full metadata and audit trails.
+- The UI is designed for ultrawide, high-resolution workstation displays, with a focus on productivity and clarity.
+- All implementation and documentation are kept in sync via the Memory Bank.
+- Linux (Debian/Ubuntu) is the primary target, with local-only operation and no cloud dependencies.

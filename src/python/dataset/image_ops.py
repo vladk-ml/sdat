@@ -29,13 +29,29 @@ class ImageOps:
 
     def delete_image(self, image_id):
         with sqlite3.connect(self.db_path) as conn:
-            row = conn.execute("SELECT filename FROM images WHERE id = ?", (image_id,)).fetchone()
+            # Add dataset_history table if not present
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS dataset_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    action TEXT,
+                    filename TEXT,
+                    original_filename TEXT,
+                    details TEXT
+                )
+            """)
+            row = conn.execute("SELECT filename, original_filename FROM images WHERE id = ?", (image_id,)).fetchone()
             if not row:
                 raise FileNotFoundError(f"Image id {image_id} not found.")
-            filename = row[0]
+            filename, original_filename = row
             file_path = self.raw_dir / filename
             if file_path.exists():
                 os.remove(file_path)
             conn.execute("DELETE FROM images WHERE id = ?", (image_id,))
+            # Log to history
+            conn.execute(
+                "INSERT INTO dataset_history (action, filename, original_filename, details) VALUES (?, ?, ?, ?)",
+                ("remove", filename, original_filename, json.dumps({}))
+            )
             conn.commit()
         return True

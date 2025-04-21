@@ -27191,13 +27191,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _CommandPalette_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommandPalette.jsx */ "./src/renderer/CommandPalette.jsx");
+/* harmony import */ var _WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./WelcomePage.jsx */ "./src/renderer/WelcomePage.jsx");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -27208,95 +27211,295 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
+
 function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    projects = _useState2[0],
-    setProjects = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    paletteOpen = _useState2[0],
+    setPaletteOpen = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    selectedProject = _useState4[0],
-    setSelectedProject = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    fileMenuOpen = _useState4[0],
+    setFileMenuOpen = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState6 = _slicedToArray(_useState5, 2),
-    status = _useState6[0],
-    setStatus = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    projects = _useState6[0],
+    setProjects = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState8 = _slicedToArray(_useState7, 2),
-    projectPath = _useState8[0],
-    setProjectPath = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    selectedProject = _useState8[0],
+    setSelectedProject = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    importPaths = _useState10[0],
-    setImportPaths = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    showNewProject = _useState10[0],
+    setShowNewProject = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState12 = _slicedToArray(_useState11, 2),
-    importResult = _useState12[0],
-    setImportResult = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    status = _useState12[0],
+    setStatus = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState14 = _slicedToArray(_useState13, 2),
-    imageList = _useState14[0],
-    setImageList = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    projectPath = _useState14[0],
+    setProjectPath = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState16 = _slicedToArray(_useState15, 2),
-    listStatus = _useState16[0],
-    setListStatus = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    importPaths = _useState16[0],
+    setImportPaths = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState18 = _slicedToArray(_useState17, 2),
-    newProjectName = _useState18[0],
-    setNewProjectName = _useState18[1];
+    dragActive = _useState18[0],
+    setDragActive = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState20 = _slicedToArray(_useState19, 2),
+    importResult = _useState20[0],
+    setImportResult = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState22 = _slicedToArray(_useState21, 2),
+    imageList = _useState22[0],
+    setImageList = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState24 = _slicedToArray(_useState23, 2),
+    listStatus = _useState24[0],
+    setListStatus = _useState24[1];
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState26 = _slicedToArray(_useState25, 2),
+    newProjectName = _useState26[0],
+    setNewProjectName = _useState26[1];
+  var newProjectInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+
+  // Keyboard shortcut: Ctrl+Shift+P
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function handleKey(e) {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "p") {
+        setPaletteOpen(true);
+        e.preventDefault();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
+        setFileMenuOpen(function (f) {
+          return !f;
+        });
+        e.preventDefault();
+      }
+    }
+    window.addEventListener("keydown", handleKey);
+    return function () {
+      return window.removeEventListener("keydown", handleKey);
+    };
+  }, []);
+  function handleCommand(action, payload) {
+    if (action === "createProject") {
+      setPaletteOpen(false);
+      setShowNewProject(true);
+      setTimeout(function () {
+        return newProjectInputRef.current && newProjectInputRef.current.focus();
+      }, 50);
+    } else if (action === "importImages") {
+      var _document$getElementB;
+      setPaletteOpen(false);
+      (_document$getElementB = document.getElementById("import-images-btn")) === null || _document$getElementB === void 0 || _document$getElementB.click();
+    } else if (action === "listImages") {
+      setPaletteOpen(false);
+      handleListImages();
+    } else if (action === "renameProject") {
+      setPaletteOpen(false);
+      if (selectedProject) {
+        var newName = prompt("Rename project:", selectedProject.name);
+        if (newName && newName !== selectedProject.name) {
+          renameProject(selectedProject, newName);
+        }
+      }
+    } else if (action === "deleteProject") {
+      setPaletteOpen(false);
+      if (selectedProject) {
+        if (window.confirm("Delete project \"".concat(selectedProject.name, "\"? This cannot be undone."))) {
+          deleteProject(selectedProject);
+        }
+      }
+    } else if (action === "openProject" && payload) {
+      setSelectedProject(payload);
+      setPaletteOpen(false);
+    } else if (action === "closeProject") {
+      setSelectedProject(null);
+      setPaletteOpen(false);
+    }
+  }
   function fetchProjects() {
     return _fetchProjects.apply(this, arguments);
   }
   function _fetchProjects() {
-    _fetchProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    _fetchProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var res, data;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return fetch("http://localhost:5000/projects/list");
+          case 3:
+            res = _context4.sent;
+            _context4.next = 6;
+            return res.json();
+          case 6:
+            data = _context4.sent;
+            if (data.status === "success") {
+              setProjects(data.projects);
+            }
+            _context4.next = 13;
+            break;
+          case 10:
+            _context4.prev = 10;
+            _context4.t0 = _context4["catch"](0);
+            setStatus("Failed to fetch projects");
+          case 13:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4, null, [[0, 10]]);
+    }));
+    return _fetchProjects.apply(this, arguments);
+  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchProjects();
+  }, []);
+
+  // Browser navigation: forward/back for welcome/project
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function handlePopState(e) {
+      // If a project is open, go back to welcome; if not, do nothing
+      setSelectedProject(null);
+    }
+    window.addEventListener("popstate", handlePopState);
+    return function () {
+      return window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  // Push history state when opening a project
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (selectedProject) {
+      window.history.pushState({
+        project: selectedProject.name
+      }, "", "");
+    }
+  }, [selectedProject]);
+  function renameProject(_x, _x2) {
+    return _renameProject.apply(this, arguments);
+  }
+  function _renameProject() {
+    _renameProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(proj, newName) {
       var res, data;
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {
         while (1) switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.prev = 0;
-            _context5.next = 3;
-            return fetch("http://localhost:5000/projects/list");
-          case 3:
+            setStatus("Renaming project...");
+            _context5.prev = 1;
+            _context5.next = 4;
+            return fetch("http://localhost:5000/project/rename", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                old_name: proj.name,
+                new_name: newName
+              })
+            });
+          case 4:
             res = _context5.sent;
-            _context5.next = 6;
+            _context5.next = 7;
             return res.json();
-          case 6:
+          case 7:
             data = _context5.sent;
             if (data.status === "success") {
-              setProjects(data.projects);
+              setStatus("Project renamed.");
+              fetchProjects();
+              if (selectedProject && selectedProject.name === proj.name) {
+                setSelectedProject(_objectSpread(_objectSpread({}, proj), {}, {
+                  name: newName,
+                  path: data.new_path
+                }));
+              }
+            } else {
+              setStatus(data.error || "Error renaming project");
             }
-            _context5.next = 13;
+            _context5.next = 14;
             break;
-          case 10:
-            _context5.prev = 10;
-            _context5.t0 = _context5["catch"](0);
-            setStatus("Failed to fetch projects");
-          case 13:
+          case 11:
+            _context5.prev = 11;
+            _context5.t0 = _context5["catch"](1);
+            setStatus("Failed to connect to backend");
+          case 14:
           case "end":
             return _context5.stop();
         }
-      }, _callee5, null, [[0, 10]]);
+      }, _callee5, null, [[1, 11]]);
     }));
-    return _fetchProjects.apply(this, arguments);
+    return _renameProject.apply(this, arguments);
   }
-  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
-    fetchProjects();
-  }, []);
-  function handleCreateProject(_x) {
-    return _handleCreateProject.apply(this, arguments);
+  function deleteProject(_x3) {
+    return _deleteProject.apply(this, arguments);
   }
-  function _handleCreateProject() {
-    _handleCreateProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
+  function _deleteProject() {
+    _deleteProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(proj) {
       var res, data;
       return _regeneratorRuntime().wrap(function _callee6$(_context6) {
         while (1) switch (_context6.prev = _context6.next) {
           case 0:
+            setStatus("Deleting project...");
+            _context6.prev = 1;
+            _context6.next = 4;
+            return fetch("http://localhost:5000/project/delete", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                name: proj.name
+              })
+            });
+          case 4:
+            res = _context6.sent;
+            _context6.next = 7;
+            return res.json();
+          case 7:
+            data = _context6.sent;
+            if (data.status === "success") {
+              setStatus("Project deleted.");
+              fetchProjects();
+              if (selectedProject && selectedProject.name === proj.name) {
+                setSelectedProject(null);
+              }
+            } else {
+              setStatus(data.error || "Error deleting project");
+            }
+            _context6.next = 14;
+            break;
+          case 11:
+            _context6.prev = 11;
+            _context6.t0 = _context6["catch"](1);
+            setStatus("Failed to connect to backend");
+          case 14:
+          case "end":
+            return _context6.stop();
+        }
+      }, _callee6, null, [[1, 11]]);
+    }));
+    return _deleteProject.apply(this, arguments);
+  }
+  function handleCreateProject(_x4) {
+    return _handleCreateProject.apply(this, arguments);
+  }
+  function _handleCreateProject() {
+    _handleCreateProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(e) {
+      var res, data;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
             e.preventDefault();
             setStatus("Creating project...");
             setProjectPath("");
-            _context6.prev = 3;
-            _context6.next = 6;
+            _context7.prev = 3;
+            _context7.next = 6;
             return fetch("http://localhost:5000/project/create", {
               method: "POST",
               headers: {
@@ -27307,92 +27510,141 @@ function App() {
               })
             });
           case 6:
-            res = _context6.sent;
-            _context6.next = 9;
+            res = _context7.sent;
+            _context7.next = 9;
             return res.json();
           case 9:
-            data = _context6.sent;
+            data = _context7.sent;
             if (data.status === "success") {
               setStatus("Project created successfully!");
               setProjectPath(data.project_path);
               setNewProjectName("");
               fetchProjects();
+              setShowNewProject(false);
             } else {
               setStatus(data.error || "Error creating project");
             }
-            _context6.next = 16;
+            _context7.next = 16;
             break;
           case 13:
-            _context6.prev = 13;
-            _context6.t0 = _context6["catch"](3);
+            _context7.prev = 13;
+            _context7.t0 = _context7["catch"](3);
             setStatus("Failed to connect to backend");
           case 16:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
-      }, _callee6, null, [[3, 13]]);
+      }, _callee7, null, [[3, 13]]);
     }));
     return _handleCreateProject.apply(this, arguments);
   }
-  function handleSelectFiles(_x2) {
+  function handleSelectFiles(_x5) {
     return _handleSelectFiles.apply(this, arguments);
   }
   function _handleSelectFiles() {
-    _handleSelectFiles = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(e) {
-      var paths;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-        while (1) switch (_context7.prev = _context7.next) {
+    _handleSelectFiles = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(e) {
+      var paths, res, data;
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+        while (1) switch (_context8.prev = _context8.next) {
           case 0:
             e.preventDefault();
             if (window.seekeraug) {
-              _context7.next = 4;
+              _context8.next = 4;
               break;
             }
             setStatus("File dialog not available (not running in Electron).");
-            return _context7.abrupt("return");
+            return _context8.abrupt("return");
           case 4:
-            _context7.next = 6;
+            _context8.next = 6;
             return window.seekeraug.selectFiles();
           case 6:
-            paths = _context7.sent;
+            paths = _context8.sent;
+            if (paths.length) {
+              _context8.next = 10;
+              break;
+            }
+            setStatus("No files selected.");
+            return _context8.abrupt("return");
+          case 10:
+            if (!(imageList.length === 0)) {
+              _context8.next = 28;
+              break;
+            }
+            setStatus("Importing ".concat(paths.length, " images..."));
+            _context8.prev = 12;
+            _context8.next = 15;
+            return fetch("http://localhost:5000/dataset/import", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                project_name: selectedProject.name,
+                image_paths: paths
+              })
+            });
+          case 15:
+            res = _context8.sent;
+            _context8.next = 18;
+            return res.json();
+          case 18:
+            data = _context8.sent;
+            if (data.status === "success") {
+              setStatus("Images imported successfully!");
+              setImportResult(data.imported);
+              handleListImages();
+            } else {
+              setStatus(data.error || "Error importing images");
+            }
+            _context8.next = 25;
+            break;
+          case 22:
+            _context8.prev = 22;
+            _context8.t0 = _context8["catch"](12);
+            setStatus("Failed to connect to backend");
+          case 25:
+            setImportPaths([]);
+            _context8.next = 30;
+            break;
+          case 28:
             setImportPaths(paths);
-            setStatus(paths.length ? "Selected ".concat(paths.length, " files.") : "No files selected.");
-          case 9:
+            setStatus("Selected ".concat(paths.length, " files. Press Import Images to add."));
+          case 30:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
-      }, _callee7);
+      }, _callee8, null, [[12, 22]]);
     }));
     return _handleSelectFiles.apply(this, arguments);
   }
-  function handleImportImages(_x3) {
+  function handleImportImages(_x6) {
     return _handleImportImages.apply(this, arguments);
   }
   function _handleImportImages() {
-    _handleImportImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(e) {
+    _handleImportImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(e) {
       var res, data;
-      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-        while (1) switch (_context8.prev = _context8.next) {
+      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+        while (1) switch (_context9.prev = _context9.next) {
           case 0:
             e.preventDefault();
             setStatus("Importing images...");
             setImportResult(null);
             if (selectedProject) {
-              _context8.next = 6;
+              _context9.next = 6;
               break;
             }
             setStatus("Please select a project first.");
-            return _context8.abrupt("return");
+            return _context9.abrupt("return");
           case 6:
             if (importPaths.length) {
-              _context8.next = 9;
+              _context9.next = 9;
               break;
             }
             setStatus("Please select image files to import.");
-            return _context8.abrupt("return");
+            return _context9.abrupt("return");
           case 9:
-            _context8.prev = 9;
-            _context8.next = 12;
+            _context9.prev = 9;
+            _context9.next = 12;
             return fetch("http://localhost:5000/dataset/import", {
               method: "POST",
               headers: {
@@ -27404,51 +27656,51 @@ function App() {
               })
             });
           case 12:
-            res = _context8.sent;
-            _context8.next = 15;
+            res = _context9.sent;
+            _context9.next = 15;
             return res.json();
           case 15:
-            data = _context8.sent;
+            data = _context9.sent;
             if (data.status === "success") {
               setStatus("Images imported successfully!");
               setImportResult(data.imported);
             } else {
               setStatus(data.error || "Error importing images");
             }
-            _context8.next = 22;
+            _context9.next = 22;
             break;
           case 19:
-            _context8.prev = 19;
-            _context8.t0 = _context8["catch"](9);
+            _context9.prev = 19;
+            _context9.t0 = _context9["catch"](9);
             setStatus("Failed to connect to backend");
           case 22:
           case "end":
-            return _context8.stop();
+            return _context9.stop();
         }
-      }, _callee8, null, [[9, 19]]);
+      }, _callee9, null, [[9, 19]]);
     }));
     return _handleImportImages.apply(this, arguments);
   }
   function handleListImages() {
     return _handleListImages.apply(this, arguments);
-  }
+  } // --- VS Code-like window/project workflow ---
   function _handleListImages() {
-    _handleListImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+    _handleListImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
       var res, data;
-      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-        while (1) switch (_context9.prev = _context9.next) {
+      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+        while (1) switch (_context10.prev = _context10.next) {
           case 0:
             setListStatus("Loading images...");
             setImageList([]);
             if (selectedProject) {
-              _context9.next = 5;
+              _context10.next = 5;
               break;
             }
             setListStatus("Please select a project first.");
-            return _context9.abrupt("return");
+            return _context10.abrupt("return");
           case 5:
-            _context9.prev = 5;
-            _context9.next = 8;
+            _context10.prev = 5;
+            _context10.next = 8;
             return fetch("http://localhost:5000/dataset/list", {
               method: "POST",
               headers: {
@@ -27459,352 +27711,696 @@ function App() {
               })
             });
           case 8:
-            res = _context9.sent;
-            _context9.next = 11;
+            res = _context10.sent;
+            _context10.next = 11;
             return res.json();
           case 11:
-            data = _context9.sent;
+            data = _context10.sent;
             if (data.status === "success") {
               setImageList(data.images);
               setListStatus("Found ".concat(data.images.length, " images."));
             } else {
               setListStatus(data.error || "Error listing images");
             }
-            _context9.next = 18;
+            _context10.next = 18;
             break;
           case 15:
-            _context9.prev = 15;
-            _context9.t0 = _context9["catch"](5);
+            _context10.prev = 15;
+            _context10.t0 = _context10["catch"](5);
             setListStatus("Failed to connect to backend");
           case 18:
           case "end":
-            return _context9.stop();
+            return _context10.stop();
         }
-      }, _callee9, null, [[5, 15]]);
+      }, _callee10, null, [[5, 15]]);
     }));
     return _handleListImages.apply(this, arguments);
   }
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      display: "flex",
-      fontFamily: "sans-serif",
-      minHeight: "100vh"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      width: 280,
-      background: "#1a2233",
-      color: "#fff",
-      padding: 24,
-      display: "flex",
-      flexDirection: "column",
-      borderRight: "2px solid #222b3a"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
-    style: {
-      marginTop: 0,
-      color: "#7fd1b9"
-    }
-  }, "Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    style: {
-      background: "#7fd1b9",
-      color: "#1a2233",
-      border: "none",
-      padding: "8px 12px",
-      borderRadius: 4,
-      marginBottom: 16,
-      fontWeight: "bold"
-    },
-    onClick: fetchProjects
-  }, "Refresh"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
-    style: {
-      listStyle: "none",
-      padding: 0,
-      flex: 1
-    }
-  }, projects.map(function (proj) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-      key: proj.name,
-      style: {
-        marginBottom: 8,
-        display: "flex",
-        alignItems: "center"
+  if (!selectedProject) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      projects: projects,
+      onOpen: function onOpen(proj) {
+        setSelectedProject(proj);
+        // history state is pushed in useEffect
+      },
+      onNew: function onNew() {
+        setShowNewProject(true);
+        setTimeout(function () {
+          return newProjectInputRef.current && newProjectInputRef.current.focus();
+        }, 50);
+      },
+      onDelete: function onDelete(proj) {
+        return deleteProject(proj);
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    }), showNewProject && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       style: {
-        background: selectedProject && selectedProject.name === proj.name ? "#7fd1b9" : "#24304a",
-        color: selectedProject && selectedProject.name === proj.name ? "#1a2233" : "#fff",
-        border: "none",
-        borderRadius: 4,
-        padding: "8px 12px",
-        width: "100%",
-        textAlign: "left",
-        fontWeight: selectedProject && selectedProject.name === proj.name ? "bold" : "normal",
-        marginRight: 4
+        position: "fixed",
+        left: 0,
+        top: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "rgba(20,22,30,0.7)",
+        zIndex: 2000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
       },
       onClick: function onClick() {
-        setSelectedProject(proj);
-        setStatus("");
-        setImportResult(null);
-        setImageList([]);
-        setListStatus("");
+        return setShowNewProject(false);
       }
-    }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      title: "Rename",
-      style: {
-        background: "#f7fafc",
-        color: "#24304a",
-        border: "1px solid #7fd1b9",
-        borderRadius: 4,
-        marginLeft: 2,
-        marginRight: 2,
-        padding: "2px 6px",
-        fontSize: 12,
-        cursor: "pointer"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+      onSubmit: function onSubmit(e) {
+        handleCreateProject(e);
+        setShowNewProject(false);
       },
-      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var newName, res, data;
+      style: {
+        background: "#232837",
+        borderRadius: 12,
+        boxShadow: "0 8px 32px #000a",
+        padding: "36px 32px",
+        minWidth: 320,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+      },
+      onClick: function onClick(e) {
+        return e.stopPropagation();
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+      style: {
+        color: "#7fd1b9",
+        margin: 0,
+        marginBottom: 18
+      }
+    }, "Create New Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      ref: newProjectInputRef,
+      value: newProjectName,
+      onChange: function onChange(e) {
+        return setNewProjectName(e.target.value);
+      },
+      placeholder: "Project name",
+      required: true,
+      style: {
+        width: 220,
+        marginBottom: 18,
+        padding: 10,
+        borderRadius: 6,
+        border: "1.5px solid #7fd1b9",
+        fontSize: 18,
+        background: "#181c24",
+        color: "#e0e6ef"
+      }
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      type: "submit",
+      style: {
+        background: "#7fd1b9",
+        color: "#181c24",
+        border: "none",
+        borderRadius: 6,
+        padding: "10px 32px",
+        fontWeight: "bold",
+        fontSize: 18,
+        cursor: "pointer"
+      }
+    }, "Create"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CommandPalette_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      open: paletteOpen,
+      onClose: function onClose() {
+        return setPaletteOpen(false);
+      },
+      onCommand: function onCommand(action) {
+        if (action === "createProject") setShowNewProject(true);else if (action === "openProject") setPaletteOpen(false);
+      }
+    }));
+  }
+
+  // Helper: Recursively collect image files from dropped items
+  function getDroppedImagePaths(_x7) {
+    return _getDroppedImagePaths.apply(this, arguments);
+  } // --- Project workspace mode ---
+  function _getDroppedImagePaths() {
+    _getDroppedImagePaths = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11(items) {
+      var imageExts, paths, _iterator, _step, _loop;
+      return _regeneratorRuntime().wrap(function _callee11$(_context12) {
+        while (1) switch (_context12.prev = _context12.next) {
+          case 0:
+            imageExts = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".tiff", ".webp"];
+            paths = [];
+            _iterator = _createForOfIteratorHelper(items);
+            _context12.prev = 3;
+            _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
+              var item, file, fs, path, _walk;
+              return _regeneratorRuntime().wrap(function _loop$(_context11) {
+                while (1) switch (_context11.prev = _context11.next) {
+                  case 0:
+                    item = _step.value;
+                    if (item.kind === "file") {
+                      file = item.getAsFile();
+                      if (file && file.path) {
+                        // If it's a directory, recursively collect files
+                        if (file.type === "" && file.path) {
+                          // Directory: use Node.js fs to walk (only in Electron)
+                          try {
+                            // eslint-disable-next-line no-undef
+                            fs = window.require ? window.require("fs") : null; // eslint-disable-next-line no-undef
+                            path = window.require ? window.require("path") : null;
+                            if (fs && path) {
+                              _walk = function walk(dir) {
+                                var results = [];
+                                var list = fs.readdirSync(dir);
+                                var _iterator2 = _createForOfIteratorHelper(list),
+                                  _step2;
+                                try {
+                                  var _loop2 = function _loop2() {
+                                    var f = _step2.value;
+                                    var p = path.join(dir, f);
+                                    var stat = fs.statSync(p);
+                                    if (stat && stat.isDirectory()) {
+                                      results = results.concat(_walk(p));
+                                    } else if (imageExts.some(function (ext) {
+                                      return p.toLowerCase().endsWith(ext);
+                                    })) {
+                                      results.push(p);
+                                    }
+                                  };
+                                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                                    _loop2();
+                                  }
+                                } catch (err) {
+                                  _iterator2.e(err);
+                                } finally {
+                                  _iterator2.f();
+                                }
+                                return results;
+                              };
+                              paths = paths.concat(_walk(file.path));
+                            }
+                          } catch (e) {
+                            // Fallback: skip directory if fs not available
+                          }
+                        } else if (imageExts.some(function (ext) {
+                          return file.path.toLowerCase().endsWith(ext);
+                        })) {
+                          paths.push(file.path);
+                        }
+                      }
+                    }
+                  case 2:
+                  case "end":
+                    return _context11.stop();
+                }
+              }, _loop);
+            });
+            _iterator.s();
+          case 6:
+            if ((_step = _iterator.n()).done) {
+              _context12.next = 10;
+              break;
+            }
+            return _context12.delegateYield(_loop(), "t0", 8);
+          case 8:
+            _context12.next = 6;
+            break;
+          case 10:
+            _context12.next = 15;
+            break;
+          case 12:
+            _context12.prev = 12;
+            _context12.t1 = _context12["catch"](3);
+            _iterator.e(_context12.t1);
+          case 15:
+            _context12.prev = 15;
+            _iterator.f();
+            return _context12.finish(15);
+          case 18:
+            return _context12.abrupt("return", paths);
+          case 19:
+          case "end":
+            return _context12.stop();
+        }
+      }, _callee11, null, [[3, 12, 15, 18]]);
+    }));
+    return _getDroppedImagePaths.apply(this, arguments);
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      fontFamily: "sans-serif",
+      minHeight: "100vh",
+      background: "#232837",
+      position: "relative"
+    },
+    onDragOver: function onDragOver(e) {
+      e.preventDefault();
+      setDragActive(true);
+    },
+    onDragLeave: function onDragLeave(e) {
+      e.preventDefault();
+      setDragActive(false);
+    },
+    onDrop: (/*#__PURE__*/function () {
+      var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+        var items, paths, res, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              newName = prompt("Rename project:", proj.name);
-              if (!(newName && newName !== proj.name)) {
-                _context.next = 16;
+              e.preventDefault();
+              setDragActive(false);
+              if (selectedProject) {
+                _context.next = 4;
                 break;
               }
-              setStatus("Renaming project...");
-              _context.prev = 3;
-              _context.next = 6;
-              return fetch("http://localhost:5000/project/rename", {
+              return _context.abrupt("return");
+            case 4:
+              items = e.dataTransfer.items;
+              _context.next = 7;
+              return getDroppedImagePaths(items);
+            case 7:
+              paths = _context.sent;
+              if (!(paths.length > 0)) {
+                _context.next = 26;
+                break;
+              }
+              setStatus("Importing ".concat(paths.length, " images..."));
+              setImportPaths(paths);
+              // Trigger import
+              _context.prev = 11;
+              _context.next = 14;
+              return fetch("http://localhost:5000/dataset/import", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                  old_name: proj.name,
-                  new_name: newName
+                  project_name: selectedProject.name,
+                  image_paths: paths
                 })
               });
-            case 6:
+            case 14:
               res = _context.sent;
-              _context.next = 9;
+              _context.next = 17;
               return res.json();
-            case 9:
+            case 17:
               data = _context.sent;
               if (data.status === "success") {
-                setStatus("Project renamed.");
-                fetchProjects();
-                if (selectedProject && selectedProject.name === proj.name) {
-                  setSelectedProject(_objectSpread(_objectSpread({}, proj), {}, {
-                    name: newName,
-                    path: data.new_path
-                  }));
-                }
+                setStatus("Images imported successfully!");
+                setImportResult(data.imported);
               } else {
-                setStatus(data.error || "Error renaming project");
+                setStatus(data.error || "Error importing images");
               }
-              _context.next = 16;
+              _context.next = 24;
               break;
-            case 13:
-              _context.prev = 13;
-              _context.t0 = _context["catch"](3);
+            case 21:
+              _context.prev = 21;
+              _context.t0 = _context["catch"](11);
               setStatus("Failed to connect to backend");
-            case 16:
+            case 24:
+              _context.next = 27;
+              break;
+            case 26:
+              setStatus("No image files found in dropped items.");
+            case 27:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[3, 13]]);
-      }))
-    }, "\u270F\uFE0F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      title: "Delete",
-      style: {
-        background: "#f7fafc",
-        color: "#b94a48",
-        border: "1px solid #b94a48",
-        borderRadius: 4,
-        marginLeft: 2,
-        padding: "2px 6px",
-        fontSize: 12,
-        cursor: "pointer"
-      },
-      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var res, data;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!window.confirm("Delete project \"".concat(proj.name, "\"? This cannot be undone."))) {
-                _context2.next = 15;
-                break;
-              }
-              setStatus("Deleting project...");
-              _context2.prev = 2;
-              _context2.next = 5;
-              return fetch("http://localhost:5000/project/delete", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  name: proj.name
-                })
-              });
-            case 5:
-              res = _context2.sent;
-              _context2.next = 8;
-              return res.json();
-            case 8:
-              data = _context2.sent;
-              if (data.status === "success") {
-                setStatus("Project deleted.");
-                fetchProjects();
-                if (selectedProject && selectedProject.name === proj.name) {
-                  setSelectedProject(null);
-                }
-              } else {
-                setStatus(data.error || "Error deleting project");
-              }
-              _context2.next = 15;
-              break;
-            case 12:
-              _context2.prev = 12;
-              _context2.t0 = _context2["catch"](2);
-              setStatus("Failed to connect to backend");
-            case 15:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, null, [[2, 12]]);
-      }))
-    }, "\uD83D\uDDD1\uFE0F"));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    onSubmit: handleCreateProject,
-    style: {
-      marginTop: 16
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    value: newProjectName,
-    onChange: function onChange(e) {
-      return setNewProjectName(e.target.value);
-    },
-    placeholder: "New project name",
-    required: true,
+        }, _callee, null, [[11, 21]]);
+      }));
+      return function (_x8) {
+        return _ref.apply(this, arguments);
+      };
+    }())
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       width: "100%",
-      marginBottom: 8,
-      padding: 8,
-      borderRadius: 4,
-      border: "1px solid #7fd1b9"
+      background: "#181c24",
+      color: "#e0e6ef",
+      height: 48,
+      display: "flex",
+      alignItems: "center",
+      borderBottom: "1.5px solid #232837",
+      position: "relative",
+      zIndex: 10
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    type: "submit",
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      background: "#7fd1b9",
-      color: "#1a2233",
+      marginLeft: 32,
+      position: "relative"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    style: {
+      background: "none",
+      color: "#e0e6ef",
       border: "none",
-      padding: "8px 12px",
-      borderRadius: 4,
-      width: "100%",
-      fontWeight: "bold"
+      fontSize: 16,
+      fontWeight: 500,
+      padding: "0 18px",
+      height: 48,
+      cursor: "pointer"
+    },
+    onClick: function onClick() {
+      return setFileMenuOpen(function (f) {
+        return !f;
+      });
+    },
+    onBlur: function onBlur() {
+      return setTimeout(function () {
+        return setFileMenuOpen(false);
+      }, 200);
     }
-  }, "Create Project"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, "File \u25BE"), fileMenuOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      position: "absolute",
+      left: 0,
+      top: 48,
+      background: "#232837",
+      border: "1.5px solid #2e3647",
+      borderRadius: 8,
+      boxShadow: "0 4px 16px #000a",
+      minWidth: 180,
+      zIndex: 100
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#e0e6ef"
+    },
+    onClick: function onClick() {
+      return setShowNewProject(true);
+    }
+  }, "New Project..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#e0e6ef"
+    },
+    onClick: function onClick() {
+      return setSelectedProject(null);
+    }
+  }, "Close Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#e0e6ef"
+    },
+    onClick: function onClick() {
+      return setPaletteOpen(true);
+    }
+  }, "Open Project..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "not-allowed",
+      color: "#7fd1b9",
+      opacity: 0.6
+    },
+    title: "Coming soon"
+  }, "Open New Window"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       flex: 1,
-      padding: 32,
-      background: "#f7fafc",
-      minHeight: "100vh"
+      textAlign: "center",
+      fontWeight: 700,
+      fontSize: 18,
+      color: "#7fd1b9"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+  }, selectedProject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      color: "#24304a"
+      width: 120
     }
-  }, "SeekerAug"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+  })), dragActive && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      color: "#24304a"
+      position: "fixed",
+      left: 0,
+      top: 0,
+      width: "100vw",
+      height: "100vh",
+      background: "rgba(30,40,60,0.7)",
+      zIndex: 2000,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      pointerEvents: "none"
     }
-  }, "Welcome to the SeekerAug local computer vision development suite."), selectedProject && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      color: "#24304a"
+      background: "#232837",
+      color: "#7fd1b9",
+      border: "2.5px dashed #7fd1b9",
+      borderRadius: 16,
+      padding: "48px 64px",
+      fontSize: 32,
+      fontWeight: 700,
+      boxShadow: "0 8px 32px #000a",
+      pointerEvents: "none"
+    }
+  }, "Drop images or folders to import")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: "100%",
+      maxWidth: 1100,
+      margin: "0 auto",
+      padding: "32px 0",
+      minHeight: "calc(100vh - 48px)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+    style: {
+      color: "#7fd1b9",
+      textAlign: "center"
     }
   }, "Project: ", selectedProject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
-      color: "#24304a"
+      color: "#b0bacf",
+      textAlign: "center"
     }
-  }, "Directory: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, selectedProject.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+  }, "Directory: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", {
+    style: {
+      color: "#e0e6ef"
+    }
+  }, selectedProject.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleImportImages,
     style: {
-      marginTop: 32
+      margin: "32px auto 0 auto",
+      background: "#181c24",
+      padding: 16,
+      borderRadius: 8,
+      boxShadow: "0 2px 8px #0002",
+      maxWidth: 600,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Import Images:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    style: {
+      color: "#e0e6ef"
+    }
+  }, "Import Images:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    id: "import-images-btn",
     type: "button",
     onClick: handleSelectFiles,
     style: {
-      marginRight: 8
+      marginRight: 8,
+      background: "#2e3647",
+      color: "#7fd1b9",
+      border: "1px solid #7fd1b9",
+      borderRadius: 4,
+      padding: "6px 12px",
+      fontWeight: "bold",
+      cursor: "pointer"
     }
-  }, "Select Images")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    type: "submit"
-  }, "Import Images"), importPaths.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+  }, "Select Images")), importPaths.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    type: "submit",
     style: {
-      marginTop: 8
+      background: "#7fd1b9",
+      color: "#181c24",
+      border: "none",
+      borderRadius: 4,
+      padding: "6px 16px",
+      fontWeight: "bold",
+      marginLeft: 8,
+      cursor: "pointer"
+    }
+  }, "Import Images"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    style: {
+      marginTop: 8,
+      color: "#b0bacf"
     }
   }, importPaths.map(function (p, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: i
     }, p);
-  }))), importResult && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })))), importResult && importPaths.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      marginTop: 16
+      marginTop: 16,
+      background: "#181c24",
+      padding: 12,
+      borderRadius: 8
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", null, "Imported Images:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, importResult.map(function (img) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", {
+    style: {
+      color: "#7fd1b9"
+    }
+  }, "Imported Images:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    style: {
+      color: "#b0bacf"
+    }
+  }, importResult.map(function (img) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: img.id
     }, img.filename, " (from ", img.original_path, ")");
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      marginTop: 32
+      marginTop: 32,
+      background: "#181c24",
+      padding: 16,
+      borderRadius: 8
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    onClick: handleListImages
+    onClick: handleListImages,
+    style: {
+      background: "#2e3647",
+      color: "#7fd1b9",
+      border: "1px solid #7fd1b9",
+      borderRadius: 4,
+      padding: "6px 16px",
+      fontWeight: "bold",
+      cursor: "pointer"
+    }
   }, "List Project Images"), listStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
-      marginTop: 8
+      marginTop: 8,
+      color: "#b0bacf"
     }
-  }, listStatus), imageList.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, imageList.map(function (img) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+  }, listStatus), imageList.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+      gap: "24px",
+      width: "100%",
+      marginTop: 16
+    }
+  }, imageList.map(function (img) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       key: img.id,
       style: {
+        background: "#232837",
+        borderRadius: 10,
+        boxShadow: "0 2px 8px #0002",
+        padding: 12,
         display: "flex",
-        alignItems: "center"
+        flexDirection: "column",
+        alignItems: "center",
+        position: "relative",
+        transition: "box-shadow 0.2s",
+        border: "1.5px solid #2e3647"
       }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: 180,
+        height: 120,
+        background: "#181c24",
+        borderRadius: 6,
+        marginBottom: 10,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        boxShadow: "0 1px 4px #0004"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+      src: "file://".concat(img.path),
+      alt: img.filename,
+      style: {
+        maxWidth: "100%",
+        maxHeight: "100%",
+        objectFit: "contain",
+        borderRadius: 4,
+        background: "#232837"
+      },
+      onError: function onError(e) {
+        return e.target.style.display = "none";
+      }
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: "100%",
+        color: "#e0e6ef",
+        fontWeight: 600,
+        fontSize: 15,
+        marginBottom: 2,
+        textAlign: "center",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      },
+      title: img.original_filename || img.filename
+    }, img.original_filename || img.filename), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: "100%",
+        color: "#b0bacf",
+        fontSize: 12,
+        marginBottom: 2,
+        textAlign: "center",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      },
+      title: img.filename
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       style: {
-        flex: 1
+        fontStyle: "italic"
       }
-    }, img.filename, " (id: ", img.id, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    }, img.filename)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: "100%",
+        color: "#b0bacf",
+        fontSize: 13,
+        marginBottom: 2,
+        textAlign: "center"
+      }
+    }, img.width && img.height ? "".concat(img.width, "\xD7").concat(img.height, "px") : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: "100%",
+        color: "#b0bacf",
+        fontSize: 13,
+        marginBottom: 2,
+        textAlign: "center"
+      }
+    }, img.size ? "".concat((img.size / 1024).toFixed(1), " KB") : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: "100%",
+        color: "#7fd1b9",
+        fontSize: 12,
+        marginBottom: 6,
+        textAlign: "center"
+      }
+    }, img.added ? new Date(img.added).toLocaleString() : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "center",
+        gap: 8
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       title: "Rename",
       style: {
-        background: "#f7fafc",
-        color: "#24304a",
+        background: "#232837",
+        color: "#7fd1b9",
         border: "1px solid #7fd1b9",
         borderRadius: 4,
-        marginLeft: 2,
-        marginRight: 2,
-        padding: "2px 6px",
-        fontSize: 12,
+        padding: "2px 10px",
+        fontSize: 14,
         cursor: "pointer"
       },
-      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var newFilename, res, data;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               newFilename = prompt("Rename image file:", img.filename);
               if (!(newFilename && newFilename !== img.filename)) {
-                _context3.next = 16;
+                _context2.next = 16;
                 break;
               }
               setListStatus("Renaming image...");
-              _context3.prev = 3;
-              _context3.next = 6;
+              _context2.prev = 3;
+              _context2.next = 6;
               return fetch("http://localhost:5000/image/rename", {
                 method: "POST",
                 headers: {
@@ -27817,53 +28413,52 @@ function App() {
                 })
               });
             case 6:
-              res = _context3.sent;
-              _context3.next = 9;
+              res = _context2.sent;
+              _context2.next = 9;
               return res.json();
             case 9:
-              data = _context3.sent;
+              data = _context2.sent;
               if (data.status === "success") {
                 setListStatus("Image renamed.");
                 handleListImages();
               } else {
                 setListStatus(data.error || "Error renaming image");
               }
-              _context3.next = 16;
+              _context2.next = 16;
               break;
             case 13:
-              _context3.prev = 13;
-              _context3.t0 = _context3["catch"](3);
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](3);
               setListStatus("Failed to connect to backend");
             case 16:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
-        }, _callee3, null, [[3, 13]]);
+        }, _callee2, null, [[3, 13]]);
       }))
-    }, "\u270F\uFE0F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    }, "\u270F\uFE0F Rename"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       title: "Delete",
       style: {
-        background: "#f7fafc",
+        background: "#232837",
         color: "#b94a48",
         border: "1px solid #b94a48",
         borderRadius: 4,
-        marginLeft: 2,
-        padding: "2px 6px",
-        fontSize: 12,
+        padding: "2px 10px",
+        fontSize: 14,
         cursor: "pointer"
       },
-      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var res, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               if (!window.confirm("Delete image \"".concat(img.filename, "\"? This cannot be undone."))) {
-                _context4.next = 15;
+                _context3.next = 15;
                 break;
               }
               setListStatus("Deleting image...");
-              _context4.prev = 2;
-              _context4.next = 5;
+              _context3.prev = 2;
+              _context3.next = 5;
               return fetch("http://localhost:5000/image/delete", {
                 method: "POST",
                 headers: {
@@ -27875,38 +28470,464 @@ function App() {
                 })
               });
             case 5:
-              res = _context4.sent;
-              _context4.next = 8;
+              res = _context3.sent;
+              _context3.next = 8;
               return res.json();
             case 8:
-              data = _context4.sent;
+              data = _context3.sent;
               if (data.status === "success") {
                 setListStatus("Image deleted.");
                 handleListImages();
               } else {
                 setListStatus(data.error || "Error deleting image");
               }
-              _context4.next = 15;
+              _context3.next = 15;
               break;
             case 12:
-              _context4.prev = 12;
-              _context4.t0 = _context4["catch"](2);
+              _context3.prev = 12;
+              _context3.t0 = _context3["catch"](2);
               setListStatus("Failed to connect to backend");
             case 15:
             case "end":
-              return _context4.stop();
+              return _context3.stop();
           }
-        }, _callee4, null, [[2, 12]]);
+        }, _callee3, null, [[2, 12]]);
       }))
-    }, "\uD83D\uDDD1\uFE0F"));
-  })))), status && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    }, "\uD83D\uDDD1\uFE0F Delete")));
+  }))), status && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
       marginTop: 16,
-      color: "#b94a48"
+      color: "#ffb4b4",
+      textAlign: "center"
     }
-  }, status)));
+  }, status)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CommandPalette_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    open: paletteOpen,
+    onClose: function onClose() {
+      return setPaletteOpen(false);
+    },
+    onCommand: handleCommand
+  }));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./src/renderer/CommandPalette.jsx":
+/*!*****************************************!*\
+  !*** ./src/renderer/CommandPalette.jsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CommandPalette)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+var COMMANDS = [{
+  label: "Create New Project",
+  action: "createProject"
+}, {
+  label: "Import Images",
+  action: "importImages"
+}, {
+  label: "List Project Images",
+  action: "listImages"
+}, {
+  label: "Rename Selected Project",
+  action: "renameProject"
+}, {
+  label: "Delete Selected Project",
+  action: "deleteProject"
+}
+// Add more actions as needed
+];
+function CommandPalette(_ref) {
+  var open = _ref.open,
+    onClose = _ref.onClose,
+    onCommand = _ref.onCommand;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState2 = _slicedToArray(_useState, 2),
+    query = _useState2[0],
+    setQuery = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(COMMANDS),
+    _useState4 = _slicedToArray(_useState3, 2),
+    filtered = _useState4[0],
+    setFiltered = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState6 = _slicedToArray(_useState5, 2),
+    selected = _useState6[0],
+    setSelected = _useState6[1];
+  var inputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (open) {
+      setQuery("");
+      setFiltered(COMMANDS);
+      setSelected(0);
+      setTimeout(function () {
+        return inputRef.current && inputRef.current.focus();
+      }, 10);
+    }
+  }, [open]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setFiltered(COMMANDS.filter(function (cmd) {
+      return cmd.label.toLowerCase().includes(query.toLowerCase());
+    }));
+    setSelected(0);
+  }, [query]);
+  function handleKeyDown(e) {
+    if (e.key === "ArrowDown") {
+      setSelected(function (s) {
+        return Math.min(s + 1, filtered.length - 1);
+      });
+      e.preventDefault();
+    } else if (e.key === "ArrowUp") {
+      setSelected(function (s) {
+        return Math.max(s - 1, 0);
+      });
+      e.preventDefault();
+    } else if (e.key === "Enter") {
+      if (filtered[selected]) {
+        onCommand(filtered[selected].action);
+        onClose();
+      }
+    } else if (e.key === "Escape") {
+      onClose();
+    }
+  }
+  if (!open) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      position: "fixed",
+      left: 0,
+      top: 0,
+      width: "100vw",
+      height: "100vh",
+      background: "rgba(20,22,30,0.6)",
+      zIndex: 1000,
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "center"
+    },
+    onClick: onClose
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      marginTop: "10vh",
+      background: "#232837",
+      borderRadius: 10,
+      boxShadow: "0 8px 32px #000a",
+      minWidth: 420,
+      maxWidth: 600,
+      width: "40vw",
+      padding: 0,
+      border: "1.5px solid #333a",
+      display: "flex",
+      flexDirection: "column"
+    },
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    ref: inputRef,
+    value: query,
+    onChange: function onChange(e) {
+      return setQuery(e.target.value);
+    },
+    onKeyDown: handleKeyDown,
+    placeholder: "Type a command...",
+    style: {
+      background: "#181c24",
+      color: "#e0e6ef",
+      border: "none",
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+      fontSize: 18,
+      padding: "18px 20px",
+      outline: "none"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      maxHeight: 320,
+      overflowY: "auto"
+    }
+  }, filtered.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "#b0bacf",
+      padding: 18
+    }
+  }, "No commands found"), filtered.map(function (cmd, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      key: cmd.action,
+      style: {
+        background: i === selected ? "#2e3647" : "none",
+        color: i === selected ? "#7fd1b9" : "#e0e6ef",
+        padding: "14px 20px",
+        cursor: "pointer",
+        fontWeight: i === selected ? "bold" : "normal"
+      },
+      onMouseEnter: function onMouseEnter() {
+        return setSelected(i);
+      },
+      onMouseDown: function onMouseDown() {
+        onCommand(cmd.action);
+        onClose();
+      }
+    }, cmd.label);
+  }))));
+}
+
+/***/ }),
+
+/***/ "./src/renderer/WelcomePage.jsx":
+/*!**************************************!*\
+  !*** ./src/renderer/WelcomePage.jsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ WelcomePage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+function WelcomePage(_ref) {
+  var projects = _ref.projects,
+    onOpen = _ref.onOpen,
+    onNew = _ref.onNew,
+    onDelete = _ref.onDelete;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    contextMenu = _useState2[0],
+    setContextMenu = _useState2[1]; // { x, y, project }
+  var menuRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function handleClick(e) {
+      if (contextMenu && menuRef.current && !menuRef.current.contains(e.target)) {
+        setContextMenu(null);
+      }
+    }
+    function handleEsc(e) {
+      if (e.key === "Escape") setContextMenu(null);
+    }
+    window.addEventListener("mousedown", handleClick);
+    window.addEventListener("keydown", handleEsc);
+    return function () {
+      window.removeEventListener("mousedown", handleClick);
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [contextMenu]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      minHeight: "100vh",
+      background: "linear-gradient(120deg, #232837 60%, #181c24 100%)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      background: "#232837",
+      borderRadius: 16,
+      boxShadow: "0 8px 32px #000a",
+      padding: "48px 40px",
+      minWidth: 420,
+      maxWidth: 600,
+      width: "40vw",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: "https://img.icons8.com/fluency/96/000000/artificial-intelligence.png",
+    alt: "SeekerAug",
+    style: {
+      marginBottom: 24,
+      filter: "brightness(0.8)"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+    style: {
+      color: "#7fd1b9",
+      margin: 0,
+      fontSize: 32,
+      fontWeight: 700
+    }
+  }, "Welcome to SeekerAug"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    style: {
+      color: "#b0bacf",
+      margin: "18px 0 32px 0",
+      textAlign: "center"
+    }
+  }, "Start by opening a project or creating a new one.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    style: {
+      color: "#7fd1b9"
+    }
+  }, "Tip:"), " Use ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("kbd", {
+    style: {
+      background: "#181c24",
+      color: "#7fd1b9",
+      borderRadius: 4,
+      padding: "2px 6px",
+      fontSize: 14,
+      margin: "0 2px"
+    }
+  }, "Ctrl+Shift+P"), " for the command palette."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: onNew,
+    style: {
+      background: "#7fd1b9",
+      color: "#181c24",
+      border: "none",
+      borderRadius: 6,
+      padding: "12px 32px",
+      fontWeight: "bold",
+      fontSize: 18,
+      marginBottom: 32,
+      cursor: "pointer",
+      boxShadow: "0 2px 8px #0002"
+    }
+  }, "+ New Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: "100%",
+      marginTop: 8
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+    style: {
+      color: "#b0bacf",
+      margin: "0 0 12px 0",
+      fontWeight: 500
+    }
+  }, "Recent Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    style: {
+      listStyle: "none",
+      padding: 0,
+      margin: 0
+    }
+  }, projects.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    style: {
+      color: "#7fd1b9",
+      padding: "12px 0"
+    }
+  }, "No projects found."), projects.map(function (proj) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      key: proj.name,
+      style: {
+        marginBottom: 8,
+        display: "flex",
+        alignItems: "center",
+        position: "relative"
+      },
+      onContextMenu: function onContextMenu(e) {
+        e.preventDefault();
+        setContextMenu({
+          x: e.clientX,
+          y: e.clientY,
+          project: proj
+        });
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return onOpen(proj);
+      },
+      style: {
+        background: "#181c24",
+        color: "#e0e6ef",
+        border: "1px solid #2e3647",
+        borderRadius: 6,
+        padding: "10px 18px",
+        width: "100%",
+        textAlign: "left",
+        fontSize: 16,
+        fontWeight: 500,
+        cursor: "pointer",
+        transition: "background 0.2s"
+      },
+      onMouseOver: function onMouseOver(e) {
+        return e.currentTarget.style.background = "#232837";
+      },
+      onMouseOut: function onMouseOut(e) {
+        return e.currentTarget.style.background = "#181c24";
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        color: "#7fd1b9",
+        fontWeight: 700
+      }
+    }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        color: "#b0bacf",
+        fontSize: 13,
+        marginLeft: 8
+      }
+    }, proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      title: "Delete",
+      style: {
+        background: "#232837",
+        color: "#b94a48",
+        border: "1px solid #b94a48",
+        borderRadius: 6,
+        marginLeft: 8,
+        padding: "4px 10px",
+        fontSize: 16,
+        cursor: "pointer"
+      },
+      onClick: function onClick(e) {
+        e.stopPropagation();
+        if (window.confirm("Delete project \"".concat(proj.name, "\"? This cannot be undone."))) {
+          onDelete(proj);
+        }
+      }
+    }, "\uD83D\uDDD1\uFE0F"));
+  }))), contextMenu && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    ref: menuRef,
+    style: {
+      position: "fixed",
+      left: contextMenu.x,
+      top: contextMenu.y,
+      background: "#232837",
+      border: "1.5px solid #2e3647",
+      borderRadius: 8,
+      boxShadow: "0 4px 16px #000a",
+      minWidth: 160,
+      zIndex: 9999
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#e0e6ef"
+    },
+    onClick: function onClick() {
+      onOpen(contextMenu.project);
+      setContextMenu(null);
+    }
+  }, "Open"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#b94a48"
+    },
+    onClick: function onClick() {
+      if (window.confirm("Delete project \"".concat(contextMenu.project.name, "\"? This cannot be undone."))) {
+        onDelete(contextMenu.project);
+      }
+      setContextMenu(null);
+    }
+  }, "Delete"))));
+}
 
 /***/ })
 

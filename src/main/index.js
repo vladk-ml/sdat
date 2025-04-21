@@ -44,6 +44,8 @@ app.on("ready", () => {
 });
 
 app.on("window-all-closed", () => {
+  const PythonBridge = require("./python-bridge");
+  PythonBridge.stop();
   if (process.platform !== "darwin") {
     app.quit();
   }

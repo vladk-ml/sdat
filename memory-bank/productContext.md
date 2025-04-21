@@ -17,6 +17,10 @@ SeekerAug is designed to address the need for a comprehensive, privacy-focused, 
 - Users interact with a modern, desktop application (Electron + React) that guides them through the entire computer vision workflow.
 - All data (images, annotations, models) is stored and processed locally.
 - The application abstracts away file system complexity, presenting users with logical project and dataset views.
+- Projects are fully isolated, with their own raw and refined datasets, history, and metadata.
+- Raw dataset: original files (jpg, png, tif, etc.) are imported and preserved.
+- Refined dataset: all raw images can be processed to high-quality JPGs, with metadata (dimensions, format, TIFF tags, geospatial info) extracted and stored.
+- Dataset history: all additions/removals to the raw dataset are logged in a per-project audit trail, viewable in the UI.
 - Real-time and background saving mechanisms ensure no work is lost.
 - The backend (Python) handles all heavy computation, including annotation assistance, augmentation, and model training, with GPU acceleration when available.
 - Communication between frontend and backend is seamless, using REST APIs, WebSockets, and ZeroMQ for high-performance tasks.
@@ -24,12 +28,14 @@ SeekerAug is designed to address the need for a comprehensive, privacy-focused, 
 ## User Experience Goals
 
 - Intuitive, responsive, and visually appealing UI with clear navigation and workflow guidance.
-- Consistent layout: left sidebar for navigation, top bar for global actions, main content area, right sidebar for context-sensitive tools.
+- Consistent layout: top bar for global actions, main content area for dataset/tools, context menus, and command palette for power users.
 - Immediate feedback for user actions (e.g., saving status, progress indicators).
-- Easy project creation, management, and switching.
-- Smooth transitions between workflow stages: collection → annotation → augmentation → training.
+- Easy project creation, management, and switching, with a professional, information-dense, VS Code-like experience.
+- Wide, responsive image grid with original filenames, metadata, and audit/history panel.
+- Smooth transitions between workflow stages: collection → processing → annotation → augmentation → training.
 - Flexible import/export options for interoperability with other tools and formats.
 - Robust error handling and clear diagnostic messages.
+- Full traceability: every dataset change is logged and inspectable.
 
 ## User Personas
 
@@ -37,3 +43,4 @@ SeekerAug is designed to address the need for a comprehensive, privacy-focused, 
 - Organizations with strict privacy requirements.
 - Educators and students learning computer vision.
 - Teams with shared local resources and collaborative workflows.
+- Users working with scientific, geospatial, or large-scale imagery who require advanced metadata and auditability.

@@ -138,6 +138,63 @@ def delete_image():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+from dataset.processor import DatasetProcessor
+
+@app.route("/dataset/process", methods=["POST"])
+def process_dataset():
+    data = request.json
+    project_name = data.get("project_name")
+    if not project_name:
+        return jsonify({"error": "Missing project_name"}), 400
+    try:
+        project_path = project_manager.base_dir / project_name
+        if not project_path.exists():
+            return jsonify({"error": "Project does not exist"}), 404
+        processor = DatasetProcessor(project_path)
+        metadata = processor.process()
+        return jsonify({"status": "success", "metadata": metadata})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/dataset/history", methods=["POST"])
+def dataset_history():
+    data = request.json
+    project_name = data.get("project_name")
+    if not project_name:
+        return jsonify({"error": "Missing project_name"}), 400
+    try:
+        project_path = project_manager.base_dir / project_name
+        db_path = project_path / "database.sqlite"
+        if not db_path.exists():
+            return jsonify({"error": "Project database does not exist"}), 404
+        import sqlite3
+        with sqlite3.connect(db_path) as conn:
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS dataset_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    action TEXT,
+                    filename TEXT,
+                    original_filename TEXT,
+                    details TEXT
+                )
+            """)
+            rows = conn.execute("SELECT id, timestamp, action, filename, original_filename, details FROM dataset_history ORDER BY id DESC").fetchall()
+            history = [
+                {
+                    "id": row[0],
+                    "timestamp": row[1],
+                    "action": row[2],
+                    "filename": row[3],
+                    "original_filename": row[4],
+                    "details": row[5]
+                }
+                for row in rows
+            ]
+        return jsonify({"status": "success", "history": history})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="127.0.0.1", port=port, debug=True)

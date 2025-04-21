@@ -2,17 +2,19 @@
 
 ## System Architecture
 
-- **Frontend:** Electron app with React UI, Material UI or Tailwind CSS, Redux for state management.
-- **Backend:** Python 3.8+ with Flask or FastAPI for REST API, OpenCV, Albumentations, NVIDIA DALI, PyTorch/TensorFlow/YOLO for vision tasks.
+- **Frontend:** Electron app with React UI, custom VS Code-like design, command palette, and context menus.
+- **Backend:** Python 3.8+ with Flask for REST API, OpenCV, Albumentations, PIL, PyTorch/TensorFlow/YOLO for vision tasks.
 - **Communication Layer:** REST API for standard operations, WebSockets for real-time updates, ZeroMQ for high-performance data transfer.
-- **Storage:** SQLite for metadata, filesystem for images, JSON for project settings, standard model formats for trained models.
+- **Storage:** SQLite for metadata and history, filesystem for images (raw, processed, annotated, augmented), JSON for project settings and metadata, standard model formats for trained models.
 
 ## Key Technical Decisions
 
+- **Project Isolation:** Each project is fully isolated with its own directory, database, and datasets.
+- **Raw/Refined Dataset Workflow:** Raw images (jpg, png, tif, etc.) are imported and preserved; refined dataset is generated via conversion to JPG and metadata extraction (including TIFF tags, geospatial info).
+- **Dataset History/Audit Trail:** All additions/removals to the raw dataset are logged in a per-project audit table, viewable in the UI.
 - **Local-Only Operation:** All data and computation are local, with no cloud dependencies.
 - **Python-Electron Bridge:** Electron spawns and manages the Python backend as a child process, communicating via HTTP and ZeroMQ.
-- **GPU Detection and Utilization:** Post-install scripts detect hardware and install appropriate packages for CPU or GPU.
-- **Modular Python Backend:** Organized into annotation, augmentation, dataset, training, and utility modules.
+- **Modular Python Backend:** Organized into dataset, annotation, augmentation, training, and utility modules.
 - **Continuous Saving:** Multi-tiered saving (in-memory, background auto-save, explicit save points, transaction-based DB operations).
 - **File System Abstraction:** Users interact with logical datasets and projects, not raw files; all paths and storage are managed internally.
 
@@ -23,14 +25,15 @@
 - **Command Pattern:** Frontend issues commands to backend via API endpoints.
 - **Observer Pattern:** Real-time updates (e.g., training progress) via WebSockets.
 - **Versioning:** Dataset and annotation versions are tracked and can be compared/exported.
+- **Audit Trail:** All dataset changes are logged for traceability and inspection.
 
 ## Component Relationships
 
 - **Electron Frontend** ↔ **Python Backend**: Communicate via REST, WebSockets, and ZeroMQ.
-- **Frontend**: Manages UI, state, and user workflow.
-- **Backend**: Handles all vision processing, annotation, augmentation, and training.
+- **Frontend**: Manages UI, state, and user workflow; provides professional, information-dense, VS Code-like experience.
+- **Backend**: Handles all vision processing, annotation, augmentation, training, and dataset history.
 - **Storage Layer**: SQLite DB and filesystem, abstracted by a data access layer in Python.
-- **Project Structure**: Each project has its own directory with database, raw images, annotations, versions, and temp files.
+- **Project Structure**: Each project has its own directory with database, raw images, processed images, annotations, versions, temp files, and history.
 
 ## Packaging & Deployment
 
@@ -40,5 +43,6 @@
 
 ## Workflow Integration
 
-- **Stage Transitions:** Image Collection → Annotation → Augmentation → Training, with clear UI indicators and data versioning at each stage.
+- **Stage Transitions:** Raw Dataset (original files) → Refined Dataset (JPG + metadata) → Annotation → Augmentation → Training, with clear UI indicators and data versioning at each stage.
 - **Export Pipeline:** Flexible, format-aware export system for datasets and models.
+- **History/Audit:** All dataset changes are logged and viewable in a dedicated history panel.
