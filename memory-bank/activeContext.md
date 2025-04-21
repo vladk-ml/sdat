@@ -15,6 +15,7 @@
 - UI/UX: Wide, responsive image grid; original filenames shown; VS Code-like navigation, command palette, and context menus.
 - Immediate import for empty projects; staged import for non-empty projects.
 - Backend endpoints for all major operations, with strict project scoping.
+- **Bugfixes:** Added missing import json to backend modules, resolving backend crashes on image import/delete. Added ErrorBoundary to the frontend, so React errors now show a clear message instead of a blank screen. Added useState for processedMetadata in App.jsx, fixing ReferenceError and preventing frontend crash. All processed dataset summary and grid views now have robust error handling and null checks.
 
 ## Next Steps
 
