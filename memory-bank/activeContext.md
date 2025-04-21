@@ -18,6 +18,31 @@
 
 ## Next Steps
 
+- Implement VS Code-style tab system:
+  - Tab types:
+    - Grid view (dataset overview)
+    - Image viewer (quick, lightweight)
+    - Image annotator (bounding box, polygon, etc.)
+    - Dataset manipulator (advanced dataset operations, grouping, filtering, reordering)
+    - Class editor (explore/edit classes, ontological hierarchy, search, export, metadata/cropped previews)
+    - [Future] More tab types as needed (e.g., training, metrics, augmentation pipeline)
+  - Blank background when no tabs are open; tabs can be opened/closed.
+  - Clicking an image in the grid opens a viewer tab (default), with option to switch to annotation/augmentation.
+  - One image per tab (for now); future extensibility for multi-image tabs.
+  - Tabs can go full screen, optimized for ultrawide screens.
+  - Standard keyboard shortcuts (e.g., Ctrl+Tab to switch tabs, but not Ctrl+W to close).
+  - Switching datasets while tabs are open is not allowed; prompt user to close tabs first.
+  - Explorer is focused on information and quick actions; main work is done in the workspace/tabs.
+  - Advanced dataset/class manipulation (grouping, ontological hierarchy, export) is available in dedicated tabs, not the explorer.
+- Implement auto-annotation feature:
+  - User annotates a small set of images (e.g., 10-20).
+  - System trains a quick PyTorch model (with augmentation) on the GPU.
+  - Model is used to auto-annotate remaining images (bounding boxes, polygons, pose [future]).
+  - User can review, correct, and accept/reject auto-annotations.
+- Explorer pane always shows all datasets (raw, refined, augmented) and allows navigation, but switching datasets while tabs are open is not allowed. Attempting to switch prompts the user to close tabs first.
+  - Explorer can be resized or minimized (0:100, 30:70, 50:50 splits).
+  - Advanced dataset manipulation (e.g., grouping by time/place, reordering) should be available in a dedicated tab, not the explorer itself.
+  - Explorer is focused on information and quick actions; main work is done in the workspace/tabs.
 - Implement annotation workflow: annotation UI, backend endpoints, and storage (COCO, YOLO, etc.).
 - Develop augmentation pipeline: UI for building augmentation steps, backend for applying them, and visualization of augmented data.
 - Integrate model training: training config UI, backend job management, and training dashboard.

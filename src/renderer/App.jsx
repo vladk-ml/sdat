@@ -17,6 +17,7 @@ function App() {
   const [listStatus, setListStatus] = useState("");
   const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [processedMetadata, setProcessedMetadata] = useState(null);
   const [newProjectName, setNewProjectName] = useState("");
   const newProjectInputRef = useRef();
 
@@ -757,46 +758,54 @@ function App() {
             </button>
           </div>
           {listStatus && <p style={{ marginTop: 8, color: "#b0bacf" }}>{listStatus}</p>}
-          {processedMetadata && (
+          {processedMetadata && typeof processedMetadata === "object" && Object.keys(processedMetadata).length > 0 && (
             <div style={{ marginTop: 16, background: "#232837", borderRadius: 8, padding: 16 }}>
               <h3 style={{ color: "#7fd1b9", marginTop: 0 }}>Processed Dataset Summary</h3>
               <div style={{ maxHeight: 320, overflowY: "auto", fontSize: 13 }}>
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr style={{ color: "#b0bacf", borderBottom: "1px solid #2e3647" }}>
-                      <th style={{ textAlign: "left", padding: "4px 8px" }}>Processed File</th>
-                      <th style={{ textAlign: "left", padding: "4px 8px" }}>Original</th>
-                      <th style={{ textAlign: "left", padding: "4px 8px" }}>Size</th>
-                      <th style={{ textAlign: "left", padding: "4px 8px" }}>Dimensions</th>
-                      <th style={{ textAlign: "left", padding: "4px 8px" }}>Format</th>
-                      <th style={{ textAlign: "left", padding: "4px 8px" }}>TIFF Tags</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.entries(processedMetadata).map(([fname, meta]) => (
-                      <tr key={fname} style={{ borderBottom: "1px solid #232837" }}>
-                        <td style={{ color: "#e0e6ef", padding: "4px 8px" }}>{fname}</td>
-                        <td style={{ color: "#b0bacf", padding: "4px 8px" }}>{meta.original_filename || ""}</td>
-                        <td style={{ color: "#b0bacf", padding: "4px 8px" }}>
-                          {meta.size_bytes ? `${(meta.size_bytes / 1024).toFixed(1)} KB` : "—"}
-                        </td>
-                        <td style={{ color: "#b0bacf", padding: "4px 8px" }}>
-                          {meta.width && meta.height ? `${meta.width}×${meta.height}` : "—"}
-                        </td>
-                        <td style={{ color: "#b0bacf", padding: "4px 8px" }}>
-                          {meta.format || "—"}
-                        </td>
-                        <td style={{ color: "#b0bacf", padding: "4px 8px", maxWidth: 200, overflow: "auto" }}>
-                          {meta.tiff_tags
-                            ? <pre style={{ color: "#7fd1b9", fontSize: 11, margin: 0, whiteSpace: "pre-wrap" }}>
-                                {JSON.stringify(meta.tiff_tags, null, 1)}
-                              </pre>
-                            : "—"}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                {(() => {
+                  try {
+                    return (
+                      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                        <thead>
+                          <tr style={{ color: "#b0bacf", borderBottom: "1px solid #2e3647" }}>
+                            <th style={{ textAlign: "left", padding: "4px 8px" }}>Processed File</th>
+                            <th style={{ textAlign: "left", padding: "4px 8px" }}>Original</th>
+                            <th style={{ textAlign: "left", padding: "4px 8px" }}>Size</th>
+                            <th style={{ textAlign: "left", padding: "4px 8px" }}>Dimensions</th>
+                            <th style={{ textAlign: "left", padding: "4px 8px" }}>Format</th>
+                            <th style={{ textAlign: "left", padding: "4px 8px" }}>TIFF Tags</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(processedMetadata).map(([fname, meta]) => (
+                            <tr key={fname} style={{ borderBottom: "1px solid #232837" }}>
+                              <td style={{ color: "#e0e6ef", padding: "4px 8px" }}>{fname}</td>
+                              <td style={{ color: "#b0bacf", padding: "4px 8px" }}>{meta.original_filename || ""}</td>
+                              <td style={{ color: "#b0bacf", padding: "4px 8px" }}>
+                                {meta.size_bytes ? `${(meta.size_bytes / 1024).toFixed(1)} KB` : "—"}
+                              </td>
+                              <td style={{ color: "#b0bacf", padding: "4px 8px" }}>
+                                {meta.width && meta.height ? `${meta.width}×${meta.height}` : "—"}
+                              </td>
+                              <td style={{ color: "#b0bacf", padding: "4px 8px" }}>
+                                {meta.format || "—"}
+                              </td>
+                              <td style={{ color: "#b0bacf", padding: "4px 8px", maxWidth: 200, overflow: "auto" }}>
+                                {meta.tiff_tags
+                                  ? <pre style={{ color: "#7fd1b9", fontSize: 11, margin: 0, whiteSpace: "pre-wrap" }}>
+                                      {JSON.stringify(meta.tiff_tags, null, 1)}
+                                    </pre>
+                                  : "—"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    );
+                  } catch (err) {
+                    return <div style={{ color: "#b94a48" }}>Error rendering processed dataset summary.</div>;
+                  }
+                })()}
               </div>
             </div>
           )}

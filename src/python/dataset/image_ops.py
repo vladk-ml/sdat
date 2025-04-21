@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sqlite3
+import json
 
 class ImageOps:
     """Handles image rename and delete operations within a project."""
