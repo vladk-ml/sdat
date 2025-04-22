@@ -11,6 +11,9 @@
 ## Recent Changes
 
 - Projects are now fully isolated: each has its own directory, database, and raw/processed datasets.
+- Project management (list, create, delete) is now fully persistent and handled via the Flask backend API; no localStorage/in-memory logic remains.
+- Welcome Page and Project Dashboard are fully integrated with backend persistence and provide a professional, VS Code-inspired experience.
+- Theming system is now VS Code-style: JSON theme files, dynamic loader, and CSS variables. All UI components use these variables for styling.
 - Raw dataset workflow: supports import of images (jpg, png, tif, etc.) with original filenames preserved for user clarity.
 - Refined dataset workflow: all raw images can be processed to high-quality JPGs, with metadata (dimensions, format, TIFF tags, etc.) extracted and stored.
 - Dataset history: all additions/removals to the raw dataset are logged in a per-project audit trail, viewable in the UI.

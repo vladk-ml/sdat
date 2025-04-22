@@ -1,0 +1,20 @@
+{
+  "backgroundPrimary": "#1E1E1E",
+  "backgroundSecondary": "#252526",
+  "backgroundTertiary": "#2D2D2D",
+  "foregroundPrimary": "#CCCCCC",
+  "foregroundSecondary": "#9D9D9D",
+  "accentPrimary": "#0078D4",
+  "accentSecondary": "#3794FF",
+  "borderColor": "#474747",
+  "hoverColor": "#2A2D2E",
+  "activeColor": "#37373D",
+  "errorColor": "#F14C4C",
+  "successColor": "#6CCB7B",
+  "rawDatasetColor": "#75BEFF",
+  "refinedDatasetColor": "#B180D7",
+  "annotatedDatasetColor": "#F8AE3C",
+  "augmentedDatasetColor": "#3ECF8E",
+  "modelColor": "#E06C75",
+  "unusedStatus": "#9D9D9D66"
+}

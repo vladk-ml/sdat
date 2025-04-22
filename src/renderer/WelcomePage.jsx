@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
+// VS Code-inspired Welcome Page with theme variables and polish
 export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
   const [contextMenu, setContextMenu] = useState(null); // { x, y, project }
   const menuRef = useRef();
@@ -25,7 +26,7 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(120deg, #232837 60%, #181c24 100%)",
+        background: "var(--background-primary)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -34,8 +35,8 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
     >
       <div
         style={{
-          background: "#232837",
-          borderRadius: 16,
+          background: "var(--background-secondary)",
+          borderRadius: 12,
           boxShadow: "0 8px 32px #000a",
           padding: "48px 40px",
           minWidth: 420,
@@ -46,56 +47,92 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
           alignItems: "center"
         }}
       >
-        <img
-          src="https://img.icons8.com/fluency/96/000000/artificial-intelligence.png"
-          alt="SeekerAug"
-          style={{ marginBottom: 24, filter: "brightness(0.8)" }}
-        />
-        <h1 style={{ color: "#7fd1b9", margin: 0, fontSize: 32, fontWeight: 700 }}>
+        <div style={{
+          marginBottom: 24,
+          width: 64,
+          height: 64,
+          borderRadius: 12,
+          background: "var(--accent-primary)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
+          <span style={{ fontSize: 36, color: "white" }}>🧠</span>
+        </div>
+        <h1 style={{
+          color: "var(--accent-primary)",
+          margin: 0,
+          fontSize: 28,
+          fontWeight: 700,
+          fontFamily: "'Segoe UI', system-ui, sans-serif"
+        }}>
           Welcome to SeekerAug
         </h1>
-        <p style={{ color: "#b0bacf", margin: "18px 0 32px 0", textAlign: "center" }}>
+        <p style={{
+          color: "var(--foreground-secondary)",
+          margin: "18px 0 32px 0",
+          textAlign: "center",
+          fontSize: 14
+        }}>
           Start by opening a project or creating a new one.<br />
-          <span style={{ color: "#7fd1b9" }}>Tip:</span> Use <kbd style={{
-            background: "#181c24",
-            color: "#7fd1b9",
+          <span style={{ color: "var(--accent-primary)" }}>Tip:</span> Use <kbd style={{
+            background: "var(--background-tertiary)",
+            color: "var(--accent-primary)",
             borderRadius: 4,
             padding: "2px 6px",
-            fontSize: 14,
-            margin: "0 2px"
+            fontSize: 13,
+            margin: "0 2px",
+            border: "1px solid var(--border-color)"
           }}>Ctrl+Shift+P</kbd> for the command palette.
         </p>
         <button
           onClick={onNew}
+          className="button primary"
           style={{
-            background: "#7fd1b9",
-            color: "#181c24",
+            background: "var(--accent-primary)",
+            color: "white",
             border: "none",
             borderRadius: 6,
             padding: "12px 32px",
-            fontWeight: "bold",
-            fontSize: 18,
+            fontWeight: 600,
+            fontSize: 16,
             marginBottom: 32,
             cursor: "pointer",
-            boxShadow: "0 2px 8px #0002"
+            boxShadow: "0 2px 8px #0002",
+            fontFamily: "'Segoe UI', system-ui, sans-serif"
           }}
         >
           + New Project
         </button>
         <div style={{ width: "100%", marginTop: 8 }}>
-          <h3 style={{ color: "#b0bacf", margin: "0 0 12px 0", fontWeight: 500 }}>
+          <h3 style={{
+            color: "var(--foreground-primary)",
+            margin: "0 0 12px 0",
+            fontWeight: 500,
+            fontSize: 15,
+            fontFamily: "'Segoe UI', system-ui, sans-serif"
+          }}>
             Recent Projects
           </h3>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {projects.length === 0 && (
-              <li style={{ color: "#7fd1b9", padding: "12px 0" }}>
+            {(!projects || projects.length === 0) && (
+              <li style={{
+                color: "var(--accent-primary)",
+                padding: "12px 0",
+                fontSize: 14
+              }}>
                 No projects found.
               </li>
             )}
-            {projects.map((proj) => (
+            {projects && projects.map((proj) => (
               <li
                 key={proj.name}
-                style={{ marginBottom: 8, display: "flex", alignItems: "center", position: "relative" }}
+                style={{
+                  marginBottom: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  position: "relative"
+                }}
                 onContextMenu={e => {
                   e.preventDefault();
                   setContextMenu({
@@ -108,30 +145,39 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
                 <button
                   onClick={() => onOpen(proj)}
                   style={{
-                    background: "#181c24",
-                    color: "#e0e6ef",
-                    border: "1px solid #2e3647",
+                    background: "var(--background-tertiary)",
+                    color: "var(--foreground-primary)",
+                    border: "1px solid var(--border-color)",
                     borderRadius: 6,
                     padding: "10px 18px",
                     width: "100%",
                     textAlign: "left",
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: 500,
                     cursor: "pointer",
-                    transition: "background 0.2s",
+                    fontFamily: "'Segoe UI', system-ui, sans-serif",
+                    transition: "background 0.2s"
                   }}
-                  onMouseOver={e => (e.currentTarget.style.background = "#232837")}
-                  onMouseOut={e => (e.currentTarget.style.background = "#181c24")}
+                  onMouseOver={e => (e.currentTarget.style.background = "var(--hover-color)")}
+                  onMouseOut={e => (e.currentTarget.style.background = "var(--background-tertiary)")}
                 >
-                  <span style={{ color: "#7fd1b9", fontWeight: 700 }}>{proj.name}</span>
-                  <span style={{ color: "#b0bacf", fontSize: 13, marginLeft: 8 }}>
+                  <span style={{
+                    color: "var(--accent-primary)",
+                    fontWeight: 700,
+                    fontSize: 15
+                  }}>{proj.name}</span>
+                  <span style={{
+                    color: "var(--foreground-secondary)",
+                    fontSize: 13,
+                    marginLeft: 8
+                  }}>
                     {proj.path}
                   </span>
                 </button>
                 <button
                   title="Delete"
                   style={{
-                    background: "#232837",
+                    background: "var(--background-secondary)",
                     color: "#b94a48",
                     border: "1px solid #b94a48",
                     borderRadius: 6,
@@ -151,6 +197,35 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
             ))}
           </ul>
         </div>
+        <div style={{
+          marginTop: 32,
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between"
+        }}>
+          <a
+            href="https://github.com/your-org/seekeraug"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--accent-primary)",
+              textDecoration: "none",
+              fontSize: 13,
+              fontWeight: 500
+            }}
+          >Documentation</a>
+          <a
+            href="https://your-org.com/support"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--accent-primary)",
+              textDecoration: "none",
+              fontSize: 13,
+              fontWeight: 500
+            }}
+          >Support</a>
+        </div>
         {contextMenu && (
           <div
             ref={menuRef}
@@ -158,8 +233,8 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
               position: "fixed",
               left: contextMenu.x,
               top: contextMenu.y,
-              background: "#232837",
-              border: "1.5px solid #2e3647",
+              background: "var(--background-secondary)",
+              border: "1.5px solid var(--border-color)",
               borderRadius: 8,
               boxShadow: "0 4px 16px #000a",
               minWidth: 160,
@@ -170,7 +245,7 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
               style={{
                 padding: "12px 18px",
                 cursor: "pointer",
-                color: "#e0e6ef"
+                color: "var(--foreground-primary)"
               }}
               onClick={() => {
                 onOpen(contextMenu.project);

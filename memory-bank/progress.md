@@ -3,6 +3,8 @@
 ## What Works
 
 - Projects are fully isolated: each has its own directory, database, and raw/processed datasets.
+- Project management (list, create, delete) is fully persistent and handled via the Flask backend API; no localStorage/in-memory logic remains.
+- Welcome Page and Project Dashboard are fully integrated with backend persistence and provide a professional, VS Code-inspired experience.
 - Raw dataset workflow: import of images (jpg, png, tif, etc.) with original filenames preserved.
 - Refined dataset workflow: all raw images can be processed to high-quality JPGs, with metadata (dimensions, format, TIFF tags, etc.) extracted and stored.
 - Dataset history: all additions/removals to the raw dataset are logged in a per-project audit trail, viewable in the UI.
@@ -16,6 +18,7 @@
 - Immediate import for empty projects; staged import for non-empty projects.
 - Backend endpoints for all major operations, with strict project scoping.
 - Command palette, context menus, and VS Code-like navigation.
+- **Theming:** VS Code-style theming system implemented using JSON theme files and a dynamic loader that injects CSS variables at runtime. All UI components use these variables for styling.
 - Linux (Debian/Ubuntu) local-only operation, no cloud dependencies.
 
 ## What's Left to Build
@@ -38,7 +41,9 @@
 
 ## Current Status
 
-- Core project and dataset management workflows are complete and robust.
+- Core project and dataset management workflows are complete and robust, with all persistence handled by the Flask backend API.
+- Welcome Page and Project Dashboard are fully integrated with backend persistence and provide a professional, VS Code-inspired experience.
+- Theming is handled via JSON theme files and dynamic CSS variable injection, matching VS Code's approach.
 - Raw/refined dataset pipeline, metadata extraction, and dataset history are implemented and fully functional.
 - UI/UX is professional, responsive, and optimized for workstation use.
 - **Planning phase complete:** Authoritative scaffold and feature roadmap established. Ready to proceed with incremental scaffold implementation as outlined above.
