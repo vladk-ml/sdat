@@ -13,7 +13,7 @@ export async function listProjects() {
 }
 
 export async function createProject(name) {
-  const res = await fetch(`${API_BASE}/projects/create`, {
+  const res = await fetch(`${API_BASE}/project/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ project_name: name })

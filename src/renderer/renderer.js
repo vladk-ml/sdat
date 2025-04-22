@@ -27493,6 +27493,22 @@ function App() {
     _useState14 = _slicedToArray(_useState13, 2),
     projectImages = _useState14[0],
     setProjectImages = _useState14[1]; // { [projectName]: [images] }
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    showCreateModal = _useState16[0],
+    setShowCreateModal = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState18 = _slicedToArray(_useState17, 2),
+    createError = _useState18[0],
+    setCreateError = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState20 = _slicedToArray(_useState19, 2),
+    createLoading = _useState20[0],
+    setCreateLoading = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState22 = _slicedToArray(_useState21, 2),
+    createName = _useState22[0],
+    setCreateName = _useState22[1];
 
   // Load projects from backend on mount
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -27528,48 +27544,83 @@ function App() {
     fetchProjects();
   }, []);
 
-  // Project management
-  function handleNewProject() {
-    return _handleNewProject.apply(this, arguments);
+  // Project creation modal logic
+  function openCreateModal() {
+    setCreateName("");
+    setCreateError("");
+    setShowCreateModal(true);
   }
-  function _handleNewProject() {
-    _handleNewProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  function closeCreateModal() {
+    setShowCreateModal(false);
+    setCreateError("");
+    setCreateName("");
+    setCreateLoading(false);
+  }
+  function handleCreateProject() {
+    return _handleCreateProject.apply(this, arguments);
+  } // Legacy handler for compatibility (used by WelcomePage)
+  function _handleCreateProject() {
+    _handleCreateProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var name, proj, list;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
-            name = prompt("Enter project name:");
+            setCreateError("");
+            name = createName.trim(); // Validation: non-empty, unique, no illegal chars
             if (name) {
-              _context2.next = 3;
+              _context2.next = 5;
               break;
             }
+            setCreateError("Project name cannot be empty.");
             return _context2.abrupt("return");
-          case 3:
-            _context2.prev = 3;
-            _context2.next = 6;
+          case 5:
+            if (!projects.some(function (p) {
+              return p.name === name;
+            })) {
+              _context2.next = 8;
+              break;
+            }
+            setCreateError("A project with this name already exists.");
+            return _context2.abrupt("return");
+          case 8:
+            if (/^[\w\- ]+$/.test(name)) {
+              _context2.next = 11;
+              break;
+            }
+            setCreateError("Project name can only contain letters, numbers, spaces, dashes, and underscores.");
+            return _context2.abrupt("return");
+          case 11:
+            setCreateLoading(true);
+            _context2.prev = 12;
+            _context2.next = 15;
             return (0,_projectApi_js__WEBPACK_IMPORTED_MODULE_4__.createProject)(name);
-          case 6:
+          case 15:
             proj = _context2.sent;
-            _context2.next = 9;
+            _context2.next = 18;
             return (0,_projectApi_js__WEBPACK_IMPORTED_MODULE_4__.listProjects)();
-          case 9:
+          case 18:
             list = _context2.sent;
             setProjects(list);
             setCurrentProject(proj);
             setShowWelcome(false);
-            _context2.next = 18;
+            closeCreateModal();
+            _context2.next = 29;
             break;
-          case 15:
-            _context2.prev = 15;
-            _context2.t0 = _context2["catch"](3);
-            alert("Failed to create project: " + _context2.t0.message);
-          case 18:
+          case 25:
+            _context2.prev = 25;
+            _context2.t0 = _context2["catch"](12);
+            setCreateError(_context2.t0.message || "Failed to create project.");
+            setCreateLoading(false);
+          case 29:
           case "end":
             return _context2.stop();
         }
-      }, _callee2, null, [[3, 15]]);
+      }, _callee2, null, [[12, 25]]);
     }));
-    return _handleNewProject.apply(this, arguments);
+    return _handleCreateProject.apply(this, arguments);
+  }
+  function handleNewProject() {
+    openCreateModal();
   }
   function handleOpenProject(proj) {
     setCurrentProject(proj);
@@ -27637,13 +27688,127 @@ function App() {
       return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, currentProject.name, [].concat(_toConsumableArray(prev[currentProject.name] || []), _toConsumableArray(images))));
     });
   }
+
+  // Project creation modal component
+  function ProjectCreateModal() {
+    if (!showCreateModal) return null;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        position: "fixed",
+        left: 0,
+        top: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "rgba(30,34,50,0.85)",
+        zIndex: 10000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        background: "var(--background-secondary)",
+        borderRadius: 10,
+        boxShadow: "0 8px 32px #000a",
+        minWidth: 340,
+        maxWidth: 420,
+        padding: "32px 28px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+      style: {
+        color: "var(--accent-primary)",
+        fontWeight: 700,
+        fontSize: 22,
+        margin: 0,
+        marginBottom: 18
+      }
+    }, "Create New Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      style: {
+        fontSize: 14,
+        color: "var(--foreground-primary)",
+        marginBottom: 6,
+        fontWeight: 500
+      }
+    }, "Project Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "text",
+      value: createName,
+      autoFocus: true,
+      maxLength: 48,
+      onChange: function onChange(e) {
+        setCreateName(e.target.value);
+        setCreateError("");
+      },
+      onKeyDown: function onKeyDown(e) {
+        if (e.key === "Enter") handleCreateProject();
+      },
+      style: {
+        fontSize: 16,
+        padding: "10px 12px",
+        borderRadius: 5,
+        border: "1.5px solid var(--border-color)",
+        marginBottom: 10,
+        outline: "none",
+        background: "var(--background-primary)",
+        color: "var(--foreground-primary)"
+      },
+      placeholder: "e.g. My Vision Project",
+      disabled: createLoading
+    }), createError && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        color: "#b94a48",
+        background: "#ffeded",
+        borderRadius: 4,
+        padding: "6px 10px",
+        fontSize: 13,
+        marginBottom: 8
+      }
+    }, createError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        display: "flex",
+        gap: 12,
+        marginTop: 8
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "button primary",
+      style: {
+        background: "var(--accent-primary)",
+        color: "white",
+        border: "none",
+        borderRadius: 5,
+        padding: "10px 24px",
+        fontWeight: 600,
+        fontSize: 15,
+        cursor: createLoading ? "not-allowed" : "pointer",
+        opacity: createLoading ? 0.7 : 1
+      },
+      onClick: handleCreateProject,
+      disabled: createLoading
+    }, createLoading ? "Creating..." : "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "button",
+      style: {
+        background: "var(--background-tertiary)",
+        color: "var(--foreground-primary)",
+        border: "1.5px solid var(--border-color)",
+        borderRadius: 5,
+        padding: "10px 24px",
+        fontWeight: 500,
+        fontSize: 15,
+        cursor: createLoading ? "not-allowed" : "pointer"
+      },
+      onClick: closeCreateModal,
+      disabled: createLoading
+    }, "Cancel"))));
+  }
   if (showWelcome) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
       projects: projects,
       onOpen: handleOpenProject,
       onNew: handleNewProject,
       onDelete: handleDeleteProject
-    });
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ProjectCreateModal, null));
   }
 
   // Show project dashboard after project selection
@@ -27984,7 +28149,9 @@ function WelcomePage(_ref) {
       width: "40vw",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      opacity: 1,
+      boxSizing: "border-box"
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
@@ -28012,26 +28179,32 @@ function WelcomePage(_ref) {
     }
   }, "Welcome to SeekerAug"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
-      color: "var(--foreground-secondary)",
+      color: "var(--foreground-primary)",
       margin: "18px 0 32px 0",
       textAlign: "center",
-      fontSize: 14
+      fontSize: 14,
+      fontWeight: 400
     }
   }, "Start by opening a project or creating a new one.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     style: {
-      color: "var(--accent-primary)"
+      color: "var(--accent-primary)",
+      fontWeight: 600
     }
-  }, "Tip:"), " Use ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("kbd", {
+  }, "Tip:"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    style: {
+      color: "var(--foreground-primary)"
+    }
+  }, "Use ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("kbd", {
     style: {
       background: "var(--background-tertiary)",
-      color: "var(--accent-primary)",
+      color: "var(--foreground-primary)",
       borderRadius: 4,
       padding: "2px 6px",
       fontSize: 13,
       margin: "0 2px",
       border: "1px solid var(--border-color)"
     }
-  }, "Ctrl+Shift+P"), " for the command palette."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }, "Ctrl+Shift+P"), " for the command palette.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     onClick: onNew,
     className: "button primary",
     style: {
@@ -28275,7 +28448,7 @@ function _createProject() {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return fetch("".concat(API_BASE, "/projects/create"), {
+          return fetch("".concat(API_BASE, "/project/create"), {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

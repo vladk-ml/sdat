@@ -228,6 +228,10 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [currentProject, setCurrentProject] = useState(null);
   const [projectImages, setProjectImages] = useState({}); // { [projectName]: [images] }
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [createError, setCreateError] = useState("");
+  const [createLoading, setCreateLoading] = useState(false);
+  const [createName, setCreateName] = useState("");
 
   // Load projects from backend on mount
   useEffect(() => {
@@ -242,19 +246,50 @@ function App() {
     fetchProjects();
   }, []);
 
-  // Project management
-  async function handleNewProject() {
-    const name = prompt("Enter project name:");
-    if (!name) return;
+  // Project creation modal logic
+  function openCreateModal() {
+    setCreateName("");
+    setCreateError("");
+    setShowCreateModal(true);
+  }
+  function closeCreateModal() {
+    setShowCreateModal(false);
+    setCreateError("");
+    setCreateName("");
+    setCreateLoading(false);
+  }
+  async function handleCreateProject() {
+    setCreateError("");
+    const name = createName.trim();
+    // Validation: non-empty, unique, no illegal chars
+    if (!name) {
+      setCreateError("Project name cannot be empty.");
+      return;
+    }
+    if (projects.some(p => p.name === name)) {
+      setCreateError("A project with this name already exists.");
+      return;
+    }
+    if (!/^[\w\- ]+$/.test(name)) {
+      setCreateError("Project name can only contain letters, numbers, spaces, dashes, and underscores.");
+      return;
+    }
+    setCreateLoading(true);
     try {
       const proj = await createProject(name);
       const list = await listProjects();
       setProjects(list);
       setCurrentProject(proj);
       setShowWelcome(false);
+      closeCreateModal();
     } catch (err) {
-      alert("Failed to create project: " + err.message);
+      setCreateError(err.message || "Failed to create project.");
+      setCreateLoading(false);
     }
+  }
+  // Legacy handler for compatibility (used by WelcomePage)
+  function handleNewProject() {
+    openCreateModal();
   }
   function handleOpenProject(proj) {
     setCurrentProject(proj);
@@ -299,14 +334,119 @@ function App() {
     }));
   }
 
+  // Project creation modal component
+  function ProjectCreateModal() {
+    if (!showCreateModal) return null;
+    return (
+      <div style={{
+        position: "fixed", left: 0, top: 0, width: "100vw", height: "100vh",
+        background: "rgba(30,34,50,0.85)", zIndex: 10000, display: "flex", alignItems: "center", justifyContent: "center"
+      }}>
+        <div style={{
+          background: "var(--background-secondary)",
+          borderRadius: 10,
+          boxShadow: "0 8px 32px #000a",
+          minWidth: 340,
+          maxWidth: 420,
+          padding: "32px 28px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch"
+        }}>
+          <h2 style={{
+            color: "var(--accent-primary)",
+            fontWeight: 700,
+            fontSize: 22,
+            margin: 0,
+            marginBottom: 18
+          }}>Create New Project</h2>
+          <label style={{
+            fontSize: 14,
+            color: "var(--foreground-primary)",
+            marginBottom: 6,
+            fontWeight: 500
+          }}>Project Name</label>
+          <input
+            type="text"
+            value={createName}
+            autoFocus
+            maxLength={48}
+            onChange={e => { setCreateName(e.target.value); setCreateError(""); }}
+            onKeyDown={e => { if (e.key === "Enter") handleCreateProject(); }}
+            style={{
+              fontSize: 16,
+              padding: "10px 12px",
+              borderRadius: 5,
+              border: "1.5px solid var(--border-color)",
+              marginBottom: 10,
+              outline: "none",
+              background: "var(--background-primary)",
+              color: "var(--foreground-primary)"
+            }}
+            placeholder="e.g. My Vision Project"
+            disabled={createLoading}
+          />
+          {createError && (
+            <div style={{
+              color: "#b94a48",
+              background: "#ffeded",
+              borderRadius: 4,
+              padding: "6px 10px",
+              fontSize: 13,
+              marginBottom: 8
+            }}>{createError}</div>
+          )}
+          <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+            <button
+              className="button primary"
+              style={{
+                background: "var(--accent-primary)",
+                color: "white",
+                border: "none",
+                borderRadius: 5,
+                padding: "10px 24px",
+                fontWeight: 600,
+                fontSize: 15,
+                cursor: createLoading ? "not-allowed" : "pointer",
+                opacity: createLoading ? 0.7 : 1
+              }}
+              onClick={handleCreateProject}
+              disabled={createLoading}
+            >
+              {createLoading ? "Creating..." : "Create"}
+            </button>
+            <button
+              className="button"
+              style={{
+                background: "var(--background-tertiary)",
+                color: "var(--foreground-primary)",
+                border: "1.5px solid var(--border-color)",
+                borderRadius: 5,
+                padding: "10px 24px",
+                fontWeight: 500,
+                fontSize: 15,
+                cursor: createLoading ? "not-allowed" : "pointer"
+              }}
+              onClick={closeCreateModal}
+              disabled={createLoading}
+            >Cancel</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (showWelcome) {
     return (
-      <WelcomePage
-        projects={projects}
-        onOpen={handleOpenProject}
-        onNew={handleNewProject}
-        onDelete={handleDeleteProject}
-      />
+      <>
+        <WelcomePage
+          projects={projects}
+          onOpen={handleOpenProject}
+          onNew={handleNewProject}
+          onDelete={handleDeleteProject}
+        />
+        <ProjectCreateModal />
+      </>
     );
   }
 

@@ -44,7 +44,9 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
           width: "40vw",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center"
+          alignItems: "center",
+          opacity: 1,
+          boxSizing: "border-box"
         }}
       >
         <div style={{
@@ -69,21 +71,25 @@ export default function WelcomePage({ projects, onOpen, onNew, onDelete }) {
           Welcome to SeekerAug
         </h1>
         <p style={{
-          color: "var(--foreground-secondary)",
+          color: "var(--foreground-primary)",
           margin: "18px 0 32px 0",
           textAlign: "center",
-          fontSize: 14
+          fontSize: 14,
+          fontWeight: 400
         }}>
           Start by opening a project or creating a new one.<br />
-          <span style={{ color: "var(--accent-primary)" }}>Tip:</span> Use <kbd style={{
-            background: "var(--background-tertiary)",
-            color: "var(--accent-primary)",
-            borderRadius: 4,
-            padding: "2px 6px",
-            fontSize: 13,
-            margin: "0 2px",
-            border: "1px solid var(--border-color)"
-          }}>Ctrl+Shift+P</kbd> for the command palette.
+          <span style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Tip:</span>{" "}
+          <span style={{ color: "var(--foreground-primary)" }}>
+            Use <kbd style={{
+              background: "var(--background-tertiary)",
+              color: "var(--foreground-primary)",
+              borderRadius: 4,
+              padding: "2px 6px",
+              fontSize: 13,
+              margin: "0 2px",
+              border: "1px solid var(--border-color)"
+            }}>Ctrl+Shift+P</kbd> for the command palette.
+          </span>
         </p>
         <button
           onClick={onNew}
