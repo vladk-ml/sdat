@@ -51,24 +51,44 @@
 - **Versioning:** Dataset and annotation versions are tracked and can be compared/exported.
 - **Audit Trail:** All dataset changes are logged for traceability and inspection.
 
-## Component Relationships
+---
 
-- **Electron Frontend** ↔ **Python Backend**: Communicate via REST, WebSockets, and ZeroMQ.
-- **Frontend**: Manages UI, state, and user workflow; provides professional, information-dense, VS Code-like experience.
-- **Backend**: Handles all vision processing, annotation, augmentation, training, and dataset history.
-- **Storage Layer**: SQLite DB and filesystem, abstracted by a data access layer in Python.
-- **Project Structure**: Each project has its own directory with database, raw images, processed images, annotations, versions, temp files, and history.
+## VS Code-Inspired UI/UX Architecture & Design Rules (2025-04-21)
 
-## Packaging & Deployment
+**Layout & Structure**
+- Grid/flexbox layout for all major regions: title bar, sidebar, tab bar, workspace, context panel, status bar, activity bar (optional).
+- All panes resizable, movable (where appropriate), and visibility/persistence managed in local storage.
+- Responsive/adaptive for ultrawide, maximized, and focus/zen modes.
 
-- **.deb Package:** Bundles Electron app, Python scripts, and Miniconda environment.
-- **Post-Install Script:** Installs Miniconda, sets up environment, detects hardware, installs packages, creates desktop integration.
-- **Cross-Platform Roadmap:** Initial focus on Linux (.deb), with future plans for Windows/macOS and containerized/server deployments.
+**Sidebar & Pane Management**
+- Tree-based sidebar with section headers, action icons, context menus, drag-and-drop, and multi-pane support.
+- Sidebar container manages multiple panes (datasets, search, history, etc.), with drag-to-reorder and keyboard shortcuts.
 
-## Workflow Integration
+**Tab System**
+- Tab bar with stateful model (open tabs, order, active, pinned, dirty, etc.), overflow handling, context menus, drag-and-drop, and theming.
+- Tab actions (close, split, pin, etc.) and keyboard navigation.
 
-- **Stage Transitions:** Raw Dataset (original files) → Refined Dataset (JPG + metadata) → Annotation → Augmentation → Training, with clear UI indicators and data versioning at each stage.
-- **Tabbed Workspace:** Opening a project shows a blank workspace with an explorer pane; clicking an image opens a viewer tab; annotation/augmentation/training tabs are planned.
-- **Export Pipeline:** Flexible, format-aware export system for datasets and models.
-- **History/Audit:** All dataset changes are logged and viewable in a dedicated history panel.
-- **Extensibility:** Tab system and explorer are designed for future expansion (multi-image tabs, drag-and-drop, advanced navigation, collaborative features).
+**Context Panel**
+- Multi-pane context panel with tab/menu switching, resizable, movable, and context-aware actions.
+- Panel actions, context menus, and theming.
+
+**Status Bar**
+- Left/right containers for entries (project info, notifications, GPU status, quick actions, etc.), with context menus, compact grouping, and theming.
+- Keyboard focus and accessibility.
+
+**Theming**
+- All colors mapped to CSS variables, with semantic naming and dynamic theme switching.
+- Central theme file as source of truth, supporting dark/light/custom themes.
+
+**Keyboard Shortcuts**
+- Central registry for all shortcuts, with platform awareness, context activation, priorities, and dynamic updates.
+- All actions/commands registered centrally and linked to shortcuts.
+
+**Professional Look & Feel**
+- Subtle borders, spacing, and focus rings.
+- Consistent typography and iconography.
+- High-contrast, accessible, and responsive design.
+
+---
+
+**This section is the canonical reference for all future UI/UX work in SeekerAug.**

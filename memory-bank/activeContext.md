@@ -1,5 +1,7 @@
 # Active Context: SeekerAug
 
+> **Note:** All UI/UX implementation must follow the canonical VS Code-inspired design rules in [systemPatterns.md](systemPatterns.md), section "VS Code-Inspired UI/UX Architecture & Design Rules (2025-04-21)".
+
 ## Current Work Focus
 
 - Robust, project-isolated dataset management with a professional, workstation-grade UI.

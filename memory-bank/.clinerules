@@ -1,0 +1,17 @@
+# .clinerules – SeekerAug Project Intelligence
+
+## UI/UX Implementation Reference
+
+- When implementing or refactoring UI/UX components, optionally reference `memory-bank/vscode-ui-patterns.md` for actionable design notes, code snippets, and implementation hints derived from VS Code analysis.
+- Only read the relevant lines/sections of this file as needed for the current task, to avoid unnecessary token usage.
+- Use this file for practical details on tab bar, sidebar, context panel, status bar, layout, theming, keyboard shortcuts, and general UI patterns.
+- Update this file with new patterns, snippets, and hints as they are discovered.
+
+## General Rules
+
+- Always keep the Memory Bank up to date with all major design decisions, patterns, and implementation notes.
+- Reference systemPatterns.md for canonical architecture and design rules.
+- Reference activeContext.md for current work focus, next steps, and recent changes.
+- Use progress.md to track what works, what's left, and current status.
+- Use productContext.md and projectbrief.md for product vision and requirements.
+- Use techContext.md for technology stack, setup, and constraints.
