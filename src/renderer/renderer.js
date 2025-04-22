@@ -27699,7 +27699,7 @@ function App() {
         top: 0,
         width: "100vw",
         height: "100vh",
-        background: "rgba(30,34,50,0.85)",
+        background: "var(--background-primary)",
         zIndex: 10000,
         display: "flex",
         alignItems: "center",

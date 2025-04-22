@@ -340,7 +340,7 @@ function App() {
     return (
       <div style={{
         position: "fixed", left: 0, top: 0, width: "100vw", height: "100vh",
-        background: "rgba(30,34,50,0.85)", zIndex: 10000, display: "flex", alignItems: "center", justifyContent: "center"
+        background: "var(--background-primary)", zIndex: 10000, display: "flex", alignItems: "center", justifyContent: "center"
       }}>
         <div style={{
           background: "var(--background-secondary)",
