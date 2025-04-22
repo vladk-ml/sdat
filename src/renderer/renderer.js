@@ -28321,13 +28321,13 @@ function _deleteProject() {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           _context3.next = 2;
-          return fetch("".concat(API_BASE, "/projects/delete"), {
+          return fetch("".concat(API_BASE, "/project/delete"), {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              project_name: name
+              name: name
             })
           });
         case 2:

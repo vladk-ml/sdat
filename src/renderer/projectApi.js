@@ -25,10 +25,10 @@ export async function createProject(name) {
 }
 
 export async function deleteProject(name) {
-  const res = await fetch(`${API_BASE}/projects/delete`, {
+  const res = await fetch(`${API_BASE}/project/delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ project_name: name })
+    body: JSON.stringify({ name: name })
   });
   if (!res.ok) throw new Error("Failed to delete project");
   const data = await res.json();
