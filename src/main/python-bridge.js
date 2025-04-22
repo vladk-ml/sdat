@@ -37,7 +37,18 @@ class PythonBridge {
 
   stop() {
     if (!this.isRunning) return;
-    this.pythonProcess.kill();
+    if (this.pythonProcess) {
+      if (process.platform === "win32") {
+        this.pythonProcess.kill();
+      } else {
+        // Kill the entire process group on POSIX
+        try {
+          process.kill(-this.pythonProcess.pid, "SIGTERM");
+        } catch (e) {
+          this.pythonProcess.kill();
+        }
+      }
+    }
     this.isRunning = false;
   }
 }

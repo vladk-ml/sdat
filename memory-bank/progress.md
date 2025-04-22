@@ -20,32 +20,28 @@
 
 ## What's Left to Build
 
-- Annotation workflow: annotation UI, backend endpoints, and storage (COCO, YOLO, etc.).
-- Augmentation pipeline: UI for building augmentation steps, backend for applying them, and visualization of augmented data.
-- Model training integration: training config UI, backend job management, and training dashboard.
-- Advanced metadata: support for geospatial/scale info, especially for scientific/aerial imagery.
-- Dataset/annotation versioning and diff tools.
-- Further UI/UX refinements for dense, information-rich, and professional experience.
-- Collaborative features (multi-client, P2P, real-time sync) [future].
-- GPU detection and environment setup.
-- Packaging and deployment scripts.
-- Documentation and testing infrastructure.
-- Usage management system for images/annotations (used/unused marking, batch operations, inheritance rules, usage management UI).
-- Lineage visualization: interactive graph/timeline of dataset and annotation relationships, with branching and filtering.
-- Annotation history: timeline of changes, revert/compare, audit trail.
-- Augmentation pipeline builder: drag-and-drop steps, parameter adjustment, save/load pipelines, real-time preview.
-- Batch operations: copy annotations, multi-select, bulk editing, batch verification.
-- Review/approval workflows: comment on annotations, mark for review, approval, quality metrics.
-- Workspace customization: resizable panels, snap-to guides, layout presets, theme and shortcut customization.
-- Keyboard shortcuts for all major actions (VS Code-inspired).
-- Export enhancements: preview, format selection, progress indicators, export selected items, support for multiple annotation/model formats.
+**Reference:** See "UI/UX Scaffold & Feature Roadmap (2025-04-21)" in `memory-bank/activeContext.md` for the authoritative, detailed roadmap.
+
+**Incremental, Testable Implementation Steps:**
+1. Finalize UI scaffold (all panes, bars, panels, resizable).
+2. Implement tab system (basic open/close, types, state).
+3. Explorer integration (dataset actions to tabs/context).
+4. Context panel (context-sensitive logic, metadata).
+5. Status bar (project info, operation status, notifications).
+6. Command bar & palette (global actions, palette, navigation).
+7. Navigation (forward/back, tab history, state restoration).
+8. Dataset operations (import, process, annotate, augment, train, export).
+9. Annotation/augmentation workflows (UI, backend).
+10. Lineage/versioning (usage marking, visualization, history).
+11. Shortcuts/customization (keyboard, workspace).
+12. Testing & regression prevention (tests, validation).
 
 ## Current Status
 
 - Core project and dataset management workflows are complete and robust.
 - Raw/refined dataset pipeline, metadata extraction, and dataset history are implemented and fully functional.
 - UI/UX is professional, responsive, and optimized for workstation use.
-- Ready to proceed with annotation, augmentation, and training modules.
+- **Planning phase complete:** Authoritative scaffold and feature roadmap established. Ready to proceed with incremental scaffold implementation as outlined above.
 
 ## Known Issues
 

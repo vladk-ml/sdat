@@ -80,3 +80,91 @@
 - The UI is designed for ultrawide, high-resolution workstation displays, with a focus on productivity and clarity.
 - All implementation and documentation are kept in sync via the Memory Bank.
 - Linux (Debian/Ubuntu) is the primary target, with local-only operation and no cloud dependencies.
+
+---
+
+## UI/UX Scaffold & Feature Roadmap (2025-04-21)
+
+**Authoritative scaffold and feature roadmap for SeekerAug UI/UX. This section guides incremental implementation and ensures all features are integrated and maintainable.**
+
+### High-Level UI/UX Scaffold
+
+```mermaid
+flowchart TD
+    A[Main Window]
+    A --> B[Explorer Pane]
+    A --> C[Command Bar]
+    A --> D[Tabbed Workspace]
+    A --> E[Context Panel]
+    A --> F[Status Bar]
+
+    D --> D1[Tab: Grid View]
+    D --> D2[Tab: Image Viewer]
+    D --> D3[Tab: Annotation]
+    D --> D4[Tab: Augmentation]
+    D --> D5[Tab: Class Editor]
+    D --> D6[Tab: Project Dashboard]
+    D --> D7[Tab: Version/Lineage]
+
+    B --> B1[Dataset List]
+    B --> B2[Badges/Status]
+    B --> B3[Actions: Open, Export, etc.]
+    B --> B4[Integration: Open in Tab]
+
+    E --> E1[Context-Sensitive Tools]
+    E --> E2[Metadata]
+    E --> E3[Toggle/Collapse]
+
+    F --> F1[Project Info]
+    F --> F2[Operation Status]
+    F --> F3[Notifications]
+    F --> F4[GPU Status]
+    F --> F5[Quick Settings]
+
+    C --> C1[Global Actions]
+    C --> C2[Command Palette]
+    C --> C3[Navigation: Forward/Back]
+    C --> C4[Keyboard Shortcuts]
+
+    D --> G[Tab State/History]
+    G --> G1[Browser Navigation]
+    G --> G2[State Restoration]
+```
+
+### Structured Feature Roadmap
+
+- **Tab System:** Multiple tab types (grid, image viewer, annotation, augmentation, class editor, dashboard, version/lineage), tab management, state, navigation, and history.
+- **Explorer Pane:** Dataset selection, actions (open, export, etc.), badges, integration with tab system.
+- **Context Panel:** Context-sensitive tools, metadata, toggle/collapse.
+- **Status Bar:** Project info, operation status, notifications, GPU status, quick settings.
+- **Command Bar:** Global actions, command palette, navigation, keyboard shortcuts.
+- **Mouse/Browser Navigation:** Forward/back, tab history, state restoration.
+- **Dataset Operations:** Import, process, annotate, augment, train, export.
+- **Annotation & Augmentation Workflows:** UI, backend integration, batch operations, review/approval.
+- **Usage Marking, Lineage, Versioning, History:** Usage tracking, lineage visualization, versioning, undo/redo.
+- **Keyboard Shortcuts & Workspace Customization:** Customizable shortcuts, layout, theme.
+
+### Component Relationships & Data Flows
+
+- Explorer triggers tab opening; tab type determines context panel tools; status bar reflects tab/operation state; command bar/global actions affect all; backend integration for all data/annotation/augmentation; navigation is global.
+
+### Integration Points & Pitfalls
+
+- Tab state management, explorer/tab sync, context panel reactivity, status aggregation, navigation feedback, backend sync, incremental/testable implementation.
+
+### Incremental, Testable Implementation Steps
+
+1. Finalize UI scaffold (all panes, bars, panels, resizable).
+2. Implement tab system (basic open/close, types, state).
+3. Explorer integration (dataset actions to tabs/context).
+4. Context panel (context-sensitive logic, metadata).
+5. Status bar (project info, operation status, notifications).
+6. Command bar & palette (global actions, palette, navigation).
+7. Navigation (forward/back, tab history, state restoration).
+8. Dataset operations (import, process, annotate, augment, train, export).
+9. Annotation/augmentation workflows (UI, backend).
+10. Lineage/versioning (usage marking, visualization, history).
+11. Shortcuts/customization (keyboard, workspace).
+12. Testing & regression prevention (tests, validation).
+
+**This roadmap is the reference for all future UI/UX and feature work.**

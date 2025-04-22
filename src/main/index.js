@@ -51,6 +51,12 @@ app.on("window-all-closed", () => {
   }
 });
 
+// Ensure Python process is killed on app quit (robust)
+app.on("before-quit", () => {
+  const PythonBridge = require("./python-bridge");
+  PythonBridge.stop();
+});
+
 app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
