@@ -50,6 +50,19 @@
 - All dependencies are managed via npm (frontend) and conda/pip (backend).
 - Development environment supports hot-reloading for React and live-reloading for Python API.
 
+## UI/UX Implementation Recommendations
+
+- Use React context for sharing UI state across components.
+- Implement virtual scrolling for large image grids and lists.
+- Lazy load images and thumbnails for performance.
+- Consider WebGL for image rendering when possible.
+- Use WebSockets for real-time updates from long-running processes.
+- Implement proper keyboard focus management for accessibility and workflow speed.
+- Make table views sortable by all metadata fields.
+- Support drag-and-drop for augmentation pipeline steps and workspace layout.
+- Provide resizable panels with drag handles and snap-to guides for layout customization.
+- Offer theme customization options and custom keyboard shortcut mapping.
+
 ## Technical Constraints
 
 - All processing and storage must be local; no cloud dependencies.

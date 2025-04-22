@@ -37,6 +37,29 @@ SeekerAug is designed to address the need for a comprehensive, privacy-focused, 
 - Robust error handling and clear diagnostic messages.
 - Full traceability: every dataset change is logged and inspectable.
 
+### Professional Aesthetic & Design Language
+
+- Default dark theme for reduced eye strain and professional appearance.
+- High information density, optimized for workstation and ultrawide displays.
+- Accent colors and color coding for actions, status indicators, and dataset types.
+- Consistent iconography, clear visual hierarchy, and subtle animations for state changes.
+- Layout and navigation inspired by VS Code, including tabbed workspace, explorer pane, command palette, and context-sensitive panels.
+
+### Workflow Navigation & Stage Progression
+
+- The application guides users through a clear workflow:
+  ```
+  [IMPORT] → [REFINE] → [ANNOTATE] → [AUGMENT] → [TRAIN] → [EXPORT]
+  ```
+- Visual indicators and status bars show the current stage and completion state.
+- One-click progression between stages when prerequisites are met, with the option to jump directly to a stage if allowed.
+
+### Data Integrity & Lineage
+
+- Raw data sanctity: raw datasets are never modified after import; all operations work on copies or references.
+- Complete dataset and annotation lineage is maintained, with parent-child relationships, transformation history, and versioning.
+- Users can trace any image or annotation back to its raw source and view the full history of changes and augmentations.
+
 ## User Personas
 
 - Researchers and developers needing local, high-performance computer vision workflows.

@@ -23,7 +23,25 @@
 
 ## Design Patterns
 
-- **Tabbed Navigation:** Each open image, annotation, or tool is represented as a tab. Tabs can be closed, reordered (future), and navigated with keyboard shortcuts. Tabs can go full screen for ultrawide screens.
+- **Implemented UI/UX Patterns:** 
+  - Main application window structure scaffolded and functional: persistent explorer pane, centered command bar with command palette button, tabbed workspace, context panel, and status bar.
+  - Explorer Pane implemented: dataset types (Raw, Refined, Annotated, Augmented) with color-coded badges and action buttons.
+  - Command Palette button centered in the top bar; modal overlay centered on screen.
+  - "New Project" modal and logic restored; dashboard shown after opening a project.
+- **Application Window Structure:** 
+  - Professional welcome page (VS Code style) with project creation, recent projects, and quick documentation access.
+  - Main layout: left explorer pane (dataset types only, badges, color coding, export/open buttons), center tabbed workspace (dashboard, dataset tabs, annotation/augmentation studios), optional right context panel (properties, metadata, context-sensitive tools), bottom status bar (project info, notifications, hardware status), top command bar (global actions, command palette).
+- **Tabbed Navigation:** Each open image, annotation, or tool is represented as a tab. Tabs can be closed, reordered (future), and navigated with keyboard shortcuts. Tabs can go full screen for ultrawide screens. Blank workspace when no tabs are open.
+- **Explorer Pane Pattern:** Always visible, resizable, collapsible to icons-only. Shows only dataset types (raw, refined, annotated, augmented) with badges, color coding, and quick actions (export, open in file explorer). No dropdowns for image lists; images open in tabs.
+- **Workspace Customization:** Resizable panels, snap-to guides, layout presets, theme customization, and custom keyboard shortcut mapping.
+- **Annotation Studio Pattern:** Dedicated tab for annotation with drawing tools (box, polygon, brush, smart select, point), class management (hierarchy, color coding), AI assistance, annotation history (timeline, revert, compare), batch operations, review/approval workflows, and keyboard shortcuts.
+- **Augmentation Studio Pattern:** Tab for building augmentation pipelines (drag-and-drop steps, parameter adjustment, save/load, real-time preview, before/after comparison, batch processing, class-aware suggestions).
+- **Usage Marking Pattern:** Mark images/annotations as used/unused at any stage, with visual indicators, batch operations, inheritance rules (downward propagation/restoration), and dedicated usage management UI.
+- **Lineage Visualization Pattern:** Interactive graph/timeline of dataset and annotation relationships, with branching, filtering, and cross-dataset referencing.
+- **Data Integrity Principles:** Raw data is never modified after import; all transformations are tracked, reversible, and versioned. Complete audit trail and version control for datasets and annotations.
+- **Export Pattern:** Dedicated export options for each dataset type and models, with format selection (COCO, YOLO, Pascal VOC, custom), export preview, progress indicators, and support for exporting selected items.
+- **Keyboard Shortcut Conventions:** VS Code-inspired shortcuts for navigation, tab management, tool switching, search, and workspace actions.
+
 - **Class Editor Pattern:** Dedicated tab for exploring/editing classes, ontological hierarchy, searching, exporting, and viewing class metadata/cropped previews.
 - **Auto-Annotation Pattern:** User annotates a small set of images, system trains a quick PyTorch model (with augmentation), and auto-annotates the rest. User can review/correct/accept auto-annotations.
 - **Separation of Concerns:** UI, backend processing, and storage are cleanly separated.

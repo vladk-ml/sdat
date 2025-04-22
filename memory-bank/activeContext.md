@@ -12,7 +12,13 @@
 - Raw dataset workflow: supports import of images (jpg, png, tif, etc.) with original filenames preserved for user clarity.
 - Refined dataset workflow: all raw images can be processed to high-quality JPGs, with metadata (dimensions, format, TIFF tags, etc.) extracted and stored.
 - Dataset history: all additions/removals to the raw dataset are logged in a per-project audit trail, viewable in the UI.
-- UI/UX: Wide, responsive image grid; original filenames shown; VS Code-like navigation, command palette, and context menus.
+- UI/UX: 
+  - Main application window structure scaffolded: persistent explorer pane, centered command bar with command palette button, tabbed workspace, context panel, and status bar.
+  - Explorer Pane implemented: shows dataset types (Raw, Refined, Annotated, Augmented) with color-coded badges and action buttons (open in file explorer, export).
+  - Command Palette button is centered in the top bar; modal overlay is centered on screen.
+  - "New Project" modal and logic restored; users can create new projects from the welcome screen.
+  - Workspace now displays a dashboard with the project name and welcome message after opening a project.
+  - Command Palette closes on command.
 - Immediate import for empty projects; staged import for non-empty projects.
 - Backend endpoints for all major operations, with strict project scoping.
 - **Bugfixes:** Added missing import json to backend modules, resolving backend crashes on image import/delete. Added ErrorBoundary to the frontend, so React errors now show a clear message instead of a blank screen. Added useState for processedMetadata in App.jsx, fixing ReferenceError and preventing frontend crash. All processed dataset summary and grid views now have robust error handling and null checks.
@@ -51,6 +57,21 @@
 - Dataset/annotation versioning and diff tools.
 - Continue to refine the UI for a dense, information-rich, and professional experience.
 - Plan for future collaborative features (multi-client, P2P, real-time sync).
+
+### Additional Planned UI/UX Features (from Design Language)
+
+- Right context panel for properties, metadata, and context-sensitive tools (toggleable, changes with active tab).
+- Status bar at the bottom for project info, operation status, notifications, quick settings, and hardware status.
+- Command bar at the top for global actions and quick navigation (Ctrl+P palette).
+- Usage marking system for images/annotations (used/unused, batch operations, inheritance rules, usage management UI).
+- Lineage visualization: interactive graph/timeline of dataset and annotation relationships, with branching and filtering.
+- Annotation history: timeline of changes, revert/compare, audit trail.
+- Augmentation pipeline builder: drag-and-drop steps, parameter adjustment, save/load pipelines, real-time preview.
+- Batch operations: copy annotations, multi-select, bulk editing, batch verification.
+- Review/approval workflows: comment on annotations, mark for review, approval, quality metrics.
+- Workspace customization: resizable panels, snap-to guides, layout presets, theme and shortcut customization.
+- Keyboard shortcuts for all major actions (VS Code-inspired).
+- Export enhancements: preview, format selection, progress indicators, export selected items, support for multiple annotation/model formats.
 
 ## Active Decisions & Considerations
 

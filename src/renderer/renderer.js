@@ -27193,12 +27193,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _CommandPalette_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommandPalette.jsx */ "./src/renderer/CommandPalette.jsx");
 /* harmony import */ var _WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./WelcomePage.jsx */ "./src/renderer/WelcomePage.jsx");
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -27212,72 +27206,297 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
+// Placeholder components for panes/tabs
+function ExplorerPane(_ref) {
+  var visible = _ref.visible,
+    _ref$datasetCounts = _ref.datasetCounts,
+    datasetCounts = _ref$datasetCounts === void 0 ? {} : _ref$datasetCounts,
+    onOpenDataset = _ref.onOpenDataset,
+    onOpenDir = _ref.onOpenDir,
+    onExport = _ref.onExport;
+  if (!visible) return null;
+  var datasetTypes = [{
+    key: "raw",
+    label: "Raw",
+    color: "#7fd1b9"
+  }, {
+    key: "refined",
+    label: "Refined",
+    color: "#b9a87f"
+  }, {
+    key: "annotated",
+    label: "Annotated",
+    color: "#b97fa8"
+  }, {
+    key: "augmented",
+    label: "Augmented",
+    color: "#7f9bd1"
+  }];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: 220,
+      background: "#181c24",
+      borderRight: "1.5px solid #232837",
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "0",
+      zIndex: 2
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "#7fd1b9",
+      fontWeight: 700,
+      fontSize: 16,
+      padding: "18px 0 12px 24px",
+      borderBottom: "1px solid #232837"
+    }
+  }, "Datasets"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "#b0bacf",
+      padding: "16px 0"
+    }
+  }, datasetTypes.map(function (ds) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      key: ds.key,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        padding: "8px 18px",
+        cursor: "pointer",
+        borderLeft: "4px solid ".concat(ds.color),
+        marginBottom: 6,
+        background: "none",
+        borderRadius: 6,
+        transition: "background 0.15s"
+      },
+      onClick: function onClick() {
+        return onOpenDataset && onOpenDataset(ds.key);
+      },
+      title: "Open ".concat(ds.label, " dataset")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        flex: 1,
+        fontWeight: 600,
+        color: ds.color
+      }
+    }, ds.label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        background: ds.color,
+        color: "#181c24",
+        borderRadius: 10,
+        fontSize: 13,
+        fontWeight: 700,
+        minWidth: 28,
+        textAlign: "center",
+        padding: "2px 8px",
+        marginLeft: 8
+      }
+    }, datasetCounts[ds.key] !== undefined ? datasetCounts[ds.key] : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      style: {
+        marginLeft: 8,
+        background: "none",
+        border: "none",
+        color: "#b0bacf",
+        cursor: "pointer",
+        fontSize: 16
+      },
+      title: "Open in File Explorer",
+      onClick: function onClick(e) {
+        e.stopPropagation();
+        onOpenDir && onOpenDir(ds.key);
+      }
+    }, "\uD83D\uDCC2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      style: {
+        marginLeft: 2,
+        background: "none",
+        border: "none",
+        color: "#b0bacf",
+        cursor: "pointer",
+        fontSize: 16
+      },
+      title: "Export Dataset",
+      onClick: function onClick(e) {
+        e.stopPropagation();
+        onExport && onExport(ds.key);
+      }
+    }, "\u2B07\uFE0F"));
+  })));
+}
+function TabbedWorkspace(_ref2) {
+  var selectedProject = _ref2.selectedProject;
+  // Minimal dashboard for now
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0,
+      minHeight: 0,
+      background: "#232837",
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      height: 38,
+      background: "#181c24",
+      borderBottom: "1.5px solid #232837",
+      display: "flex",
+      alignItems: "center",
+      paddingLeft: 16,
+      color: "#b0bacf",
+      fontWeight: 500
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    style: {
+      color: "#7fd1b9"
+    }
+  }, "Project Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#b0bacf",
+      fontSize: 20,
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      fontSize: 28,
+      color: "#7fd1b9",
+      fontWeight: 700,
+      marginBottom: 12
+    }
+  }, selectedProject === null || selectedProject === void 0 ? void 0 : selectedProject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Welcome to your project workspace!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "Use the explorer to open a dataset, or open the Command Palette (Ctrl+Shift+P).")));
+}
+function ContextPanel(_ref3) {
+  var visible = _ref3.visible,
+    onClose = _ref3.onClose;
+  if (!visible) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: 320,
+      background: "#181c24",
+      borderLeft: "1.5px solid #232837",
+      minHeight: "0",
+      zIndex: 2,
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "#7fd1b9",
+      fontWeight: 700,
+      fontSize: 16,
+      padding: "18px 0 12px 24px",
+      borderBottom: "1px solid #232837",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, "Context Panel", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    style: {
+      background: "none",
+      color: "#b0bacf",
+      border: "none",
+      fontSize: 18,
+      cursor: "pointer"
+    },
+    onClick: onClose,
+    title: "Close"
+  }, "\u2715")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "#b0bacf",
+      padding: "16px 24px"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "[Context Panel Placeholder]")));
+}
+function StatusBar(_ref4) {
+  var status = _ref4.status;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: "100%",
+      height: 28,
+      background: "#181c24",
+      color: "#b0bacf",
+      borderTop: "1.5px solid #232837",
+      display: "flex",
+      alignItems: "center",
+      fontSize: 13,
+      paddingLeft: 18,
+      zIndex: 10
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, status || "Ready"));
+}
+function CommandBar(_ref5) {
+  var onOpenPalette = _ref5.onOpenPalette;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: "100%",
+      height: 48,
+      background: "#181c24",
+      color: "#e0e6ef",
+      display: "flex",
+      alignItems: "center",
+      borderBottom: "1.5px solid #232837",
+      position: "relative",
+      zIndex: 10
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      marginLeft: 32,
+      fontWeight: 700,
+      fontSize: 18,
+      color: "#7fd1b9"
+    }
+  }, "SeekerAug"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+      zIndex: 11
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    style: {
+      background: "#232837",
+      color: "#7fd1b9",
+      border: "1px solid #7fd1b9",
+      borderRadius: 4,
+      padding: "6px 18px",
+      fontWeight: "bold",
+      fontSize: 15,
+      cursor: "pointer"
+    },
+    onClick: onOpenPalette,
+    title: "Open Command Palette (Ctrl+Shift+P)"
+  }, "Command Palette")));
+}
 function App() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     paletteOpen = _useState2[0],
     setPaletteOpen = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState4 = _slicedToArray(_useState3, 2),
-    fileMenuOpen = _useState4[0],
-    setFileMenuOpen = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    projects = _useState4[0],
+    setProjects = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
-    projects = _useState6[0],
-    setProjects = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    selectedProject = _useState6[0],
+    setSelectedProject = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState8 = _slicedToArray(_useState7, 2),
-    selectedProject = _useState8[0],
-    setSelectedProject = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    showNewProject = _useState8[0],
+    setShowNewProject = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState10 = _slicedToArray(_useState9, 2),
-    showNewProject = _useState10[0],
-    setShowNewProject = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    status = _useState10[0],
+    setStatus = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    status = _useState12[0],
-    setStatus = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState14 = _slicedToArray(_useState13, 2),
-    projectPath = _useState14[0],
-    setProjectPath = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState16 = _slicedToArray(_useState15, 2),
-    importPaths = _useState16[0],
-    setImportPaths = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState18 = _slicedToArray(_useState17, 2),
-    dragActive = _useState18[0],
-    setDragActive = _useState18[1];
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState20 = _slicedToArray(_useState19, 2),
-    importResult = _useState20[0],
-    setImportResult = _useState20[1];
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState22 = _slicedToArray(_useState21, 2),
-    imageList = _useState22[0],
-    setImageList = _useState22[1];
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState24 = _slicedToArray(_useState23, 2),
-    listStatus = _useState24[0],
-    setListStatus = _useState24[1];
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState26 = _slicedToArray(_useState25, 2),
-    history = _useState26[0],
-    setHistory = _useState26[1];
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState28 = _slicedToArray(_useState27, 2),
-    showHistory = _useState28[0],
-    setShowHistory = _useState28[1];
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState30 = _slicedToArray(_useState29, 2),
-    processedMetadata = _useState30[0],
-    setProcessedMetadata = _useState30[1];
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState32 = _slicedToArray(_useState31, 2),
-    newProjectName = _useState32[0],
-    setNewProjectName = _useState32[1];
-  var newProjectInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+    contextPanelOpen = _useState12[0],
+    setContextPanelOpen = _useState12[1];
 
   // Keyboard shortcut: Ctrl+Shift+P
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -27287,7 +27506,7 @@ function App() {
         e.preventDefault();
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
-        setFileMenuOpen(function (f) {
+        setContextPanelOpen(function (f) {
           return !f;
         });
         e.preventDefault();
@@ -27298,75 +27517,38 @@ function App() {
       return window.removeEventListener("keydown", handleKey);
     };
   }, []);
-  function handleCommand(action, payload) {
-    if (action === "createProject") {
-      setPaletteOpen(false);
-      setShowNewProject(true);
-      setTimeout(function () {
-        return newProjectInputRef.current && newProjectInputRef.current.focus();
-      }, 50);
-    } else if (action === "importImages") {
-      var _document$getElementB;
-      setPaletteOpen(false);
-      (_document$getElementB = document.getElementById("import-images-btn")) === null || _document$getElementB === void 0 || _document$getElementB.click();
-    } else if (action === "listImages") {
-      setPaletteOpen(false);
-      handleListImages();
-    } else if (action === "renameProject") {
-      setPaletteOpen(false);
-      if (selectedProject) {
-        var newName = prompt("Rename project:", selectedProject.name);
-        if (newName && newName !== selectedProject.name) {
-          renameProject(selectedProject, newName);
-        }
-      }
-    } else if (action === "deleteProject") {
-      setPaletteOpen(false);
-      if (selectedProject) {
-        if (window.confirm("Delete project \"".concat(selectedProject.name, "\"? This cannot be undone."))) {
-          deleteProject(selectedProject);
-        }
-      }
-    } else if (action === "openProject" && payload) {
-      setSelectedProject(payload);
-      setPaletteOpen(false);
-    } else if (action === "closeProject") {
-      setSelectedProject(null);
-      setPaletteOpen(false);
-    }
-  }
   function fetchProjects() {
     return _fetchProjects.apply(this, arguments);
   }
   function _fetchProjects() {
-    _fetchProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    _fetchProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var res, data;
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-        while (1) switch (_context6.prev = _context6.next) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
           case 0:
-            _context6.prev = 0;
-            _context6.next = 3;
+            _context2.prev = 0;
+            _context2.next = 3;
             return fetch("http://localhost:5000/projects/list");
           case 3:
-            res = _context6.sent;
-            _context6.next = 6;
+            res = _context2.sent;
+            _context2.next = 6;
             return res.json();
           case 6:
-            data = _context6.sent;
+            data = _context2.sent;
             if (data.status === "success") {
               setProjects(data.projects);
             }
-            _context6.next = 13;
+            _context2.next = 13;
             break;
           case 10:
-            _context6.prev = 10;
-            _context6.t0 = _context6["catch"](0);
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](0);
             setStatus("Failed to fetch projects");
           case 13:
           case "end":
-            return _context6.stop();
+            return _context2.stop();
         }
-      }, _callee6, null, [[0, 10]]);
+      }, _callee2, null, [[0, 10]]);
     }));
     return _fetchProjects.apply(this, arguments);
   }
@@ -27374,404 +27556,17 @@ function App() {
     fetchProjects();
   }, []);
 
-  // Browser navigation: forward/back for welcome/project
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    function handlePopState(e) {
-      // If a project is open, go back to welcome; if not, do nothing
-      setSelectedProject(null);
-    }
-    window.addEventListener("popstate", handlePopState);
-    return function () {
-      return window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
-
-  // Push history state when opening a project
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (selectedProject) {
-      window.history.pushState({
-        project: selectedProject.name
-      }, "", "");
-    }
-  }, [selectedProject]);
-  function renameProject(_x, _x2) {
-    return _renameProject.apply(this, arguments);
-  }
-  function _renameProject() {
-    _renameProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(proj, newName) {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-        while (1) switch (_context7.prev = _context7.next) {
-          case 0:
-            setStatus("Renaming project...");
-            _context7.prev = 1;
-            _context7.next = 4;
-            return fetch("http://localhost:5000/project/rename", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                old_name: proj.name,
-                new_name: newName
-              })
-            });
-          case 4:
-            res = _context7.sent;
-            _context7.next = 7;
-            return res.json();
-          case 7:
-            data = _context7.sent;
-            if (data.status === "success") {
-              setStatus("Project renamed.");
-              fetchProjects();
-              if (selectedProject && selectedProject.name === proj.name) {
-                setSelectedProject(_objectSpread(_objectSpread({}, proj), {}, {
-                  name: newName,
-                  path: data.new_path
-                }));
-              }
-            } else {
-              setStatus(data.error || "Error renaming project");
-            }
-            _context7.next = 14;
-            break;
-          case 11:
-            _context7.prev = 11;
-            _context7.t0 = _context7["catch"](1);
-            setStatus("Failed to connect to backend");
-          case 14:
-          case "end":
-            return _context7.stop();
-        }
-      }, _callee7, null, [[1, 11]]);
-    }));
-    return _renameProject.apply(this, arguments);
-  }
-  function deleteProject(_x3) {
-    return _deleteProject.apply(this, arguments);
-  }
-  function _deleteProject() {
-    _deleteProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(proj) {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-        while (1) switch (_context8.prev = _context8.next) {
-          case 0:
-            setStatus("Deleting project...");
-            _context8.prev = 1;
-            _context8.next = 4;
-            return fetch("http://localhost:5000/project/delete", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                name: proj.name
-              })
-            });
-          case 4:
-            res = _context8.sent;
-            _context8.next = 7;
-            return res.json();
-          case 7:
-            data = _context8.sent;
-            if (data.status === "success") {
-              setStatus("Project deleted.");
-              fetchProjects();
-              if (selectedProject && selectedProject.name === proj.name) {
-                setSelectedProject(null);
-              }
-            } else {
-              setStatus(data.error || "Error deleting project");
-            }
-            _context8.next = 14;
-            break;
-          case 11:
-            _context8.prev = 11;
-            _context8.t0 = _context8["catch"](1);
-            setStatus("Failed to connect to backend");
-          case 14:
-          case "end":
-            return _context8.stop();
-        }
-      }, _callee8, null, [[1, 11]]);
-    }));
-    return _deleteProject.apply(this, arguments);
-  }
-  function handleCreateProject(_x4) {
-    return _handleCreateProject.apply(this, arguments);
-  }
-  function _handleCreateProject() {
-    _handleCreateProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(e) {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-        while (1) switch (_context9.prev = _context9.next) {
-          case 0:
-            e.preventDefault();
-            setStatus("Creating project...");
-            setProjectPath("");
-            _context9.prev = 3;
-            _context9.next = 6;
-            return fetch("http://localhost:5000/project/create", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                project_name: newProjectName
-              })
-            });
-          case 6:
-            res = _context9.sent;
-            _context9.next = 9;
-            return res.json();
-          case 9:
-            data = _context9.sent;
-            if (data.status === "success") {
-              setStatus("Project created successfully!");
-              setProjectPath(data.project_path);
-              setNewProjectName("");
-              fetchProjects();
-              setShowNewProject(false);
-            } else {
-              setStatus(data.error || "Error creating project");
-            }
-            _context9.next = 16;
-            break;
-          case 13:
-            _context9.prev = 13;
-            _context9.t0 = _context9["catch"](3);
-            setStatus("Failed to connect to backend");
-          case 16:
-          case "end":
-            return _context9.stop();
-        }
-      }, _callee9, null, [[3, 13]]);
-    }));
-    return _handleCreateProject.apply(this, arguments);
-  }
-  function handleSelectFiles(_x5) {
-    return _handleSelectFiles.apply(this, arguments);
-  }
-  function _handleSelectFiles() {
-    _handleSelectFiles = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(e) {
-      var paths, res, data;
-      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-        while (1) switch (_context10.prev = _context10.next) {
-          case 0:
-            e.preventDefault();
-            if (window.seekeraug) {
-              _context10.next = 4;
-              break;
-            }
-            setStatus("File dialog not available (not running in Electron).");
-            return _context10.abrupt("return");
-          case 4:
-            _context10.next = 6;
-            return window.seekeraug.selectFiles();
-          case 6:
-            paths = _context10.sent;
-            if (paths.length) {
-              _context10.next = 10;
-              break;
-            }
-            setStatus("No files selected.");
-            return _context10.abrupt("return");
-          case 10:
-            if (!(imageList.length === 0)) {
-              _context10.next = 28;
-              break;
-            }
-            setStatus("Importing ".concat(paths.length, " images..."));
-            _context10.prev = 12;
-            _context10.next = 15;
-            return fetch("http://localhost:5000/dataset/import", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                project_name: selectedProject.name,
-                image_paths: paths
-              })
-            });
-          case 15:
-            res = _context10.sent;
-            _context10.next = 18;
-            return res.json();
-          case 18:
-            data = _context10.sent;
-            if (data.status === "success") {
-              setStatus("Images imported successfully!");
-              setImportResult(data.imported);
-              handleListImages();
-            } else {
-              setStatus(data.error || "Error importing images");
-            }
-            _context10.next = 25;
-            break;
-          case 22:
-            _context10.prev = 22;
-            _context10.t0 = _context10["catch"](12);
-            setStatus("Failed to connect to backend");
-          case 25:
-            setImportPaths([]);
-            _context10.next = 30;
-            break;
-          case 28:
-            setImportPaths(paths);
-            setStatus("Selected ".concat(paths.length, " files. Press Import Images to add."));
-          case 30:
-          case "end":
-            return _context10.stop();
-        }
-      }, _callee10, null, [[12, 22]]);
-    }));
-    return _handleSelectFiles.apply(this, arguments);
-  }
-  function handleImportImages(_x6) {
-    return _handleImportImages.apply(this, arguments);
-  }
-  function _handleImportImages() {
-    _handleImportImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11(e) {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-        while (1) switch (_context11.prev = _context11.next) {
-          case 0:
-            e.preventDefault();
-            setStatus("Importing images...");
-            setImportResult(null);
-            if (selectedProject) {
-              _context11.next = 6;
-              break;
-            }
-            setStatus("Please select a project first.");
-            return _context11.abrupt("return");
-          case 6:
-            if (importPaths.length) {
-              _context11.next = 9;
-              break;
-            }
-            setStatus("Please select image files to import.");
-            return _context11.abrupt("return");
-          case 9:
-            _context11.prev = 9;
-            _context11.next = 12;
-            return fetch("http://localhost:5000/dataset/import", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                project_name: selectedProject.name,
-                image_paths: importPaths
-              })
-            });
-          case 12:
-            res = _context11.sent;
-            _context11.next = 15;
-            return res.json();
-          case 15:
-            data = _context11.sent;
-            if (data.status === "success") {
-              setStatus("Images imported successfully!");
-              setImportResult(data.imported);
-            } else {
-              setStatus(data.error || "Error importing images");
-            }
-            _context11.next = 22;
-            break;
-          case 19:
-            _context11.prev = 19;
-            _context11.t0 = _context11["catch"](9);
-            setStatus("Failed to connect to backend");
-          case 22:
-          case "end":
-            return _context11.stop();
-        }
-      }, _callee11, null, [[9, 19]]);
-    }));
-    return _handleImportImages.apply(this, arguments);
-  }
-  function handleListImages() {
-    return _handleListImages.apply(this, arguments);
-  } // Auto-fetch images when a project is opened
-  function _handleListImages() {
-    _handleListImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-        while (1) switch (_context12.prev = _context12.next) {
-          case 0:
-            setListStatus("Loading images...");
-            setImageList([]);
-            if (selectedProject) {
-              _context12.next = 5;
-              break;
-            }
-            setListStatus("Please select a project first.");
-            return _context12.abrupt("return");
-          case 5:
-            _context12.prev = 5;
-            _context12.next = 8;
-            return fetch("http://localhost:5000/dataset/list", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                project_name: selectedProject.name
-              })
-            });
-          case 8:
-            res = _context12.sent;
-            _context12.next = 11;
-            return res.json();
-          case 11:
-            data = _context12.sent;
-            if (data.status === "success") {
-              setImageList(data.images);
-              setListStatus("Found ".concat(data.images.length, " images."));
-            } else {
-              setListStatus(data.error || "Error listing images");
-            }
-            _context12.next = 18;
-            break;
-          case 15:
-            _context12.prev = 15;
-            _context12.t0 = _context12["catch"](5);
-            setListStatus("Failed to connect to backend");
-          case 18:
-          case "end":
-            return _context12.stop();
-        }
-      }, _callee12, null, [[5, 15]]);
-    }));
-    return _handleListImages.apply(this, arguments);
-  }
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (selectedProject) {
-      handleListImages();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedProject]);
-
   // --- VS Code-like window/project workflow ---
   if (!selectedProject) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
       projects: projects,
       onOpen: function onOpen(proj) {
-        setSelectedProject(proj);
-        // history state is pushed in useEffect
+        return setSelectedProject(proj);
       },
       onNew: function onNew() {
-        setShowNewProject(true);
-        setTimeout(function () {
-          return newProjectInputRef.current && newProjectInputRef.current.focus();
-        }, 50);
+        return setShowNewProject(true);
       },
-      onDelete: function onDelete(proj) {
-        return deleteProject(proj);
-      }
+      onDelete: function onDelete(proj) {/* TODO: Implement project deletion */}
     }), showNewProject && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       style: {
         position: "fixed",
@@ -27789,10 +27584,54 @@ function App() {
         return setShowNewProject(false);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-      onSubmit: function onSubmit(e) {
-        handleCreateProject(e);
-        setShowNewProject(false);
-      },
+      onSubmit: (/*#__PURE__*/function () {
+        var _ref6 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+          var res, data;
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                setStatus("Creating project...");
+                _context.prev = 2;
+                _context.next = 5;
+                return fetch("http://localhost:5000/project/create", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    project_name: e.target.elements.projectName.value
+                  })
+                });
+              case 5:
+                res = _context.sent;
+                _context.next = 8;
+                return res.json();
+              case 8:
+                data = _context.sent;
+                if (data.status === "success") {
+                  setStatus("Project created successfully!");
+                  setShowNewProject(false);
+                  fetchProjects();
+                } else {
+                  setStatus(data.error || "Error creating project");
+                }
+                _context.next = 15;
+                break;
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](2);
+                setStatus("Failed to connect to backend");
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }, _callee, null, [[2, 12]]);
+        }));
+        return function (_x) {
+          return _ref6.apply(this, arguments);
+        };
+      }()),
       style: {
         background: "#232837",
         borderRadius: 12,
@@ -27813,11 +27652,7 @@ function App() {
         marginBottom: 18
       }
     }, "Create New Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-      ref: newProjectInputRef,
-      value: newProjectName,
-      onChange: function onChange(e) {
-        return setNewProjectName(e.target.value);
-      },
+      name: "projectName",
       placeholder: "Project name",
       required: true,
       style: {
@@ -27847,1028 +27682,63 @@ function App() {
       onClose: function onClose() {
         return setPaletteOpen(false);
       },
-      onCommand: function onCommand(action) {
-        if (action === "createProject") setShowNewProject(true);else if (action === "openProject") setPaletteOpen(false);
+      onCommand: function onCommand() {
+        return setPaletteOpen(false);
       }
     }));
   }
 
-  // Helper: Recursively collect image files from dropped items
-  function getDroppedImagePaths(_x7) {
-    return _getDroppedImagePaths.apply(this, arguments);
-  } // --- Project workspace mode ---
-  function _getDroppedImagePaths() {
-    _getDroppedImagePaths = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13(items) {
-      var imageExts, paths, _iterator, _step, _loop;
-      return _regeneratorRuntime().wrap(function _callee13$(_context14) {
-        while (1) switch (_context14.prev = _context14.next) {
-          case 0:
-            imageExts = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".tiff", ".webp"];
-            paths = [];
-            _iterator = _createForOfIteratorHelper(items);
-            _context14.prev = 3;
-            _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
-              var item, file, fs, path, _walk;
-              return _regeneratorRuntime().wrap(function _loop$(_context13) {
-                while (1) switch (_context13.prev = _context13.next) {
-                  case 0:
-                    item = _step.value;
-                    if (item.kind === "file") {
-                      file = item.getAsFile();
-                      if (file && file.path) {
-                        // If it's a directory, recursively collect files
-                        if (file.type === "" && file.path) {
-                          // Directory: use Node.js fs to walk (only in Electron)
-                          try {
-                            // eslint-disable-next-line no-undef
-                            fs = window.require ? window.require("fs") : null; // eslint-disable-next-line no-undef
-                            path = window.require ? window.require("path") : null;
-                            if (fs && path) {
-                              _walk = function walk(dir) {
-                                var results = [];
-                                var list = fs.readdirSync(dir);
-                                var _iterator2 = _createForOfIteratorHelper(list),
-                                  _step2;
-                                try {
-                                  var _loop2 = function _loop2() {
-                                    var f = _step2.value;
-                                    var p = path.join(dir, f);
-                                    var stat = fs.statSync(p);
-                                    if (stat && stat.isDirectory()) {
-                                      results = results.concat(_walk(p));
-                                    } else if (imageExts.some(function (ext) {
-                                      return p.toLowerCase().endsWith(ext);
-                                    })) {
-                                      results.push(p);
-                                    }
-                                  };
-                                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                                    _loop2();
-                                  }
-                                } catch (err) {
-                                  _iterator2.e(err);
-                                } finally {
-                                  _iterator2.f();
-                                }
-                                return results;
-                              };
-                              paths = paths.concat(_walk(file.path));
-                            }
-                          } catch (e) {
-                            // Fallback: skip directory if fs not available
-                          }
-                        } else if (imageExts.some(function (ext) {
-                          return file.path.toLowerCase().endsWith(ext);
-                        })) {
-                          paths.push(file.path);
-                        }
-                      }
-                    }
-                  case 2:
-                  case "end":
-                    return _context13.stop();
-                }
-              }, _loop);
-            });
-            _iterator.s();
-          case 6:
-            if ((_step = _iterator.n()).done) {
-              _context14.next = 10;
-              break;
-            }
-            return _context14.delegateYield(_loop(), "t0", 8);
-          case 8:
-            _context14.next = 6;
-            break;
-          case 10:
-            _context14.next = 15;
-            break;
-          case 12:
-            _context14.prev = 12;
-            _context14.t1 = _context14["catch"](3);
-            _iterator.e(_context14.t1);
-          case 15:
-            _context14.prev = 15;
-            _iterator.f();
-            return _context14.finish(15);
-          case 18:
-            return _context14.abrupt("return", paths);
-          case 19:
-          case "end":
-            return _context14.stop();
-        }
-      }, _callee13, null, [[3, 12, 15, 18]]);
-    }));
-    return _getDroppedImagePaths.apply(this, arguments);
-  }
+  // --- Main application window structure ---
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       fontFamily: "sans-serif",
       minHeight: "100vh",
       background: "#232837",
-      position: "relative"
-    },
-    onDragOver: function onDragOver(e) {
-      e.preventDefault();
-      setDragActive(true);
-    },
-    onDragLeave: function onDragLeave(e) {
-      e.preventDefault();
-      setDragActive(false);
-    },
-    onDrop: (/*#__PURE__*/function () {
-      var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-        var items, paths, res, data;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              e.preventDefault();
-              setDragActive(false);
-              if (selectedProject) {
-                _context.next = 4;
-                break;
-              }
-              return _context.abrupt("return");
-            case 4:
-              items = e.dataTransfer.items;
-              _context.next = 7;
-              return getDroppedImagePaths(items);
-            case 7:
-              paths = _context.sent;
-              if (!(paths.length > 0)) {
-                _context.next = 26;
-                break;
-              }
-              setStatus("Importing ".concat(paths.length, " images..."));
-              setImportPaths(paths);
-              // Trigger import
-              _context.prev = 11;
-              _context.next = 14;
-              return fetch("http://localhost:5000/dataset/import", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  project_name: selectedProject.name,
-                  image_paths: paths
-                })
-              });
-            case 14:
-              res = _context.sent;
-              _context.next = 17;
-              return res.json();
-            case 17:
-              data = _context.sent;
-              if (data.status === "success") {
-                setStatus("Images imported successfully!");
-                setImportResult(data.imported);
-              } else {
-                setStatus(data.error || "Error importing images");
-              }
-              _context.next = 24;
-              break;
-            case 21:
-              _context.prev = 21;
-              _context.t0 = _context["catch"](11);
-              setStatus("Failed to connect to backend");
-            case 24:
-              _context.next = 27;
-              break;
-            case 26:
-              setStatus("No image files found in dropped items.");
-            case 27:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[11, 21]]);
-      }));
-      return function (_x8) {
-        return _ref.apply(this, arguments);
-      };
-    }())
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      width: "100%",
-      background: "#181c24",
-      color: "#e0e6ef",
-      height: 48,
       display: "flex",
-      alignItems: "center",
-      borderBottom: "1.5px solid #232837",
-      position: "relative",
-      zIndex: 10
+      flexDirection: "column"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      marginLeft: 32,
-      position: "relative"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    style: {
-      background: "none",
-      color: "#e0e6ef",
-      border: "none",
-      fontSize: 16,
-      fontWeight: 500,
-      padding: "0 18px",
-      height: 48,
-      cursor: "pointer"
-    },
-    onClick: function onClick() {
-      return setFileMenuOpen(function (f) {
-        return !f;
-      });
-    },
-    onBlur: function onBlur() {
-      return setTimeout(function () {
-        return setFileMenuOpen(false);
-      }, 200);
-    }
-  }, "File \u25BE"), fileMenuOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      position: "absolute",
-      left: 0,
-      top: 48,
-      background: "#232837",
-      border: "1.5px solid #2e3647",
-      borderRadius: 8,
-      boxShadow: "0 4px 16px #000a",
-      minWidth: 180,
-      zIndex: 100
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      padding: "12px 18px",
-      cursor: "pointer",
-      color: "#e0e6ef"
-    },
-    onClick: function onClick() {
-      return setShowNewProject(true);
-    }
-  }, "New Project..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      padding: "12px 18px",
-      cursor: "pointer",
-      color: "#e0e6ef"
-    },
-    onClick: function onClick() {
-      return setSelectedProject(null);
-    }
-  }, "Close Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      padding: "12px 18px",
-      cursor: "pointer",
-      color: "#e0e6ef"
-    },
-    onClick: function onClick() {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(CommandBar, {
+    onOpenPalette: function onOpenPalette() {
       return setPaletteOpen(true);
     }
-  }, "Open Project..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      padding: "12px 18px",
-      cursor: "not-allowed",
-      color: "#7fd1b9",
-      opacity: 0.6
-    },
-    title: "Coming soon"
-  }, "Open New Window"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       flex: 1,
-      textAlign: "center",
-      fontWeight: 700,
-      fontSize: 18,
-      color: "#7fd1b9"
+      display: "flex",
+      minHeight: 0,
+      minWidth: 0
     }
-  }, selectedProject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      width: 120
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ExplorerPane, {
+    visible: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(TabbedWorkspace, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ContextPanel, {
+    visible: contextPanelOpen,
+    onClose: function onClose() {
+      return setContextPanelOpen(false);
     }
-  })), dragActive && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(StatusBar, {
+    status: status
+  }), paletteOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       position: "fixed",
       left: 0,
       top: 0,
       width: "100vw",
       height: "100vh",
-      background: "rgba(30,40,60,0.7)",
-      zIndex: 2000,
+      background: "rgba(20,22,30,0.25)",
+      zIndex: 3000,
       display: "flex",
       alignItems: "center",
-      justifyContent: "center",
-      pointerEvents: "none"
+      justifyContent: "center"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      background: "#232837",
-      color: "#7fd1b9",
-      border: "2.5px dashed #7fd1b9",
-      borderRadius: 16,
-      padding: "48px 64px",
-      fontSize: 32,
-      fontWeight: 700,
-      boxShadow: "0 8px 32px #000a",
-      pointerEvents: "none"
-    }
-  }, "Drop images or folders to import")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      width: "100%",
-      maxWidth: 1100,
-      margin: "0 auto",
-      padding: "32px 0",
-      minHeight: "calc(100vh - 48px)",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
-    style: {
-      color: "#7fd1b9",
-      textAlign: "center"
-    }
-  }, "Project: ", selectedProject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
-    style: {
-      color: "#b0bacf",
-      textAlign: "center"
-    }
-  }, "Directory: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", {
-    style: {
-      color: "#e0e6ef"
-    }
-  }, selectedProject.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    onSubmit: handleImportImages,
-    style: {
-      margin: "32px auto 0 auto",
-      background: "#181c24",
-      padding: 16,
-      borderRadius: 8,
-      boxShadow: "0 2px 8px #0002",
-      maxWidth: 600,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    style: {
-      color: "#e0e6ef"
-    }
-  }, "Import Images:", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    id: "import-images-btn",
-    type: "button",
-    onClick: handleSelectFiles,
-    style: {
-      marginRight: 8,
-      background: "#2e3647",
-      color: "#7fd1b9",
-      border: "1px solid #7fd1b9",
-      borderRadius: 4,
-      padding: "6px 12px",
-      fontWeight: "bold",
-      cursor: "pointer"
-    }
-  }, "Select Images")), importPaths.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    type: "submit",
-    style: {
-      background: "#7fd1b9",
-      color: "#181c24",
-      border: "none",
-      borderRadius: 4,
-      padding: "6px 16px",
-      fontWeight: "bold",
-      marginLeft: 8,
-      cursor: "pointer"
-    }
-  }, "Import Images"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
-    style: {
-      marginTop: 8,
-      color: "#b0bacf"
-    }
-  }, importPaths.map(function (p, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-      key: i
-    }, p);
-  })))), importResult && importPaths.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      marginTop: 16,
-      background: "#181c24",
-      padding: 12,
-      borderRadius: 8
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("strong", {
-    style: {
-      color: "#7fd1b9"
-    }
-  }, "Imported Images:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
-    style: {
-      color: "#b0bacf"
-    }
-  }, importResult.map(function (img) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-      key: img.id
-    }, img.filename, " (from ", img.original_path, ")");
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      marginTop: 32,
-      background: "#181c24",
-      padding: 16,
-      borderRadius: 8,
-      width: "100%"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      display: "flex",
-      gap: 16,
-      marginBottom: 16
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    onClick: handleListImages,
-    style: {
-      background: "#2e3647",
-      color: "#7fd1b9",
-      border: "1px solid #7fd1b9",
-      borderRadius: 4,
-      padding: "6px 16px",
-      fontWeight: "bold",
-      cursor: "pointer"
-    }
-  }, "List Project Images"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            setShowHistory(true);
-            setStatus("Fetching dataset history...");
-            _context2.prev = 2;
-            _context2.next = 5;
-            return fetch("http://localhost:5000/dataset/history", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                project_name: selectedProject.name
-              })
-            });
-          case 5:
-            res = _context2.sent;
-            _context2.next = 8;
-            return res.json();
-          case 8:
-            data = _context2.sent;
-            if (data.status === "success") {
-              setHistory(data.history);
-              setStatus("");
-            } else {
-              setStatus(data.error || "Error fetching history");
-            }
-            _context2.next = 15;
-            break;
-          case 12:
-            _context2.prev = 12;
-            _context2.t0 = _context2["catch"](2);
-            setStatus("Failed to connect to backend");
-          case 15:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2, null, [[2, 12]]);
-    })),
-    style: {
-      background: "#232837",
-      color: "#7fd1b9",
-      border: "1px solid #7fd1b9",
-      borderRadius: 4,
-      padding: "6px 16px",
-      fontWeight: "bold",
-      cursor: "pointer"
-    }
-  }, "History"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      var res, data;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) switch (_context3.prev = _context3.next) {
-          case 0:
-            setStatus("Processing dataset...");
-            _context3.prev = 1;
-            _context3.next = 4;
-            return fetch("http://localhost:5000/dataset/process", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                project_name: selectedProject.name
-              })
-            });
-          case 4:
-            res = _context3.sent;
-            _context3.next = 7;
-            return res.json();
-          case 7:
-            data = _context3.sent;
-            if (data.status === "success") {
-              setStatus("Dataset processed. See summary below.");
-              setProcessedMetadata(data.metadata);
-            } else {
-              setStatus(data.error || "Error processing dataset");
-            }
-            _context3.next = 14;
-            break;
-          case 11:
-            _context3.prev = 11;
-            _context3.t0 = _context3["catch"](1);
-            setStatus("Failed to connect to backend");
-          case 14:
-          case "end":
-            return _context3.stop();
-        }
-      }, _callee3, null, [[1, 11]]);
-    })),
-    style: {
-      background: "#7fd1b9",
-      color: "#181c24",
-      border: "none",
-      borderRadius: 4,
-      padding: "6px 16px",
-      fontWeight: "bold",
-      cursor: "pointer"
-    }
-  }, "Process Dataset")), listStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
-    style: {
-      marginTop: 8,
-      color: "#b0bacf"
-    }
-  }, listStatus), processedMetadata && _typeof(processedMetadata) === "object" && Object.keys(processedMetadata).length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      marginTop: 16,
-      background: "#232837",
-      borderRadius: 8,
-      padding: 16
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
-    style: {
-      color: "#7fd1b9",
-      marginTop: 0
-    }
-  }, "Processed Dataset Summary"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      maxHeight: 320,
-      overflowY: "auto",
-      fontSize: 13
-    }
-  }, function () {
-    try {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
-        style: {
-          width: "100%",
-          borderCollapse: "collapse"
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
-        style: {
-          color: "#b0bacf",
-          borderBottom: "1px solid #2e3647"
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-        style: {
-          textAlign: "left",
-          padding: "4px 8px"
-        }
-      }, "Processed File"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-        style: {
-          textAlign: "left",
-          padding: "4px 8px"
-        }
-      }, "Original"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-        style: {
-          textAlign: "left",
-          padding: "4px 8px"
-        }
-      }, "Size"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-        style: {
-          textAlign: "left",
-          padding: "4px 8px"
-        }
-      }, "Dimensions"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-        style: {
-          textAlign: "left",
-          padding: "4px 8px"
-        }
-      }, "Format"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-        style: {
-          textAlign: "left",
-          padding: "4px 8px"
-        }
-      }, "TIFF Tags"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, Object.entries(processedMetadata).map(function (_ref4) {
-        var _ref5 = _slicedToArray(_ref4, 2),
-          fname = _ref5[0],
-          meta = _ref5[1];
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
-          key: fname,
-          style: {
-            borderBottom: "1px solid #232837"
-          }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-          style: {
-            color: "#e0e6ef",
-            padding: "4px 8px"
-          }
-        }, fname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-          style: {
-            color: "#b0bacf",
-            padding: "4px 8px"
-          }
-        }, meta.original_filename || ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-          style: {
-            color: "#b0bacf",
-            padding: "4px 8px"
-          }
-        }, meta.size_bytes ? "".concat((meta.size_bytes / 1024).toFixed(1), " KB") : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-          style: {
-            color: "#b0bacf",
-            padding: "4px 8px"
-          }
-        }, meta.width && meta.height ? "".concat(meta.width, "\xD7").concat(meta.height) : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-          style: {
-            color: "#b0bacf",
-            padding: "4px 8px"
-          }
-        }, meta.format || "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-          style: {
-            color: "#b0bacf",
-            padding: "4px 8px",
-            maxWidth: 200,
-            overflow: "auto"
-          }
-        }, meta.tiff_tags ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("pre", {
-          style: {
-            color: "#7fd1b9",
-            fontSize: 11,
-            margin: 0,
-            whiteSpace: "pre-wrap"
-          }
-        }, JSON.stringify(meta.tiff_tags, null, 1)) : "—"));
-      })));
-    } catch (err) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        style: {
-          color: "#b94a48"
-        }
-      }, "Error rendering processed dataset summary.");
-    }
-  }())), showHistory && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      marginTop: 16,
-      background: "#232837",
-      borderRadius: 8,
-      padding: 16,
-      width: "100%"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
-    style: {
-      color: "#7fd1b9",
-      margin: 0
-    }
-  }, "Dataset History"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    onClick: function onClick() {
-      return setShowHistory(false);
-    },
-    style: {
-      background: "none",
-      color: "#b0bacf",
-      border: "none",
-      fontSize: 18,
-      cursor: "pointer"
-    },
-    title: "Close"
-  }, "\u2715")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      maxHeight: 320,
-      overflowY: "auto",
-      fontSize: 13,
-      marginTop: 8
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", {
-    style: {
-      width: "100%",
-      borderCollapse: "collapse"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
-    style: {
-      color: "#b0bacf",
-      borderBottom: "1px solid #2e3647"
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-    style: {
-      textAlign: "left",
-      padding: "4px 8px"
-    }
-  }, "Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-    style: {
-      textAlign: "left",
-      padding: "4px 8px"
-    }
-  }, "Action"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-    style: {
-      textAlign: "left",
-      padding: "4px 8px"
-    }
-  }, "Original Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-    style: {
-      textAlign: "left",
-      padding: "4px 8px"
-    }
-  }, "Filename"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("th", {
-    style: {
-      textAlign: "left",
-      padding: "4px 8px"
-    }
-  }, "Details"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tbody", null, history.map(function (h) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", {
-      key: h.id,
-      style: {
-        borderBottom: "1px solid #232837"
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-      style: {
-        color: "#b0bacf",
-        padding: "4px 8px"
-      }
-    }, h.timestamp ? new Date(h.timestamp).toLocaleString() : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-      style: {
-        color: h.action === "add" ? "#7fd1b9" : "#b94a48",
-        padding: "4px 8px",
-        fontWeight: 600
-      }
-    }, h.action === "add" ? "Added" : "Removed"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-      style: {
-        color: "#e0e6ef",
-        padding: "4px 8px"
-      }
-    }, h.original_filename), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-      style: {
-        color: "#b0bacf",
-        padding: "4px 8px"
-      }
-    }, h.filename), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", {
-      style: {
-        color: "#b0bacf",
-        padding: "4px 8px",
-        maxWidth: 200,
-        overflow: "auto"
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("pre", {
-      style: {
-        color: "#7fd1b9",
-        fontSize: 11,
-        margin: 0,
-        whiteSpace: "pre-wrap"
-      }
-    }, h.details)));
-  }))))), imageList.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-      gap: "24px",
-      width: "100%",
-      marginTop: 16
-    }
-  }, imageList.map(function (img) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      key: img.id,
-      style: {
-        background: "#232837",
-        borderRadius: 10,
-        boxShadow: "0 2px 8px #0002",
-        padding: 12,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        position: "relative",
-        transition: "box-shadow 0.2s",
-        border: "1.5px solid #2e3647"
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        width: 180,
-        height: 120,
-        background: "#181c24",
-        borderRadius: 6,
-        marginBottom: 10,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-        boxShadow: "0 1px 4px #0004"
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-      src: "file://".concat(img.path),
-      alt: img.filename,
-      style: {
-        maxWidth: "100%",
-        maxHeight: "100%",
-        objectFit: "contain",
-        borderRadius: 4,
-        background: "#232837"
-      },
-      onError: function onError(e) {
-        return e.target.style.display = "none";
-      }
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        width: "100%",
-        color: "#e0e6ef",
-        fontWeight: 600,
-        fontSize: 15,
-        marginBottom: 2,
-        textAlign: "center",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis"
-      },
-      title: img.original_filename || img.filename
-    }, img.original_filename || img.filename), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        width: "100%",
-        color: "#b0bacf",
-        fontSize: 12,
-        marginBottom: 2,
-        textAlign: "center",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis"
-      },
-      title: img.filename
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      style: {
-        fontStyle: "italic"
-      }
-    }, img.filename)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        width: "100%",
-        color: "#b0bacf",
-        fontSize: 13,
-        marginBottom: 2,
-        textAlign: "center"
-      }
-    }, img.width && img.height ? "".concat(img.width, "\xD7").concat(img.height, "px") : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        width: "100%",
-        color: "#b0bacf",
-        fontSize: 13,
-        marginBottom: 2,
-        textAlign: "center"
-      }
-    }, img.size ? "".concat((img.size / 1024).toFixed(1), " KB") : "—"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        width: "100%",
-        color: "#7fd1b9",
-        fontSize: 12,
-        marginBottom: 6,
-        textAlign: "center"
-      }
-    }, img.added ? new Date(img.added).toLocaleString() : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: {
-        display: "flex",
-        justifyContent: "center",
-        gap: 8
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      title: "Rename",
-      style: {
-        background: "#232837",
-        color: "#7fd1b9",
-        border: "1px solid #7fd1b9",
-        borderRadius: 4,
-        padding: "2px 10px",
-        fontSize: 14,
-        cursor: "pointer"
-      },
-      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var newFilename, res, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              newFilename = prompt("Rename image file:", img.filename);
-              if (!(newFilename && newFilename !== img.filename)) {
-                _context4.next = 16;
-                break;
-              }
-              setListStatus("Renaming image...");
-              _context4.prev = 3;
-              _context4.next = 6;
-              return fetch("http://localhost:5000/image/rename", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  project_name: selectedProject.name,
-                  image_id: img.id,
-                  new_filename: newFilename
-                })
-              });
-            case 6:
-              res = _context4.sent;
-              _context4.next = 9;
-              return res.json();
-            case 9:
-              data = _context4.sent;
-              if (data.status === "success") {
-                setListStatus("Image renamed.");
-                handleListImages();
-              } else {
-                setListStatus(data.error || "Error renaming image");
-              }
-              _context4.next = 16;
-              break;
-            case 13:
-              _context4.prev = 13;
-              _context4.t0 = _context4["catch"](3);
-              setListStatus("Failed to connect to backend");
-            case 16:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, null, [[3, 13]]);
-      }))
-    }, "\u270F\uFE0F Rename"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      title: "Delete",
-      style: {
-        background: "#232837",
-        color: "#b94a48",
-        border: "1px solid #b94a48",
-        borderRadius: 4,
-        padding: "2px 10px",
-        fontSize: 14,
-        cursor: "pointer"
-      },
-      onClick: /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var res, data;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              if (!window.confirm("Delete image \"".concat(img.filename, "\"? This cannot be undone."))) {
-                _context5.next = 15;
-                break;
-              }
-              setListStatus("Deleting image...");
-              _context5.prev = 2;
-              _context5.next = 5;
-              return fetch("http://localhost:5000/image/delete", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  project_name: selectedProject.name,
-                  image_id: img.id
-                })
-              });
-            case 5:
-              res = _context5.sent;
-              _context5.next = 8;
-              return res.json();
-            case 8:
-              data = _context5.sent;
-              if (data.status === "success") {
-                setListStatus("Image deleted.");
-                handleListImages();
-              } else {
-                setListStatus(data.error || "Error deleting image");
-              }
-              _context5.next = 15;
-              break;
-            case 12:
-              _context5.prev = 12;
-              _context5.t0 = _context5["catch"](2);
-              setListStatus("Failed to connect to backend");
-            case 15:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5, null, [[2, 12]]);
-      }))
-    }, "\uD83D\uDDD1\uFE0F Delete")));
-  }))), status && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
-    style: {
-      marginTop: 16,
-      color: "#ffb4b4",
-      textAlign: "center"
-    }
-  }, status)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CommandPalette_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CommandPalette_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
     open: paletteOpen,
     onClose: function onClose() {
       return setPaletteOpen(false);
     },
-    onCommand: handleCommand
-  }));
+    onCommand: function onCommand() {
+      return setPaletteOpen(false);
+    }
+  })));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
