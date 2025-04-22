@@ -27191,6 +27191,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WelcomePage.jsx */ "./src/renderer/WelcomePage.jsx");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -27199,59 +27200,10 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
-// Splitter component for vertical resizing
-function VerticalSplitter(_ref) {
-  var onResize = _ref.onResize,
-    getPanelWidth = _ref.getPanelWidth,
-    min = _ref.min,
-    max = _ref.max,
-    _ref$cursor = _ref.cursor,
-    cursor = _ref$cursor === void 0 ? "col-resize" : _ref$cursor;
-  var splitterRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  function onMouseDown(e) {
-    e.preventDefault();
-    var startX = e.clientX;
-    var startWidth = getPanelWidth();
-    function onMouseMove(ev) {
-      var dx = ev.clientX - startX;
-      var newWidth = startWidth - dx; // For context panel, subtract dx
-      if (newWidth < min) newWidth = min;
-      if (newWidth > max) newWidth = max;
-      onResize(newWidth);
-    }
-    function onMouseUp() {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-      document.body.style.cursor = "";
-    }
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
-    document.body.style.cursor = cursor;
-  }
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    ref: splitterRef,
-    style: {
-      width: 7,
-      cursor: cursor,
-      zIndex: 100,
-      background: "transparent",
-      position: "relative"
-    },
-    onMouseDown: onMouseDown,
-    tabIndex: -1,
-    "aria-label": "Resize panel",
-    role: "separator"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      width: 3,
-      height: "100%",
-      margin: "0 auto",
-      background: "#232837",
-      borderRadius: 2
-    }
-  }));
-}
-function CommandBar() {
+
+// Placeholder components for restoration
+function CommandBar(_ref) {
+  var onCloseProject = _ref.onCloseProject;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       height: 48,
@@ -27263,7 +27215,25 @@ function CommandBar() {
       fontWeight: 700,
       fontSize: 18
     }
-  }, "SeekerAug");
+  }, "SeekerAug", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      marginLeft: "auto",
+      marginRight: 32
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    style: {
+      background: "#232837",
+      color: "#b0bacf",
+      border: "1px solid #b0bacf",
+      borderRadius: 4,
+      padding: "6px 18px",
+      fontWeight: "bold",
+      fontSize: 15,
+      cursor: "pointer"
+    },
+    onClick: onCloseProject,
+    title: "Close Project and return to Welcome"
+  }, "Close Project")));
 }
 function ExplorerPane(_ref2) {
   var width = _ref2.width;
@@ -27368,6 +27338,57 @@ function StatusBar() {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Ready"));
 }
+
+// Splitter for resizable panes
+function VerticalSplitter(_ref4) {
+  var onResize = _ref4.onResize,
+    getPanelWidth = _ref4.getPanelWidth,
+    min = _ref4.min,
+    max = _ref4.max,
+    _ref4$cursor = _ref4.cursor,
+    cursor = _ref4$cursor === void 0 ? "col-resize" : _ref4$cursor;
+  function onMouseDown(e) {
+    e.preventDefault();
+    var startX = e.clientX;
+    var startWidth = getPanelWidth();
+    function onMouseMove(ev) {
+      var dx = ev.clientX - startX;
+      var newWidth = startWidth + dx;
+      if (newWidth < min) newWidth = min;
+      if (newWidth > max) newWidth = max;
+      onResize(newWidth);
+    }
+    function onMouseUp() {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      document.body.style.cursor = "";
+    }
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    document.body.style.cursor = cursor;
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: 7,
+      cursor: cursor,
+      zIndex: 100,
+      background: "transparent",
+      position: "relative"
+    },
+    onMouseDown: onMouseDown,
+    tabIndex: -1,
+    "aria-label": "Resize panel",
+    role: "separator"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: 3,
+      height: "100%",
+      margin: "0 auto",
+      background: "#232837",
+      borderRadius: 2
+    }
+  }));
+}
 function App() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(220),
     _useState2 = _slicedToArray(_useState, 2),
@@ -27377,6 +27398,38 @@ function App() {
     _useState4 = _slicedToArray(_useState3, 2),
     contextWidth = _useState4[0],
     setContextWidth = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    projects = _useState6[0],
+    setProjects = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    selectedProject = _useState8[0],
+    setSelectedProject = _useState8[1];
+
+  // Fetch projects on mount (simulate async)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Simulate fetch
+    setTimeout(function () {
+      setProjects([{
+        name: "Example Project"
+      }]);
+    }, 200);
+  }, []);
+
+  // Show WelcomePage if no project selected
+  if (!selectedProject) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      projects: projects,
+      onOpen: function onOpen(proj) {
+        return setSelectedProject(proj);
+      },
+      onNew: function onNew() {/* TODO: New project modal */},
+      onDelete: function onDelete(proj) {/* TODO: Delete project */}
+    });
+  }
+
+  // Main window if project selected
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       fontFamily: "sans-serif",
@@ -27385,7 +27438,11 @@ function App() {
       display: "flex",
       flexDirection: "column"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(CommandBar, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(CommandBar, {
+    onCloseProject: function onCloseProject() {
+      return setSelectedProject(null);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       flex: 1,
       display: "flex",
@@ -27494,6 +27551,252 @@ var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
+
+/***/ }),
+
+/***/ "./src/renderer/WelcomePage.jsx":
+/*!**************************************!*\
+  !*** ./src/renderer/WelcomePage.jsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ WelcomePage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+function WelcomePage(_ref) {
+  var projects = _ref.projects,
+    onOpen = _ref.onOpen,
+    onNew = _ref.onNew,
+    onDelete = _ref.onDelete;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    contextMenu = _useState2[0],
+    setContextMenu = _useState2[1]; // { x, y, project }
+  var menuRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function handleClick(e) {
+      if (contextMenu && menuRef.current && !menuRef.current.contains(e.target)) {
+        setContextMenu(null);
+      }
+    }
+    function handleEsc(e) {
+      if (e.key === "Escape") setContextMenu(null);
+    }
+    window.addEventListener("mousedown", handleClick);
+    window.addEventListener("keydown", handleEsc);
+    return function () {
+      window.removeEventListener("mousedown", handleClick);
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [contextMenu]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      minHeight: "100vh",
+      background: "linear-gradient(120deg, #232837 60%, #181c24 100%)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      background: "#232837",
+      borderRadius: 16,
+      boxShadow: "0 8px 32px #000a",
+      padding: "48px 40px",
+      minWidth: 420,
+      maxWidth: 600,
+      width: "40vw",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: "https://img.icons8.com/fluency/96/000000/artificial-intelligence.png",
+    alt: "SeekerAug",
+    style: {
+      marginBottom: 24,
+      filter: "brightness(0.8)"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+    style: {
+      color: "#7fd1b9",
+      margin: 0,
+      fontSize: 32,
+      fontWeight: 700
+    }
+  }, "Welcome to SeekerAug"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    style: {
+      color: "#b0bacf",
+      margin: "18px 0 32px 0",
+      textAlign: "center"
+    }
+  }, "Start by opening a project or creating a new one.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    style: {
+      color: "#7fd1b9"
+    }
+  }, "Tip:"), " Use ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("kbd", {
+    style: {
+      background: "#181c24",
+      color: "#7fd1b9",
+      borderRadius: 4,
+      padding: "2px 6px",
+      fontSize: 14,
+      margin: "0 2px"
+    }
+  }, "Ctrl+Shift+P"), " for the command palette."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: onNew,
+    style: {
+      background: "#7fd1b9",
+      color: "#181c24",
+      border: "none",
+      borderRadius: 6,
+      padding: "12px 32px",
+      fontWeight: "bold",
+      fontSize: 18,
+      marginBottom: 32,
+      cursor: "pointer",
+      boxShadow: "0 2px 8px #0002"
+    }
+  }, "+ New Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      width: "100%",
+      marginTop: 8
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+    style: {
+      color: "#b0bacf",
+      margin: "0 0 12px 0",
+      fontWeight: 500
+    }
+  }, "Recent Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    style: {
+      listStyle: "none",
+      padding: 0,
+      margin: 0
+    }
+  }, projects.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    style: {
+      color: "#7fd1b9",
+      padding: "12px 0"
+    }
+  }, "No projects found."), projects.map(function (proj) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      key: proj.name,
+      style: {
+        marginBottom: 8,
+        display: "flex",
+        alignItems: "center",
+        position: "relative"
+      },
+      onContextMenu: function onContextMenu(e) {
+        e.preventDefault();
+        setContextMenu({
+          x: e.clientX,
+          y: e.clientY,
+          project: proj
+        });
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return onOpen(proj);
+      },
+      style: {
+        background: "#181c24",
+        color: "#e0e6ef",
+        border: "1px solid #2e3647",
+        borderRadius: 6,
+        padding: "10px 18px",
+        width: "100%",
+        textAlign: "left",
+        fontSize: 16,
+        fontWeight: 500,
+        cursor: "pointer",
+        transition: "background 0.2s"
+      },
+      onMouseOver: function onMouseOver(e) {
+        return e.currentTarget.style.background = "#232837";
+      },
+      onMouseOut: function onMouseOut(e) {
+        return e.currentTarget.style.background = "#181c24";
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        color: "#7fd1b9",
+        fontWeight: 700
+      }
+    }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: {
+        color: "#b0bacf",
+        fontSize: 13,
+        marginLeft: 8
+      }
+    }, proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      title: "Delete",
+      style: {
+        background: "#232837",
+        color: "#b94a48",
+        border: "1px solid #b94a48",
+        borderRadius: 6,
+        marginLeft: 8,
+        padding: "4px 10px",
+        fontSize: 16,
+        cursor: "pointer"
+      },
+      onClick: function onClick(e) {
+        e.stopPropagation();
+        if (window.confirm("Delete project \"".concat(proj.name, "\"? This cannot be undone."))) {
+          onDelete(proj);
+        }
+      }
+    }, "\uD83D\uDDD1\uFE0F"));
+  }))), contextMenu && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    ref: menuRef,
+    style: {
+      position: "fixed",
+      left: contextMenu.x,
+      top: contextMenu.y,
+      background: "#232837",
+      border: "1.5px solid #2e3647",
+      borderRadius: 8,
+      boxShadow: "0 4px 16px #000a",
+      minWidth: 160,
+      zIndex: 9999
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#e0e6ef"
+    },
+    onClick: function onClick() {
+      onOpen(contextMenu.project);
+      setContextMenu(null);
+    }
+  }, "Open"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "12px 18px",
+      cursor: "pointer",
+      color: "#b94a48"
+    },
+    onClick: function onClick() {
+      if (window.confirm("Delete project \"".concat(contextMenu.project.name, "\"? This cannot be undone."))) {
+        onDelete(contextMenu.project);
+      }
+      setContextMenu(null);
+    }
+  }, "Delete"))));
+}
 
 /***/ })
 
