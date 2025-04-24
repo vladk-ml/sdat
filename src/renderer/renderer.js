@@ -28763,16 +28763,20 @@ var styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1000
+    zIndex: 1000,
+    backdropFilter: "blur(2px)" // Optional: Add a slight blur to the background
   },
   modalContent: {
     background: "var(--background-secondary)",
+    // Use secondary background for modal body
     padding: "24px",
     borderRadius: 8,
-    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)",
+    // Match contentBox shadow
     minWidth: 300,
     maxWidth: 500,
-    width: "80%"
+    width: "80%",
+    border: "1px solid var(--border-color)" // Add border for definition
   },
   modalHeader: {
     display: "flex",
@@ -28780,27 +28784,35 @@ var styles = {
     alignItems: "center",
     marginBottom: 16,
     borderBottom: "1px solid var(--border-color)",
-    paddingBottom: 8
+    paddingBottom: 12 // Increased padding
   },
   modalCloseButton: {
     background: "none",
     border: "none",
     fontSize: 24,
     color: "var(--foreground-secondary)",
-    cursor: "pointer"
+    // Use secondary text color
+    cursor: "pointer",
+    padding: "0 4px",
+    // Add some padding for easier clicking
+    lineHeight: 1
   },
   modalBody: {
-    // Styles for modal body content if needed
+    color: "var(--foreground-primary)" // Ensure body text uses primary color
   },
   confirmInput: {
     width: "100%",
-    padding: "8px 12px",
+    padding: "10px 12px",
+    // Increased padding
     marginBottom: 16,
     borderRadius: 4,
     border: "1px solid var(--border-color)",
-    background: "var(--background-tertiary)",
+    background: "var(--background-input)",
+    // Use specific input background if available, else tertiary
     color: "var(--foreground-primary)",
-    boxSizing: "border-box"
+    // Ensure text is primary color
+    boxSizing: "border-box",
+    fontSize: "14px" // Ensure font size is readable
   },
   modalActions: {
     display: "flex",
