@@ -278,23 +278,24 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
               {recentProjects.map((proj) => (
                 <li
                   key={proj.name}
-                  style={styles.listItem}
+                  style={{
+                    ...styles.listItem,
+                    cursor: "pointer"
+                  }}
+                  onClick={() => handleOpenProject(proj)}
                   onContextMenu={(e) => handleContextMenu(e, proj, false)}
+                  title={`Open ${proj.name}`}
                 >
                   <div style={styles.listItemContent}>
                     <span
-                      onClick={() => handleOpenProject(proj)}
                       style={styles.projectName}
-                      title={`Open ${proj.name}`}
                     >
                       {proj.name}
                     </span>
-                    <span style={styles.projectPath} title={proj.path}>
-                      {/* Simple path shortening */}
+                    <span style={styles.projectPath}>
                       {proj.path.length > 40 ? `...${proj.path.slice(-37)}` : proj.path}
                     </span>
                   </div>
-                  {/* Removed inline action buttons */}
                 </li>
               ))}
             </ul>
@@ -316,20 +317,23 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
                     {archivedProjects.map((proj) => (
                       <li
                         key={proj.name}
-                        style={styles.listItem}
+                        style={{
+                          ...styles.listItem,
+                          opacity: 0.7,
+                          cursor: "pointer"
+                        }}
+                        onClick={() => handleOpenProject(proj)}
                         onContextMenu={(e) => handleContextMenu(e, proj, true)}
+                        title={`Open ${proj.name}`}
                       >
                         <div style={styles.listItemContent}>
-                           {/* Apply dimmed style directly */}
-                          <span style={{ ...styles.projectName, opacity: 0.7 }}>
+                          <span style={styles.projectName}>
                             {proj.name}
                           </span>
-                          <span style={{ ...styles.projectPath, opacity: 0.7 }}>
-                             {/* Simple path shortening */}
+                          <span style={styles.projectPath}>
                             {proj.path.length > 40 ? `...${proj.path.slice(-37)}` : proj.path}
                           </span>
                         </div>
-                         {/* Removed inline action buttons */}
                       </li>
                     ))}
                   </ul>
@@ -664,7 +668,7 @@ const styles = {
     backdropFilter: "blur(2px)", // Optional: Add a slight blur to the background
   },
   modalContent: {
-    background: "var(--background-secondary)", // Use secondary background for modal body
+    background: "var(--background-secondary, #252526)", // Use theme background for modal body
     padding: "24px",
     borderRadius: 8,
     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)", // Match contentBox shadow

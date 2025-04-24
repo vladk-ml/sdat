@@ -28566,21 +28566,22 @@ function WelcomePage(_ref2) {
   }, "No recent projects found."), recentProjects.map(function (proj) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: proj.name,
-      style: styles.listItem,
-      onContextMenu: function onContextMenu(e) {
-        return handleContextMenu(e, proj, false);
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: styles.listItemContent
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: _objectSpread(_objectSpread({}, styles.listItem), {}, {
+        cursor: "pointer"
+      }),
       onClick: function onClick() {
         return handleOpenProject(proj);
       },
-      style: styles.projectName,
+      onContextMenu: function onContextMenu(e) {
+        return handleContextMenu(e, proj, false);
+      },
       title: "Open ".concat(proj.name)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: styles.listItemContent
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: styles.projectName
     }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      style: styles.projectPath,
-      title: proj.path
+      style: styles.projectPath
     }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)));
   })), (archivedProjects.length > 0 || showArchived) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
@@ -28600,20 +28601,23 @@ function WelcomePage(_ref2) {
   }, "No archived projects."), archivedProjects.map(function (proj) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: proj.name,
-      style: styles.listItem,
+      style: _objectSpread(_objectSpread({}, styles.listItem), {}, {
+        opacity: 0.7,
+        cursor: "pointer"
+      }),
+      onClick: function onClick() {
+        return handleOpenProject(proj);
+      },
       onContextMenu: function onContextMenu(e) {
         return handleContextMenu(e, proj, true);
-      }
+      },
+      title: "Open ".concat(proj.name)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       style: styles.listItemContent
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      style: _objectSpread(_objectSpread({}, styles.projectName), {}, {
-        opacity: 0.7
-      })
+      style: styles.projectName
     }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      style: _objectSpread(_objectSpread({}, styles.projectPath), {}, {
-        opacity: 0.7
-      })
+      style: styles.projectPath
     }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)));
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: styles.footerLinks
@@ -28969,8 +28973,8 @@ var styles = {
     backdropFilter: "blur(2px)" // Optional: Add a slight blur to the background
   },
   modalContent: {
-    background: "var(--background-secondary)",
-    // Use secondary background for modal body
+    background: "var(--background-secondary, #252526)",
+    // Use theme background for modal body
     padding: "24px",
     borderRadius: 8,
     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)",
