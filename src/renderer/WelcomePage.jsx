@@ -741,7 +741,7 @@ if (typeof document !== 'undefined' && !document.getElementById('context-menu-gl
   style.innerHTML = `
     .context-menu-class {
       position: fixed;
-      background: var(--background-secondary, #23272e);
+      background: var(--background-secondary, #252526);
       border: 1px solid var(--border-color, #3a3f4b);
       border-radius: 6px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
