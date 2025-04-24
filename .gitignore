@@ -7,3 +7,5 @@ venv/
 env/
 .DS_Store
 src/renderer/renderer.js.map
+src/renderer/renderer.js.map
+src/renderer/renderer.js
