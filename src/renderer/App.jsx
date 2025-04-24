@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import WelcomePage from "./WelcomePage.jsx";
 import ProjectDashboard from "./ProjectDashboard.jsx";
 import { loadAndApplyTheme } from "./themeLoader.js";
-import { listProjects, createProject, deleteProject } from "./projectApi.js";
+import { listProjects, createProject, deleteProject, importProjectImages, listProjectImages } from "./projectApi";
 
 function CommandBar({ onOpenPalette, onCloseProject, showClose }) {
   return (
@@ -318,20 +318,24 @@ function App() {
     setShowWelcome(true);
   }
 
-  // Image import logic (simulate in-memory for now)
-  function handleImportImages(files) {
+  // Image import logic (now persistent)
+  async function handleImportImages(files) {
     if (!currentProject) return;
-    const images = Array.from(files).map(file => ({
-      id: `${file.name}-${file.size}-${file.lastModified}`,
-      name: file.name,
-      size: file.size,
-      type: file.type,
-      url: URL.createObjectURL(file)
-    }));
-    setProjectImages(prev => ({
-      ...prev,
-      [currentProject.name]: [...(prev[currentProject.name] || []), ...images]
-    }));
+    setLoading(true);
+    setError(null);
+    try {
+      await importProjectImages(currentProject.name, files);
+      // After upload, fetch the updated image list
+      const result = await listProjectImages(currentProject.name);
+      setProjectImages(prev => ({
+        ...prev,
+        [currentProject.name]: result.images || []
+      }));
+    } catch (err) {
+      setError(err.message || "Failed to import images");
+    } finally {
+      setLoading(false);
+    }
   }
 
   // Project creation modal component

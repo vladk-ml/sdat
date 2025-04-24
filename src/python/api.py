@@ -25,26 +25,42 @@ def create_project():
         return jsonify({"error": str(e)}), 500
 
 from dataset.importer import DatasetImporter
+from werkzeug.utils import secure_filename
 
 @app.route("/dataset/import", methods=["POST"])
 def import_dataset():
-    data = request.json
-    project_name = data.get("project_name")
-    image_paths = data.get("image_paths")
-    if not project_name or not image_paths:
-        return jsonify({"error": "Missing project_name or image_paths"}), 400
+    # Accept multipart/form-data: project_name (str), files[] (file list)
+    if 'project_name' not in request.form:
+        return jsonify({"error": "Missing project_name"}), 400
+    project_name = request.form['project_name']
+    files = request.files.getlist('files[]')
+    if not files:
+        return jsonify({"error": "No files uploaded"}), 400
     try:
-        # Resolve project path
         project_path = project_manager.base_dir / project_name
         if not project_path.exists():
             return jsonify({"error": "Project does not exist"}), 404
+        # Save uploaded files to temp paths
+        temp_paths = []
+        for file in files:
+            filename = secure_filename(file.filename)
+            temp_path = project_path / "_import_temp_" / filename
+            temp_path.parent.mkdir(parents=True, exist_ok=True)
+            file.save(str(temp_path))
+            temp_paths.append(str(temp_path))
+        # Import images using DatasetImporter
         importer = DatasetImporter(project_path)
-        imported = importer.import_images(image_paths)
+        imported = importer.import_images(temp_paths)
+        # Clean up temp files
+        for p in temp_paths:
+            try:
+                os.remove(p)
+            except Exception:
+                pass
         return jsonify({"status": "success", "imported": imported})
     except Exception as e:
         import traceback
         print("Error in /dataset/import:", e)
-        print("Received image_paths:", image_paths)
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 

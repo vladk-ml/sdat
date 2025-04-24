@@ -110,3 +110,33 @@ export async function openProjectLocation(name) {
   await handleResponse(res, 'open project location');
   return true;
 }
+
+export async function importProjectImages(projectName, files) {
+  const formData = new FormData();
+  formData.append('project_name', projectName);
+  for (const file of files) {
+    formData.append('files[]', file);
+  }
+  const res = await fetch(`${API_BASE}/dataset/import`, {
+    method: 'POST',
+    body: formData,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to import images');
+  }
+  return res.json();
+}
+
+export async function listProjectImages(projectName) {
+  const res = await fetch(`${API_BASE}/dataset/list`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ project_name: projectName }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to list images');
+  }
+  return res.json();
+}
