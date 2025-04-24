@@ -67,16 +67,40 @@ def list_images():
         return jsonify({"error": str(e)}), 500
 
 from dataset.project_listing import ProjectListing
+from dataset.project_ops import ProjectOps # Moved import up
+
+project_ops = ProjectOps() # Instantiate ProjectOps
 
 @app.route("/projects/list", methods=["GET"])
 def list_projects():
     try:
-        projects = ProjectListing().list_projects()
+        # Extract query parameters with defaults
+        archived_param = request.args.get('archived')
+        limit = request.args.get('limit', type=int)
+        sort_by = request.args.get('sort_by', 'last_accessed')
+        sort_desc_param = request.args.get('sort_desc', 'true').lower()
+
+        # Convert archived param to boolean or None
+        archived = None
+        if archived_param == 'true':
+            archived = True
+        elif archived_param == 'false':
+            archived = False
+
+        # Convert sort_desc param to boolean
+        sort_desc = sort_desc_param == 'true'
+
+        projects = ProjectListing().list_projects(
+            archived=archived,
+            limit=limit,
+            sort_by=sort_by,
+            sort_desc=sort_desc
+        )
         return jsonify({"status": "success", "projects": projects})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-from dataset.project_ops import ProjectOps
+# Removed duplicate import of ProjectOps below
 
 @app.route("/project/rename", methods=["POST"])
 def rename_project():
@@ -91,17 +115,73 @@ def rename_project():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/project/delete", methods=["POST"])
+@app.route("/project/delete", methods=["POST"]) # Changed to DELETE method, using URL param
 def delete_project():
-    data = request.json
-    name = data.get("name")
-    if not name:
-        return jsonify({"error": "Missing name"}), 400
+    data = request.json # Keep JSON body for potential future needs, but name is from URL
+    name = data.get("name") # Keep for compatibility if frontend sends it
+    # name_from_url = request.view_args.get('name') # Correct way if using <name> in route
+    # project_name = name_from_url or name # Prioritize URL param
+
+    if not name: # Check the name from JSON body for now
+        return jsonify({"error": "Missing project name"}), 400
     try:
-        ProjectOps().delete_project(name)
+        project_ops.delete_project(name) # Use instantiated project_ops
         return jsonify({"status": "success"})
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# --- New Project Operations Endpoints ---
+
+@app.route("/project/<name>/accessed", methods=["PUT"])
+def mark_project_accessed(name):
+    """Updates the last_accessed timestamp for a project."""
+    try:
+        timestamp = project_ops.update_last_accessed(name)
+        return jsonify({"status": "success", "last_accessed": timestamp})
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/project/<name>/archive", methods=["PUT"])
+def archive_project(name):
+    """Marks a project as archived."""
+    try:
+        project_ops.set_archived_status(name, is_archived=True)
+        return jsonify({"status": "success", "is_archived": True})
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/project/<name>/restore", methods=["PUT"])
+def restore_project(name):
+    """Marks a project as not archived (restores it)."""
+    try:
+        project_ops.set_archived_status(name, is_archived=False)
+        return jsonify({"status": "success", "is_archived": False})
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/project/<name>/open_location", methods=["POST"])
+def open_project_location(name):
+    """Opens the project's directory in the system file explorer."""
+    try:
+        project_ops.open_project_location(name)
+        return jsonify({"status": "success"})
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 404
+    except RuntimeError as e: # Catch specific error from open_project_location
+        return jsonify({"error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# --- End New Project Operations Endpoints ---
+
 
 from dataset.image_ops import ImageOps
 

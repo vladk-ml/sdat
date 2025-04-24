@@ -28094,6 +28094,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _projectApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./projectApi */ "./src/renderer/projectApi.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -28101,90 +28111,295 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
+ // Assuming projectApi.js is in the same directory
 
-// VS Code-inspired Welcome Page with theme variables and polish
-function WelcomePage(_ref) {
-  var projects = _ref.projects,
-    onOpen = _ref.onOpen,
-    onNew = _ref.onNew,
-    onDelete = _ref.onDelete;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState2 = _slicedToArray(_useState, 2),
-    contextMenu = _useState2[0],
-    setContextMenu = _useState2[1]; // { x, y, project }
-  var menuRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    function handleClick(e) {
-      if (contextMenu && menuRef.current && !menuRef.current.contains(e.target)) {
-        setContextMenu(null);
-      }
-    }
-    function handleEsc(e) {
-      if (e.key === "Escape") setContextMenu(null);
-    }
-    window.addEventListener("mousedown", handleClick);
-    window.addEventListener("keydown", handleEsc);
-    return function () {
-      window.removeEventListener("mousedown", handleClick);
-      window.removeEventListener("keydown", handleEsc);
-    };
-  }, [contextMenu]);
+// --- Helper Components ---
+
+// Simple Modal Component
+function Modal(_ref) {
+  var isOpen = _ref.isOpen,
+    onClose = _ref.onClose,
+    title = _ref.title,
+    children = _ref.children;
+  if (!isOpen) return null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      minHeight: "100vh",
-      background: "var(--background-primary)",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center"
-    }
+    style: styles.modalOverlay
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      background: "var(--background-secondary)",
-      borderRadius: 12,
-      boxShadow: "0 8px 32px #000a",
-      padding: "48px 40px",
-      minWidth: 420,
-      maxWidth: 600,
-      width: "40vw",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      opacity: 1,
-      boxSizing: "border-box"
-    }
+    style: styles.modalContent
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.modalHeader
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     style: {
-      marginBottom: 24,
-      width: 64,
-      height: 64,
-      borderRadius: 12,
-      background: "var(--accent-primary)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
+      margin: 0,
+      color: "var(--foreground-primary)"
     }
+  }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: onClose,
+    style: styles.modalCloseButton
+  }, "\xD7")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.modalBody
+  }, children)));
+}
+
+// --- Main Component ---
+
+function WelcomePage(_ref2) {
+  var onOpenProp = _ref2.onOpen,
+    onNew = _ref2.onNew;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    recentProjects = _useState2[0],
+    setRecentProjects = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    archivedProjects = _useState4[0],
+    setArchivedProjects = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    showArchived = _useState6[0],
+    setShowArchived = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState8 = _slicedToArray(_useState7, 2),
+    loading = _useState8[0],
+    setLoading = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState9, 2),
+    error = _useState10[0],
+    setError = _useState10[1];
+
+  // Delete confirmation state
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    showDeleteConfirm = _useState12[0],
+    setShowDeleteConfirm = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState14 = _slicedToArray(_useState13, 2),
+    projectToDelete = _useState14[0],
+    setProjectToDelete = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState16 = _slicedToArray(_useState15, 2),
+    deleteConfirmInput = _useState16[0],
+    setDeleteConfirmInput = _useState16[1];
+  var reloadData = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _yield$Promise$all, _yield$Promise$all2, recent, archived;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            setLoading(true);
+            setError(null);
+            _context.prev = 2;
+            _context.next = 5;
+            return Promise.all([(0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.getRecentProjects)(5),
+            // Fetch top 5 recent
+            (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.getArchivedProjects)()]);
+          case 5:
+            _yield$Promise$all = _context.sent;
+            _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+            recent = _yield$Promise$all2[0];
+            archived = _yield$Promise$all2[1];
+            setRecentProjects(recent);
+            setArchivedProjects(archived);
+            _context.next = 17;
+            break;
+          case 13:
+            _context.prev = 13;
+            _context.t0 = _context["catch"](2);
+            console.error("Failed to load projects:", _context.t0);
+            setError(_context.t0.message || "Failed to load projects.");
+          case 17:
+            _context.prev = 17;
+            setLoading(false);
+            return _context.finish(17);
+          case 20:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee, null, [[2, 13, 17, 20]]);
+    }));
+    return function reloadData() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    reloadData();
+  }, []); // Load on mount
+
+  // --- Action Handlers ---
+
+  var handleOpenProject = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(project) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.markProjectAccessed)(project.name);
+          case 3:
+            // Mark accessed first
+            onOpenProp(project); // Then call the original open handler
+            _context2.next = 10;
+            break;
+          case 6:
+            _context2.prev = 6;
+            _context2.t0 = _context2["catch"](0);
+            console.error("Failed to mark project accessed:", _context2.t0);
+            // Optionally show an error, but still try to open
+            onOpenProp(project);
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2, null, [[0, 6]]);
+    }));
+    return function handleOpenProject(_x) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  var handleArchive = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(project) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.archiveProject)(project.name);
+          case 3:
+            reloadData(); // Refresh lists
+            _context3.next = 10;
+            break;
+          case 6:
+            _context3.prev = 6;
+            _context3.t0 = _context3["catch"](0);
+            console.error("Failed to archive project:", _context3.t0);
+            setError(_context3.t0.message || "Failed to archive project.");
+          case 10:
+          case "end":
+            return _context3.stop();
+        }
+      }, _callee3, null, [[0, 6]]);
+    }));
+    return function handleArchive(_x2) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+  var handleRestore = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(project) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.restoreProject)(project.name);
+          case 3:
+            reloadData(); // Refresh lists
+            _context4.next = 10;
+            break;
+          case 6:
+            _context4.prev = 6;
+            _context4.t0 = _context4["catch"](0);
+            console.error("Failed to restore project:", _context4.t0);
+            setError(_context4.t0.message || "Failed to restore project.");
+          case 10:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4, null, [[0, 6]]);
+    }));
+    return function handleRestore(_x3) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+  var handleOpenLocation = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(project) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            _context5.next = 3;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.openProjectLocation)(project.name);
+          case 3:
+            _context5.next = 9;
+            break;
+          case 5:
+            _context5.prev = 5;
+            _context5.t0 = _context5["catch"](0);
+            console.error("Failed to open project location:", _context5.t0);
+            setError(_context5.t0.message || "Failed to open project location.");
+          case 9:
+          case "end":
+            return _context5.stop();
+        }
+      }, _callee5, null, [[0, 5]]);
+    }));
+    return function handleOpenLocation(_x4) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+  var handleShowDeleteConfirm = function handleShowDeleteConfirm(project) {
+    setProjectToDelete(project);
+    setDeleteConfirmInput(""); // Clear input
+    setShowDeleteConfirm(true);
+  };
+  var handleCancelDelete = function handleCancelDelete() {
+    setShowDeleteConfirm(false);
+    setProjectToDelete(null);
+    setDeleteConfirmInput("");
+  };
+  var handleConfirmDelete = /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
+          case 0:
+            if (!(!projectToDelete || deleteConfirmInput !== projectToDelete.name)) {
+              _context6.next = 2;
+              break;
+            }
+            return _context6.abrupt("return");
+          case 2:
+            _context6.prev = 2;
+            _context6.next = 5;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.deleteProject)(projectToDelete.name);
+          case 5:
+            handleCancelDelete(); // Close modal
+            reloadData(); // Refresh lists
+            _context6.next = 14;
+            break;
+          case 9:
+            _context6.prev = 9;
+            _context6.t0 = _context6["catch"](2);
+            console.error("Failed to delete project:", _context6.t0);
+            setError(_context6.t0.message || "Failed to delete project.");
+            // Keep modal open on error? Or close? Closing for now.
+            handleCancelDelete();
+          case 14:
+          case "end":
+            return _context6.stop();
+        }
+      }, _callee6, null, [[2, 9]]);
+    }));
+    return function handleConfirmDelete() {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+
+  // --- Render ---
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.pageContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.contentBox
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.logoContainer
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     style: {
       fontSize: 36,
       color: "white"
     }
   }, "\uD83E\uDDE0")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
-    style: {
-      color: "var(--accent-primary)",
-      margin: 0,
-      fontSize: 28,
-      fontWeight: 700,
-      fontFamily: "'Segoe UI', system-ui, sans-serif"
-    }
+    style: styles.title
   }, "Welcome to SeekerAug"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
-    style: {
-      color: "var(--foreground-primary)",
-      margin: "18px 0 32px 0",
-      textAlign: "center",
-      fontSize: 14,
-      fontWeight: 400
-    }
+    style: styles.subtitle
   }, "Start by opening a project or creating a new one.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     style: {
       color: "var(--accent-primary)",
@@ -28195,192 +28410,440 @@ function WelcomePage(_ref) {
       color: "var(--foreground-primary)"
     }
   }, "Use ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("kbd", {
-    style: {
-      background: "var(--background-tertiary)",
-      color: "var(--foreground-primary)",
-      borderRadius: 4,
-      padding: "2px 6px",
-      fontSize: 13,
-      margin: "0 2px",
-      border: "1px solid var(--border-color)"
-    }
+    style: styles.kbd
   }, "Ctrl+Shift+P"), " for the command palette.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     onClick: onNew,
-    className: "button primary",
+    style: styles.newProjectButton
+  }, "+ New Project"), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
-      background: "var(--accent-primary)",
-      color: "white",
-      border: "none",
-      borderRadius: 6,
-      padding: "12px 32px",
-      fontWeight: 600,
-      fontSize: 16,
-      marginBottom: 32,
-      cursor: "pointer",
-      boxShadow: "0 2px 8px #0002",
-      fontFamily: "'Segoe UI', system-ui, sans-serif"
+      color: "var(--foreground-secondary)"
     }
-  }, "+ New Project"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, "Loading projects..."), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
-      width: "100%",
-      marginTop: 8
+      color: "var(--error-color)",
+      fontWeight: 500
     }
+  }, "Error: ", error), !loading && !error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.listContainer
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
-    style: {
-      color: "var(--foreground-primary)",
-      margin: "0 0 12px 0",
-      fontWeight: 500,
-      fontSize: 15,
-      fontFamily: "'Segoe UI', system-ui, sans-serif"
-    }
+    style: styles.listTitle
   }, "Recent Projects"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
-    style: {
-      listStyle: "none",
-      padding: 0,
-      margin: 0
-    }
-  }, (!projects || projects.length === 0) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-    style: {
-      color: "var(--accent-primary)",
-      padding: "12px 0",
-      fontSize: 14
-    }
-  }, "No projects found."), projects && projects.map(function (proj) {
+    style: styles.list
+  }, recentProjects.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    style: styles.noProjects
+  }, "No recent projects found."), recentProjects.map(function (proj) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: proj.name,
-      style: {
-        marginBottom: 8,
-        display: "flex",
-        alignItems: "center",
-        position: "relative"
+      style: styles.listItem
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: styles.listItemContent
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      onClick: function onClick() {
+        return handleOpenProject(proj);
       },
-      onContextMenu: function onContextMenu(e) {
-        e.preventDefault();
-        setContextMenu({
-          x: e.clientX,
-          y: e.clientY,
-          project: proj
-        });
-      }
+      style: styles.projectName,
+      title: "Open ".concat(proj.name)
+    }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      style: styles.projectPath,
+      title: proj.path
+    }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: styles.listItemActions
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       onClick: function onClick() {
-        return onOpen(proj);
+        return handleOpenLocation(proj);
       },
-      style: {
-        background: "var(--background-tertiary)",
-        color: "var(--foreground-primary)",
-        border: "1px solid var(--border-color)",
-        borderRadius: 6,
-        padding: "10px 18px",
-        width: "100%",
-        textAlign: "left",
-        fontSize: 15,
-        fontWeight: 500,
-        cursor: "pointer",
-        fontFamily: "'Segoe UI', system-ui, sans-serif",
-        transition: "background 0.2s"
+      style: styles.actionButton,
+      title: "Open Folder Location"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(FolderIcon, null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return handleArchive(proj);
       },
-      onMouseOver: function onMouseOver(e) {
-        return e.currentTarget.style.background = "var(--hover-color)";
-      },
-      onMouseOut: function onMouseOut(e) {
-        return e.currentTarget.style.background = "var(--background-tertiary)";
-      }
+      style: styles.actionButton,
+      title: "Remove from Recent List (Archive)"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ArchiveIcon, null), " ")));
+  })), (archivedProjects.length > 0 || showArchived) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      marginTop: 16
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: function onClick() {
+      return setShowArchived(!showArchived);
+    },
+    style: styles.moreButton
+  }, showArchived ? "Hide" : "Show", " Archived Projects (", archivedProjects.length, ")"), showArchived && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    style: _objectSpread(_objectSpread({}, styles.list), {}, {
+      marginTop: 8
+    })
+  }, archivedProjects.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    style: styles.noProjects
+  }, "No archived projects."), archivedProjects.map(function (proj) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      key: proj.name,
+      style: styles.listItem
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: styles.listItemContent
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      style: {
-        color: "var(--accent-primary)",
-        fontWeight: 700,
-        fontSize: 15
-      }
+      style: _objectSpread(_objectSpread({}, styles.projectName), {}, {
+        opacity: 0.7
+      })
     }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      style: {
-        color: "var(--foreground-secondary)",
-        fontSize: 13,
-        marginLeft: 8
-      }
-    }, proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      title: "Delete",
-      style: {
-        background: "var(--background-secondary)",
-        color: "#b94a48",
-        border: "1px solid #b94a48",
-        borderRadius: 6,
-        marginLeft: 8,
-        padding: "4px 10px",
-        fontSize: 16,
-        cursor: "pointer"
+      style: _objectSpread(_objectSpread({}, styles.projectPath), {}, {
+        opacity: 0.7
+      })
+    }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: styles.listItemActions
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return handleRestore(proj);
       },
-      onClick: function onClick(e) {
-        e.stopPropagation();
-        if (window.confirm("Delete project \"".concat(proj.name, "\"? This cannot be undone."))) {
-          onDelete(proj);
-        }
-      }
-    }, "\uD83D\uDDD1\uFE0F"));
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      marginTop: 32,
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between"
-    }
+      style: styles.actionButton,
+      title: "Restore to Recent List"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RestoreIcon, null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return handleShowDeleteConfirm(proj);
+      },
+      style: _objectSpread(_objectSpread({}, styles.actionButton), {}, {
+        color: "var(--error-color)"
+      }),
+      title: "Delete Permanently"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(DeleteIcon, null), " ")));
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.footerLinks
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-    href: "https://github.com/your-org/seekeraug",
-    target: "_blank",
-    rel: "noopener noreferrer",
+    href: "#",
+    style: styles.link
+  }, "Documentation"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    href: "#",
+    style: styles.link
+  }, "Support"), " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Modal, {
+    isOpen: showDeleteConfirm,
+    onClose: handleCancelDelete,
+    title: "Delete Project \"".concat(projectToDelete === null || projectToDelete === void 0 ? void 0 : projectToDelete.name, "\"?")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     style: {
-      color: "var(--accent-primary)",
-      textDecoration: "none",
-      fontSize: 13,
-      fontWeight: 500
+      color: "var(--foreground-secondary)",
+      marginBottom: 16
     }
-  }, "Documentation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-    href: "https://your-org.com/support",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    style: {
-      color: "var(--accent-primary)",
-      textDecoration: "none",
-      fontSize: 13,
-      fontWeight: 500
-    }
-  }, "Support")), contextMenu && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    ref: menuRef,
-    style: {
-      position: "fixed",
-      left: contextMenu.x,
-      top: contextMenu.y,
-      background: "var(--background-secondary)",
-      border: "1.5px solid var(--border-color)",
-      borderRadius: 8,
-      boxShadow: "0 4px 16px #000a",
-      minWidth: 160,
-      zIndex: 9999
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      padding: "12px 18px",
-      cursor: "pointer",
-      color: "var(--foreground-primary)"
+  }, "This action cannot be undone. All project data will be permanently removed. To confirm, please type the project name below:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    value: deleteConfirmInput,
+    onChange: function onChange(e) {
+      return setDeleteConfirmInput(e.target.value);
     },
-    onClick: function onClick() {
-      onOpen(contextMenu.project);
-      setContextMenu(null);
-    }
-  }, "Open"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: {
-      padding: "12px 18px",
-      cursor: "pointer",
-      color: "#b94a48"
-    },
-    onClick: function onClick() {
-      if (window.confirm("Delete project \"".concat(contextMenu.project.name, "\"? This cannot be undone."))) {
-        onDelete(contextMenu.project);
-      }
-      setContextMenu(null);
-    }
-  }, "Delete"))));
+    placeholder: projectToDelete === null || projectToDelete === void 0 ? void 0 : projectToDelete.name,
+    style: styles.confirmInput
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.modalActions
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleCancelDelete,
+    style: styles.modalButton
+  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleConfirmDelete,
+    disabled: deleteConfirmInput !== (projectToDelete === null || projectToDelete === void 0 ? void 0 : projectToDelete.name),
+    style: _objectSpread(_objectSpread({}, styles.modalButton), deleteConfirmInput === (projectToDelete === null || projectToDelete === void 0 ? void 0 : projectToDelete.name) ? styles.modalButtonConfirm : styles.modalButtonDisabled)
+  }, "Delete Permanently"))));
 }
+
+// --- Placeholder Icons ---
+// Replace these with actual SVG icons or an icon library (e.g., Material UI Icons)
+var FolderIcon = function FolderIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " F ");
+};
+var ArchiveIcon = function ArchiveIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " A ");
+};
+var RestoreIcon = function RestoreIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " R ");
+};
+var DeleteIcon = function DeleteIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " D ");
+};
+
+// --- Styles ---
+// Using JS objects for simplicity, consider CSS Modules or styled-components
+var styles = {
+  pageContainer: {
+    minHeight: "100vh",
+    background: "var(--background-primary)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "20px",
+    // Added padding
+    boxSizing: "border-box"
+  },
+  contentBox: {
+    background: "var(--background-secondary)",
+    borderRadius: 12,
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)",
+    // Adjusted shadow
+    padding: "48px 40px",
+    minWidth: 420,
+    maxWidth: 600,
+    width: "90%",
+    // More responsive width
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    boxSizing: "border-box"
+  },
+  logoContainer: {
+    marginBottom: 24,
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    background: "var(--accent-primary)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  title: {
+    color: "var(--accent-primary)",
+    margin: 0,
+    fontSize: 28,
+    fontWeight: 700,
+    fontFamily: "'Segoe UI', system-ui, sans-serif"
+  },
+  subtitle: {
+    color: "var(--foreground-primary)",
+    margin: "18px 0 32px 0",
+    textAlign: "center",
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: 1.5 // Added line height
+  },
+  kbd: {
+    background: "var(--background-tertiary)",
+    color: "var(--foreground-primary)",
+    borderRadius: 4,
+    padding: "2px 6px",
+    fontSize: 13,
+    margin: "0 2px",
+    border: "1px solid var(--border-color)"
+  },
+  newProjectButton: {
+    background: "var(--accent-primary)",
+    color: "white",
+    border: "none",
+    borderRadius: 6,
+    padding: "12px 32px",
+    fontWeight: 600,
+    fontSize: 16,
+    marginBottom: 32,
+    cursor: "pointer",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+    // Adjusted shadow
+    fontFamily: "'Segoe UI', system-ui, sans-serif",
+    transition: "background 0.2s"
+  },
+  listContainer: {
+    width: "100%",
+    marginTop: 8
+  },
+  listTitle: {
+    color: "var(--foreground-primary)",
+    margin: "0 0 12px 0",
+    fontWeight: 500,
+    fontSize: 15,
+    fontFamily: "'Segoe UI', system-ui, sans-serif"
+  },
+  list: {
+    listStyle: "none",
+    padding: 0,
+    margin: 0
+  },
+  noProjects: {
+    color: "var(--foreground-secondary)",
+    // Changed color
+    padding: "12px 0",
+    fontSize: 14,
+    textAlign: "center" // Centered text
+  },
+  listItem: {
+    marginBottom: 6,
+    // Reduced margin
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    // Space between content and actions
+    background: "var(--background-tertiary)",
+    borderRadius: 6,
+    padding: "8px 12px",
+    // Adjusted padding
+    border: "1px solid var(--border-color)",
+    transition: "background 0.2s",
+    cursor: "default" // Default cursor for the li itself
+  },
+  listItemContent: {
+    display: "flex",
+    flexDirection: "column",
+    // Stack name and path
+    flexGrow: 1,
+    marginRight: 8,
+    // Space before actions
+    overflow: "hidden" // Prevent overflow
+  },
+  projectName: {
+    color: "var(--foreground-primary)",
+    // Changed color
+    fontWeight: 600,
+    // Adjusted weight
+    fontSize: 15,
+    cursor: "pointer",
+    // Cursor only on the name
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "block",
+    // Ensure ellipsis works
+    marginBottom: 2 // Space between name and path
+  },
+  projectPath: {
+    color: "var(--foreground-secondary)",
+    fontSize: 12,
+    // Smaller font size
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "block" // Ensure ellipsis works
+  },
+  listItemActions: {
+    display: "flex",
+    alignItems: "center",
+    flexShrink: 0 // Prevent actions from shrinking
+  },
+  actionButton: {
+    background: "none",
+    border: "none",
+    color: "var(--foreground-secondary)",
+    padding: "4px",
+    marginLeft: 4,
+    // Space between buttons
+    cursor: "pointer",
+    fontSize: 16,
+    // Adjust as needed for icons
+    lineHeight: 1,
+    display: "flex",
+    // Center icon
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 4,
+    transition: "background 0.2s, color 0.2s"
+  },
+  moreButton: {
+    background: "none",
+    border: "none",
+    color: "var(--accent-primary)",
+    padding: "4px 0",
+    cursor: "pointer",
+    fontSize: 13,
+    fontWeight: 500
+  },
+  footerLinks: {
+    marginTop: 32,
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  link: {
+    color: "var(--accent-primary)",
+    textDecoration: "none",
+    fontSize: 13,
+    fontWeight: 500
+  },
+  // Modal Styles
+  modalOverlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0, 0, 0, 0.7)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1000
+  },
+  modalContent: {
+    background: "var(--background-secondary)",
+    padding: "24px",
+    borderRadius: 8,
+    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
+    minWidth: 300,
+    maxWidth: 500,
+    width: "80%"
+  },
+  modalHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+    borderBottom: "1px solid var(--border-color)",
+    paddingBottom: 8
+  },
+  modalCloseButton: {
+    background: "none",
+    border: "none",
+    fontSize: 24,
+    color: "var(--foreground-secondary)",
+    cursor: "pointer"
+  },
+  modalBody: {
+    // Styles for modal body content if needed
+  },
+  confirmInput: {
+    width: "100%",
+    padding: "8px 12px",
+    marginBottom: 16,
+    borderRadius: 4,
+    border: "1px solid var(--border-color)",
+    background: "var(--background-tertiary)",
+    color: "var(--foreground-primary)",
+    boxSizing: "border-box"
+  },
+  modalActions: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: 20
+  },
+  modalButton: {
+    padding: "8px 16px",
+    marginLeft: 8,
+    borderRadius: 4,
+    border: "1px solid var(--border-color)",
+    background: "var(--background-tertiary)",
+    color: "var(--foreground-primary)",
+    cursor: "pointer"
+  },
+  modalButtonConfirm: {
+    background: "var(--error-color)",
+    color: "white",
+    borderColor: "var(--error-color)"
+  },
+  modalButtonDisabled: {
+    opacity: 0.5,
+    cursor: "not-allowed"
+  }
+};
+
+// Add hover effects dynamically if needed, or use CSS classes
+styles.newProjectButton[':hover'] = {
+  background: "var(--accent-primary-dark)"
+}; // Example
+styles.actionButton[':hover'] = {
+  background: "var(--hover-color)",
+  color: "var(--foreground-primary)"
+};
+styles.moreButton[':hover'] = {
+  textDecoration: "underline"
+};
+styles.modalButton[':hover'] = {
+  background: "var(--hover-color)"
+};
+styles.modalButtonConfirm[':hover'] = {
+  background: "darkred"
+}; // Example hover for confirm
 
 /***/ }),
 
@@ -28392,9 +28855,15 @@ function WelcomePage(_ref) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   archiveProject: () => (/* binding */ archiveProject),
 /* harmony export */   createProject: () => (/* binding */ createProject),
 /* harmony export */   deleteProject: () => (/* binding */ deleteProject),
-/* harmony export */   listProjects: () => (/* binding */ listProjects)
+/* harmony export */   getArchivedProjects: () => (/* binding */ getArchivedProjects),
+/* harmony export */   getRecentProjects: () => (/* binding */ getRecentProjects),
+/* harmony export */   listProjects: () => (/* binding */ listProjects),
+/* harmony export */   markProjectAccessed: () => (/* binding */ markProjectAccessed),
+/* harmony export */   openProjectLocation: () => (/* binding */ openProjectLocation),
+/* harmony export */   restoreProject: () => (/* binding */ restoreProject)
 /* harmony export */ });
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
@@ -28405,49 +28874,162 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
  * Provides functions to list, create, and delete projects via the backend.
  */
 
-var API_BASE = "http://localhost:5000";
-function listProjects() {
-  return _listProjects.apply(this, arguments);
+var API_BASE = "http://localhost:5000"; // Ensure this matches your Flask port
+
+// Generic function to handle API responses
+function handleResponse(_x, _x2) {
+  return _handleResponse.apply(this, arguments);
 }
-function _listProjects() {
-  _listProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var res, data;
+function _handleResponse() {
+  _handleResponse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(res, operation) {
+    var errorMsg, errorData, data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
-          return fetch("".concat(API_BASE, "/projects/list"));
-        case 2:
-          res = _context.sent;
           if (res.ok) {
-            _context.next = 5;
+            _context.next = 12;
             break;
           }
-          throw new Error("Failed to list projects");
-        case 5:
-          _context.next = 7;
+          errorMsg = "Failed to ".concat(operation);
+          _context.prev = 2;
+          _context.next = 5;
           return res.json();
-        case 7:
-          data = _context.sent;
-          return _context.abrupt("return", data.projects || []);
+        case 5:
+          errorData = _context.sent;
+          errorMsg = errorData.error || errorMsg;
+          _context.next = 11;
+          break;
         case 9:
+          _context.prev = 9;
+          _context.t0 = _context["catch"](2);
+        case 11:
+          throw new Error("".concat(errorMsg, " (Status: ").concat(res.status, ")"));
+        case 12:
+          _context.next = 14;
+          return res.json();
+        case 14:
+          data = _context.sent;
+          if (!(data.status !== "success")) {
+            _context.next = 17;
+            break;
+          }
+          throw new Error(data.error || "Failed to ".concat(operation));
+        case 17:
+          return _context.abrupt("return", data);
+        case 18:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[2, 9]]);
   }));
+  return _handleResponse.apply(this, arguments);
+}
+function listProjects() {
   return _listProjects.apply(this, arguments);
 }
-function createProject(_x) {
-  return _createProject.apply(this, arguments);
-}
-function _createProject() {
-  _createProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(name) {
-    var res, data;
+
+// Specific functions using listProjects
+function _listProjects() {
+  _listProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var _ref,
+      _ref$archived,
+      archived,
+      _ref$limit,
+      limit,
+      _ref$sortBy,
+      sortBy,
+      _ref$sortDesc,
+      sortDesc,
+      params,
+      url,
+      res,
+      data,
+      _args2 = arguments;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
+          _ref = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : {}, _ref$archived = _ref.archived, archived = _ref$archived === void 0 ? null : _ref$archived, _ref$limit = _ref.limit, limit = _ref$limit === void 0 ? null : _ref$limit, _ref$sortBy = _ref.sortBy, sortBy = _ref$sortBy === void 0 ? 'last_accessed' : _ref$sortBy, _ref$sortDesc = _ref.sortDesc, sortDesc = _ref$sortDesc === void 0 ? true : _ref$sortDesc;
+          params = new URLSearchParams();
+          if (archived !== null) params.append('archived', archived ? 'true' : 'false');
+          if (limit !== null) params.append('limit', limit);
+          if (sortBy) params.append('sort_by', sortBy);
+          if (sortDesc !== null) params.append('sort_desc', sortDesc ? 'true' : 'false');
+          url = "".concat(API_BASE, "/projects/list?").concat(params.toString());
+          _context2.next = 9;
+          return fetch(url);
+        case 9:
+          res = _context2.sent;
+          _context2.next = 12;
+          return handleResponse(res, 'list projects');
+        case 12:
+          data = _context2.sent;
+          return _context2.abrupt("return", data.projects || []);
+        case 14:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return _listProjects.apply(this, arguments);
+}
+function getRecentProjects() {
+  return _getRecentProjects.apply(this, arguments);
+}
+function _getRecentProjects() {
+  _getRecentProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var limit,
+      _args3 = arguments;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          limit = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : 5;
+          return _context3.abrupt("return", listProjects({
+            archived: false,
+            limit: limit,
+            sortBy: 'last_accessed',
+            sortDesc: true
+          }));
+        case 2:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+  return _getRecentProjects.apply(this, arguments);
+}
+function getArchivedProjects() {
+  return _getArchivedProjects.apply(this, arguments);
+}
+function _getArchivedProjects() {
+  _getArchivedProjects = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          return _context4.abrupt("return", listProjects({
+            archived: true,
+            sortBy: 'last_accessed',
+            sortDesc: true
+          }));
+        case 1:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+  return _getArchivedProjects.apply(this, arguments);
+}
+function createProject(_x3) {
+  return _createProject.apply(this, arguments);
+}
+
+// Note: Backend endpoint is POST /project/delete, expecting { name: name } in body
+function _createProject() {
+  _createProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(name) {
+    var res, data;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
           return fetch("".concat(API_BASE, "/project/create"), {
             method: "POST",
             headers: {
@@ -28458,42 +29040,32 @@ function _createProject() {
             })
           });
         case 2:
-          res = _context2.sent;
-          if (res.ok) {
-            _context2.next = 5;
-            break;
-          }
-          throw new Error("Failed to create project");
+          res = _context5.sent;
+          _context5.next = 5;
+          return handleResponse(res, 'create project');
         case 5:
-          _context2.next = 7;
-          return res.json();
+          data = _context5.sent;
+          return _context5.abrupt("return", data.project_path);
         case 7:
-          data = _context2.sent;
-          if (!(data.status !== "success")) {
-            _context2.next = 10;
-            break;
-          }
-          throw new Error(data.error || "Failed to create project");
-        case 10:
-          return _context2.abrupt("return", data.project);
-        case 11:
         case "end":
-          return _context2.stop();
+          return _context5.stop();
       }
-    }, _callee2);
+    }, _callee5);
   }));
   return _createProject.apply(this, arguments);
 }
-function deleteProject(_x2) {
+function deleteProject(_x4) {
   return _deleteProject.apply(this, arguments);
 }
+
+// --- New API Functions ---
 function _deleteProject() {
-  _deleteProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(name) {
-    var res, data;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+  _deleteProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(name) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          _context3.next = 2;
+          _context6.next = 2;
           return fetch("".concat(API_BASE, "/project/delete"), {
             method: "POST",
             headers: {
@@ -28504,31 +29076,127 @@ function _deleteProject() {
             })
           });
         case 2:
-          res = _context3.sent;
-          if (res.ok) {
-            _context3.next = 5;
-            break;
-          }
-          throw new Error("Failed to delete project");
+          res = _context6.sent;
+          _context6.next = 5;
+          return handleResponse(res, 'delete project');
         case 5:
-          _context3.next = 7;
-          return res.json();
-        case 7:
-          data = _context3.sent;
-          if (!(data.status !== "success")) {
-            _context3.next = 10;
-            break;
-          }
-          throw new Error(data.error || "Failed to delete project");
-        case 10:
-          return _context3.abrupt("return", true);
-        case 11:
+          return _context6.abrupt("return", true);
+        case 6:
         case "end":
-          return _context3.stop();
+          return _context6.stop();
       }
-    }, _callee3);
+    }, _callee6);
   }));
   return _deleteProject.apply(this, arguments);
+}
+function markProjectAccessed(_x5) {
+  return _markProjectAccessed.apply(this, arguments);
+}
+function _markProjectAccessed() {
+  _markProjectAccessed = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(name) {
+    var res, data;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.next = 2;
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/accessed"), {
+            method: "PUT"
+          });
+        case 2:
+          res = _context7.sent;
+          _context7.next = 5;
+          return handleResponse(res, 'mark project accessed');
+        case 5:
+          data = _context7.sent;
+          return _context7.abrupt("return", data.last_accessed);
+        case 7:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7);
+  }));
+  return _markProjectAccessed.apply(this, arguments);
+}
+function archiveProject(_x6) {
+  return _archiveProject.apply(this, arguments);
+}
+function _archiveProject() {
+  _archiveProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(name) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          _context8.next = 2;
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/archive"), {
+            method: "PUT"
+          });
+        case 2:
+          res = _context8.sent;
+          _context8.next = 5;
+          return handleResponse(res, 'archive project');
+        case 5:
+          return _context8.abrupt("return", true);
+        case 6:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8);
+  }));
+  return _archiveProject.apply(this, arguments);
+}
+function restoreProject(_x7) {
+  return _restoreProject.apply(this, arguments);
+}
+function _restoreProject() {
+  _restoreProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(name) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+      while (1) switch (_context9.prev = _context9.next) {
+        case 0:
+          _context9.next = 2;
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/restore"), {
+            method: "PUT"
+          });
+        case 2:
+          res = _context9.sent;
+          _context9.next = 5;
+          return handleResponse(res, 'restore project');
+        case 5:
+          return _context9.abrupt("return", true);
+        case 6:
+        case "end":
+          return _context9.stop();
+      }
+    }, _callee9);
+  }));
+  return _restoreProject.apply(this, arguments);
+}
+function openProjectLocation(_x8) {
+  return _openProjectLocation.apply(this, arguments);
+}
+function _openProjectLocation() {
+  _openProjectLocation = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(name) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
+        case 0:
+          _context10.next = 2;
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/open_location"), {
+            method: "POST"
+          });
+        case 2:
+          res = _context10.sent;
+          _context10.next = 5;
+          return handleResponse(res, 'open project location');
+        case 5:
+          return _context10.abrupt("return", true);
+        case 6:
+        case "end":
+          return _context10.stop();
+      }
+    }, _callee10);
+  }));
+  return _openProjectLocation.apply(this, arguments);
 }
 
 /***/ }),

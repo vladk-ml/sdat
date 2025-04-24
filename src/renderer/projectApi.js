@@ -3,35 +3,100 @@
  * Provides functions to list, create, and delete projects via the backend.
  */
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "http://localhost:5000"; // Ensure this matches your Flask port
 
-export async function listProjects() {
-  const res = await fetch(`${API_BASE}/projects/list`);
-  if (!res.ok) throw new Error("Failed to list projects");
+// Generic function to handle API responses
+async function handleResponse(res, operation) {
+  if (!res.ok) {
+    let errorMsg = `Failed to ${operation}`;
+    try {
+      const errorData = await res.json();
+      errorMsg = errorData.error || errorMsg;
+    } catch (e) { /* Ignore JSON parsing error */ }
+    throw new Error(`${errorMsg} (Status: ${res.status})`);
+  }
   const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || `Failed to ${operation}`);
+  }
+  return data;
+}
+
+
+export async function listProjects({ archived = null, limit = null, sortBy = 'last_accessed', sortDesc = true } = {}) {
+  const params = new URLSearchParams();
+  if (archived !== null) params.append('archived', archived ? 'true' : 'false');
+  if (limit !== null) params.append('limit', limit);
+  if (sortBy) params.append('sort_by', sortBy);
+  if (sortDesc !== null) params.append('sort_desc', sortDesc ? 'true' : 'false');
+
+  const url = `${API_BASE}/projects/list?${params.toString()}`;
+  const res = await fetch(url);
+  const data = await handleResponse(res, 'list projects');
   return data.projects || [];
 }
+
+// Specific functions using listProjects
+export async function getRecentProjects(limit = 5) {
+  return listProjects({ archived: false, limit: limit, sortBy: 'last_accessed', sortDesc: true });
+}
+
+export async function getArchivedProjects() {
+  return listProjects({ archived: true, sortBy: 'last_accessed', sortDesc: true });
+}
+
 
 export async function createProject(name) {
   const res = await fetch(`${API_BASE}/project/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ project_name: name })
+    body: JSON.stringify({ project_name: name }),
   });
-  if (!res.ok) throw new Error("Failed to create project");
-  const data = await res.json();
-  if (data.status !== "success") throw new Error(data.error || "Failed to create project");
-  return data.project;
+  const data = await handleResponse(res, 'create project');
+  return data.project_path; // Backend returns project_path now
 }
 
+// Note: Backend endpoint is POST /project/delete, expecting { name: name } in body
 export async function deleteProject(name) {
   const res = await fetch(`${API_BASE}/project/delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: name })
+    body: JSON.stringify({ name: name }),
   });
-  if (!res.ok) throw new Error("Failed to delete project");
-  const data = await res.json();
-  if (data.status !== "success") throw new Error(data.error || "Failed to delete project");
+  await handleResponse(res, 'delete project');
+  return true;
+}
+
+// --- New API Functions ---
+
+export async function markProjectAccessed(name) {
+  const res = await fetch(`${API_BASE}/project/${encodeURIComponent(name)}/accessed`, {
+    method: "PUT",
+  });
+  const data = await handleResponse(res, 'mark project accessed');
+  return data.last_accessed;
+}
+
+export async function archiveProject(name) {
+  const res = await fetch(`${API_BASE}/project/${encodeURIComponent(name)}/archive`, {
+    method: "PUT",
+  });
+  await handleResponse(res, 'archive project');
+  return true;
+}
+
+export async function restoreProject(name) {
+  const res = await fetch(`${API_BASE}/project/${encodeURIComponent(name)}/restore`, {
+    method: "PUT",
+  });
+  await handleResponse(res, 'restore project');
+  return true;
+}
+
+export async function openProjectLocation(name) {
+  const res = await fetch(`${API_BASE}/project/${encodeURIComponent(name)}/open_location`, {
+    method: "POST",
+  });
+  await handleResponse(res, 'open project location');
   return true;
 }
