@@ -28718,43 +28718,40 @@ function ContextMenu(_ref10) {
     onClose();
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "context-menu-class" // Class for click outside detection
-    ,
-    style: _objectSpread(_objectSpread({}, styles.contextMenu), {}, {
+    className: "context-menu-class",
+    style: {
       top: y,
       left: x
-    })
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: styles.contextMenuItem,
+    className: "context-menu-item",
     onClick: function onClick() {
       return handleAction(onOpen);
     }
   }, "Open"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: styles.contextMenuItem,
+    className: "context-menu-item",
     onClick: function onClick() {
       return handleAction(onOpenLocation);
     }
   }, "Open Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: styles.contextMenuItem,
+    className: "context-menu-item",
     onClick: function onClick() {
       return handleAction(onRename);
     }
   }, "Rename..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", {
-    style: styles.contextMenuSeparator
+    className: "context-menu-separator"
   }), isArchived ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: styles.contextMenuItem,
+    className: "context-menu-item",
     onClick: function onClick() {
       return handleAction(onRestore);
     }
   }, "Restore") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: styles.contextMenuItem,
+    className: "context-menu-item",
     onClick: function onClick() {
       return handleAction(onArchive);
     }
   }, "Remove from List (Archive)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    style: _objectSpread(_objectSpread({}, styles.contextMenuItem), {}, {
-      color: "var(--error-color)"
-    }),
+    className: "context-menu-item danger",
     onClick: function onClick() {
       return handleAction(onDelete);
     }
@@ -29048,47 +29045,16 @@ var styles = {
   modalButtonDisabled: {
     opacity: 0.5,
     cursor: "not-allowed"
-  },
-  // Context Menu Styles
-  contextMenu: {
-    position: 'fixed',
-    background: 'var(--background-secondary)',
-    // Ensure opaque background
-    border: '1px solid var(--border-color)',
-    // Ensure border definition
-    borderRadius: '6px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-    // Keep shadow for depth
-    padding: '6px 0',
-    minWidth: '180px',
-    zIndex: 1001 // Ensure it's above modal overlay
-  },
-  contextMenuItem: {
-    padding: '8px 16px',
-    color: 'var(--foreground-primary)',
-    fontSize: '14px',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    '&:hover': {
-      // Pseudo-selector example
-      background: 'var(--hover-color)'
-    }
-  },
-  contextMenuSeparator: {
-    height: '1px',
-    background: 'var(--border-color)',
-    border: 'none',
-    margin: '6px 0'
   }
 };
 
-// Add hover effects dynamically if needed, or use CSS classes / libraries like Radium/Styled Components
-// Note: Simple JS style objects don't directly support pseudo-classes like :hover.
-// The examples above are illustrative. For real hover effects, you'd typically use:
-// 1. CSS Modules or regular CSS classes.
-// 2. Styled-components or Emotion.
-// 3. Inline styles with onMouseEnter/onMouseLeave handlers to change styles.
-// For simplicity, explicit hover styles are omitted here but should be added via CSS.
+// Inject global styles for context menu (only once)
+if (typeof document !== 'undefined' && !document.getElementById('context-menu-global-style')) {
+  var style = document.createElement('style');
+  style.id = 'context-menu-global-style';
+  style.innerHTML = "\n    .context-menu-class {\n      position: fixed;\n      background: var(--background-secondary, #23272e);\n      border: 1px solid var(--border-color, #3a3f4b);\n      border-radius: 6px;\n      box-shadow: 0 4px 12px rgba(0,0,0,0.4);\n      padding: 6px 0;\n      min-width: 180px;\n      z-index: 1001;\n      color: var(--foreground-primary, #e6e6e6);\n      user-select: none;\n    }\n    .context-menu-class .context-menu-item {\n      padding: 8px 16px;\n      color: var(--foreground-primary, #e6e6e6);\n      font-size: 14px;\n      cursor: pointer;\n      white-space: nowrap;\n      background: none;\n      border: none;\n      outline: none;\n      transition: background 0.15s;\n    }\n    .context-menu-class .context-menu-item:hover {\n      background: var(--hover-color, #31363f);\n    }\n    .context-menu-class .context-menu-separator {\n      height: 1px;\n      background: var(--border-color, #3a3f4b);\n      border: none;\n      margin: 6px 0;\n    }\n    .context-menu-class .context-menu-item.danger {\n      color: var(--error-color, #e06c75);\n    }\n  ";
+  document.head.appendChild(style);
+}
 
 /***/ }),
 

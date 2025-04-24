@@ -451,19 +451,19 @@ function ContextMenu({ x, y, project, isArchived, onOpen, onOpenLocation, onRena
 
   return (
     <div
-      className="context-menu-class" // Class for click outside detection
-      style={{ ...styles.contextMenu, top: y, left: x }}
+      className="context-menu-class"
+      style={{ top: y, left: x }}
     >
-      <div style={styles.contextMenuItem} onClick={() => handleAction(onOpen)}>Open</div>
-      <div style={styles.contextMenuItem} onClick={() => handleAction(onOpenLocation)}>Open Location</div>
-      <div style={styles.contextMenuItem} onClick={() => handleAction(onRename)}>Rename...</div>
-      <hr style={styles.contextMenuSeparator} />
+      <div className="context-menu-item" onClick={() => handleAction(onOpen)}>Open</div>
+      <div className="context-menu-item" onClick={() => handleAction(onOpenLocation)}>Open Location</div>
+      <div className="context-menu-item" onClick={() => handleAction(onRename)}>Rename...</div>
+      <hr className="context-menu-separator" />
       {isArchived ? (
-        <div style={styles.contextMenuItem} onClick={() => handleAction(onRestore)}>Restore</div>
+        <div className="context-menu-item" onClick={() => handleAction(onRestore)}>Restore</div>
       ) : (
-        <div style={styles.contextMenuItem} onClick={() => handleAction(onArchive)}>Remove from List (Archive)</div>
+        <div className="context-menu-item" onClick={() => handleAction(onArchive)}>Remove from List (Archive)</div>
       )}
-      <div style={{ ...styles.contextMenuItem, color: "var(--error-color)" }} onClick={() => handleAction(onDelete)}>Delete Permanently...</div>
+      <div className="context-menu-item danger" onClick={() => handleAction(onDelete)}>Delete Permanently...</div>
     </div>
   );
 }
@@ -732,39 +732,48 @@ const styles = {
     opacity: 0.5,
     cursor: "not-allowed",
   },
-  // Context Menu Styles
-  contextMenu: {
-    position: 'fixed',
-    background: 'var(--background-secondary)', // Ensure opaque background
-    border: '1px solid var(--border-color)', // Ensure border definition
-    borderRadius: '6px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)', // Keep shadow for depth
-    padding: '6px 0',
-    minWidth: '180px',
-    zIndex: 1001, // Ensure it's above modal overlay
-  },
-  contextMenuItem: {
-    padding: '8px 16px',
-    color: 'var(--foreground-primary)',
-    fontSize: '14px',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-     '&:hover': { // Pseudo-selector example
-       background: 'var(--hover-color)',
-     }
-  },
-   contextMenuSeparator: {
-    height: '1px',
-    background: 'var(--border-color)',
-    border: 'none',
-    margin: '6px 0',
-  },
 };
 
-// Add hover effects dynamically if needed, or use CSS classes / libraries like Radium/Styled Components
-// Note: Simple JS style objects don't directly support pseudo-classes like :hover.
-// The examples above are illustrative. For real hover effects, you'd typically use:
-// 1. CSS Modules or regular CSS classes.
-// 2. Styled-components or Emotion.
-// 3. Inline styles with onMouseEnter/onMouseLeave handlers to change styles.
-// For simplicity, explicit hover styles are omitted here but should be added via CSS.
+// Inject global styles for context menu (only once)
+if (typeof document !== 'undefined' && !document.getElementById('context-menu-global-style')) {
+  const style = document.createElement('style');
+  style.id = 'context-menu-global-style';
+  style.innerHTML = `
+    .context-menu-class {
+      position: fixed;
+      background: var(--background-secondary, #23272e);
+      border: 1px solid var(--border-color, #3a3f4b);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      padding: 6px 0;
+      min-width: 180px;
+      z-index: 1001;
+      color: var(--foreground-primary, #e6e6e6);
+      user-select: none;
+    }
+    .context-menu-class .context-menu-item {
+      padding: 8px 16px;
+      color: var(--foreground-primary, #e6e6e6);
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      outline: none;
+      transition: background 0.15s;
+    }
+    .context-menu-class .context-menu-item:hover {
+      background: var(--hover-color, #31363f);
+    }
+    .context-menu-class .context-menu-separator {
+      height: 1px;
+      background: var(--border-color, #3a3f4b);
+      border: none;
+      margin: 6px 0;
+    }
+    .context-menu-class .context-menu-item.danger {
+      color: var(--error-color, #e06c75);
+    }
+  `;
+  document.head.appendChild(style);
+}
