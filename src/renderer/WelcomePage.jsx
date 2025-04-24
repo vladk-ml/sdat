@@ -7,7 +7,8 @@ import {
   deleteProject,
   openProjectLocation,
   markProjectAccessed,
-} from "./projectApi"; // Assuming projectApi.js is in the same directory
+  renameProject, // Added renameProject
+} from "./projectApi";
 
 // --- Helper Components ---
 
@@ -43,7 +44,20 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
   const [projectToDelete, setProjectToDelete] = useState(null);
   const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
 
+  // Rename state
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [projectToRename, setProjectToRename] = useState(null);
+  const [renameInput, setRenameInput] = useState("");
+
+  // Context Menu state
+  const [contextMenu, setContextMenu] = useState(null); // { x, y, project, isArchived }
+
   const reloadData = async () => {
+    // Close modals/menus on reload
+    setShowDeleteConfirm(false);
+    setShowRenameModal(false);
+    setContextMenu(null);
+
     setLoading(true);
     setError(null);
     try {
@@ -63,7 +77,56 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
 
   useEffect(() => {
     reloadData();
-  }, []); // Load on mount
+  }, []); // Load on mount - Removed contextMenu dependency here
+
+  // Separate useEffect for managing document listeners based on menu/modal state
+  useEffect(() => {
+    // Function to close menu on click outside
+    function handleClickOutside(event) {
+      // Use a class name to identify the context menu element
+      if (contextMenu && !event.target.closest('.context-menu-class')) {
+        setContextMenu(null);
+      }
+      // Could add similar logic for modals if needed, but Esc handler covers them
+    }
+
+    // Function to close menu/modals on Esc
+    function handleEsc(event) {
+        if (event.key === 'Escape') {
+            setContextMenu(null);
+            setShowDeleteConfirm(false);
+            setShowRenameModal(false);
+        }
+    }
+
+    // Conditionally add mousedown listener only when menu is open, using setTimeout
+    let timeoutId = null;
+    if (contextMenu) {
+      // Delay adding the listener slightly to prevent the opening click from closing it
+      timeoutId = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 0);
+    } else {
+      // Ensure listener is removed if menu closes via Esc or action
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    // Always listen for Esc key when modals or menu might be open
+    if (contextMenu || showDeleteConfirm || showRenameModal) {
+        document.addEventListener('keydown', handleEsc);
+    } else {
+        document.removeEventListener('keydown', handleEsc);
+    }
+
+
+    // Cleanup function to remove listeners when component unmounts or effect re-runs
+    return () => {
+      clearTimeout(timeoutId); // Clear the timeout if component unmounts before listener is added
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEsc);
+    };
+    // Re-run this effect if any relevant state changes
+  }, [contextMenu, showDeleteConfirm, showRenameModal]); // Dependencies remain the same
 
   // --- Action Handlers ---
 
@@ -135,6 +198,48 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
     }
   };
 
+  const handleShowRenameModal = (project) => {
+    setContextMenu(null); // Close context menu
+    setProjectToRename(project);
+    setRenameInput(project.name); // Pre-fill with current name
+    setShowRenameModal(true);
+  };
+
+  const handleCancelRename = () => {
+    setShowRenameModal(false);
+    setProjectToRename(null);
+    setRenameInput("");
+  };
+
+  const handleConfirmRename = async () => {
+    if (!projectToRename || !renameInput || renameInput === projectToRename.name) {
+      handleCancelRename(); // Close if no change or invalid
+      return;
+    }
+    try {
+      await renameProject(projectToRename.name, renameInput);
+      handleCancelRename(); // Close modal
+      reloadData(); // Refresh lists
+    } catch (err) {
+      console.error("Failed to rename project:", err);
+      setError(err.message || "Failed to rename project.");
+      // Keep modal open on error? Or close? Closing for now.
+      handleCancelRename();
+    }
+  };
+
+  const handleContextMenu = (event, project, isArchived = false) => {
+    event.preventDefault(); // Keep this to prevent default browser menu
+    // Removed event.stopPropagation();
+    setContextMenu({
+      x: event.clientX,
+      y: event.clientY,
+      project: project,
+      isArchived: isArchived,
+    });
+  };
+
+
   // --- Render ---
 
   return (
@@ -171,7 +276,11 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
                 <li style={styles.noProjects}>No recent projects found.</li>
               )}
               {recentProjects.map((proj) => (
-                <li key={proj.name} style={styles.listItem}>
+                <li
+                  key={proj.name}
+                  style={styles.listItem}
+                  onContextMenu={(e) => handleContextMenu(e, proj, false)}
+                >
                   <div style={styles.listItemContent}>
                     <span
                       onClick={() => handleOpenProject(proj)}
@@ -181,26 +290,11 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
                       {proj.name}
                     </span>
                     <span style={styles.projectPath} title={proj.path}>
-                      {/* Simple path shortening - replace with better logic if needed */}
+                      {/* Simple path shortening */}
                       {proj.path.length > 40 ? `...${proj.path.slice(-37)}` : proj.path}
                     </span>
                   </div>
-                  <div style={styles.listItemActions}>
-                    <button
-                      onClick={() => handleOpenLocation(proj)}
-                      style={styles.actionButton}
-                      title="Open Folder Location"
-                    >
-                      <FolderIcon /> {/* Replace with actual icon */}
-                    </button>
-                    <button
-                      onClick={() => handleArchive(proj)}
-                      style={styles.actionButton}
-                      title="Remove from Recent List (Archive)"
-                    >
-                      <ArchiveIcon /> {/* Replace with actual icon */}
-                    </button>
-                  </div>
+                  {/* Removed inline action buttons */}
                 </li>
               ))}
             </ul>
@@ -220,31 +314,22 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
                        <li style={styles.noProjects}>No archived projects.</li>
                     )}
                     {archivedProjects.map((proj) => (
-                      <li key={proj.name} style={styles.listItem}>
+                      <li
+                        key={proj.name}
+                        style={styles.listItem}
+                        onContextMenu={(e) => handleContextMenu(e, proj, true)}
+                      >
                         <div style={styles.listItemContent}>
+                           {/* Apply dimmed style directly */}
                           <span style={{ ...styles.projectName, opacity: 0.7 }}>
                             {proj.name}
                           </span>
                           <span style={{ ...styles.projectPath, opacity: 0.7 }}>
+                             {/* Simple path shortening */}
                             {proj.path.length > 40 ? `...${proj.path.slice(-37)}` : proj.path}
                           </span>
                         </div>
-                        <div style={styles.listItemActions}>
-                          <button
-                            onClick={() => handleRestore(proj)}
-                            style={styles.actionButton}
-                            title="Restore to Recent List"
-                          >
-                            <RestoreIcon /> {/* Replace with actual icon */}
-                          </button>
-                          <button
-                            onClick={() => handleShowDeleteConfirm(proj)}
-                            style={{ ...styles.actionButton, color: "var(--error-color)" }}
-                            title="Delete Permanently"
-                          >
-                            <DeleteIcon /> {/* Replace with actual icon */}
-                          </button>
-                        </div>
+                         {/* Removed inline action buttons */}
                       </li>
                     ))}
                   </ul>
@@ -260,6 +345,60 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
           <a href="#" style={styles.link}>Support</a> {/* Update href */}
         </div>
       </div>
+
+      {/* Context Menu - Rendered based on contextMenu state */}
+      {contextMenu && (
+        <ContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          project={contextMenu.project}
+          isArchived={contextMenu.isArchived}
+          onOpen={handleOpenProject}
+          onOpenLocation={handleOpenLocation}
+          onRename={handleShowRenameModal}
+          onArchive={handleArchive}
+          onRestore={handleRestore}
+          onDelete={handleShowDeleteConfirm}
+          onClose={() => setContextMenu(null)}
+        />
+      )}
+
+       {/* Rename Modal - Rendered based on showRenameModal state */}
+       <Modal
+        isOpen={showRenameModal}
+        onClose={handleCancelRename}
+        title={`Rename Project "${projectToRename?.name}"`}
+      >
+        <p style={{ color: "var(--foreground-secondary)", marginBottom: 16 }}>
+          Enter the new name for the project:
+        </p>
+        <input
+          type="text"
+          value={renameInput}
+          onChange={(e) => setRenameInput(e.target.value)}
+          placeholder="New project name"
+          style={styles.confirmInput} // Reuse delete confirm input style
+          onKeyDown={(e) => e.key === 'Enter' && handleConfirmRename()} // Submit on Enter
+        />
+        <div style={styles.modalActions}>
+          <button onClick={handleCancelRename} style={styles.modalButton}>
+            Cancel
+          </button>
+          <button
+            onClick={handleConfirmRename}
+            disabled={!renameInput || renameInput === projectToRename?.name}
+            style={{
+              ...styles.modalButton, // Base style
+              ...(renameInput && renameInput !== projectToRename?.name
+                ? styles.modalButtonPrimary // Use a primary style for enabled confirm
+                : styles.modalButtonDisabled),
+            }}
+          >
+            Rename
+          </button>
+        </div>
+      </Modal>
+
 
       {/* Delete Confirmation Modal */}
       <Modal
@@ -300,15 +439,38 @@ export default function WelcomePage({ onOpen: onOpenProp, onNew }) {
   );
 }
 
-// --- Placeholder Icons ---
-// Replace these with actual SVG icons or an icon library (e.g., Material UI Icons)
-const FolderIcon = () => <span> F </span>;
-const ArchiveIcon = () => <span> A </span>;
-const RestoreIcon = () => <span> R </span>;
-const DeleteIcon = () => <span> D </span>;
+// --- Context Menu Component ---
+function ContextMenu({ x, y, project, isArchived, onOpen, onOpenLocation, onRename, onArchive, onRestore, onDelete, onClose }) {
+  // Removed redundant useEffect for closing on outside click, parent handles this.
+
+  const handleAction = (action) => {
+    // Ensure project is passed to the action handler
+    action(project);
+    onClose();
+  };
+
+  return (
+    <div
+      className="context-menu-class" // Class for click outside detection
+      style={{ ...styles.contextMenu, top: y, left: x }}
+    >
+      <div style={styles.contextMenuItem} onClick={() => handleAction(onOpen)}>Open</div>
+      <div style={styles.contextMenuItem} onClick={() => handleAction(onOpenLocation)}>Open Location</div>
+      <div style={styles.contextMenuItem} onClick={() => handleAction(onRename)}>Rename...</div>
+      <hr style={styles.contextMenuSeparator} />
+      {isArchived ? (
+        <div style={styles.contextMenuItem} onClick={() => handleAction(onRestore)}>Restore</div>
+      ) : (
+        <div style={styles.contextMenuItem} onClick={() => handleAction(onArchive)}>Remove from List (Archive)</div>
+      )}
+      <div style={{ ...styles.contextMenuItem, color: "var(--error-color)" }} onClick={() => handleAction(onDelete)}>Delete Permanently...</div>
+    </div>
+  );
+}
 
 
 // --- Styles ---
+// (Styles remain largely the same, ensure contextMenu, contextMenuItem, contextMenuSeparator are defined)
 // Using JS objects for simplicity, consider CSS Modules or styled-components
 const styles = {
   pageContainer: {
@@ -405,58 +567,61 @@ const styles = {
     textAlign: "center", // Centered text
   },
   listItem: {
-    marginBottom: 6, // Reduced margin
+    marginBottom: 6,
     display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between", // Space between content and actions
+    alignItems: "center", // Vertically align items if path wraps (though it shouldn't now)
+    justifyContent: "space-between",
     background: "var(--background-tertiary)",
     borderRadius: 6,
-    padding: "8px 12px", // Adjusted padding
+    padding: "10px 12px", // Slightly more vertical padding
     border: "1px solid var(--border-color)",
     transition: "background 0.2s",
-    cursor: "default", // Default cursor for the li itself
+    cursor: "default",
+     "&:hover": { // Example for hover effect if not using dynamic styles
+       background: "var(--hover-color)",
+     }
   },
   listItemContent: {
-    display: "flex",
-    flexDirection: "column", // Stack name and path
+    display: "flex", // Changed to flex for inline layout
+    justifyContent: "space-between", // Space out name and path
+    alignItems: "center", // Align items vertically
     flexGrow: 1,
-    marginRight: 8, // Space before actions
     overflow: "hidden", // Prevent overflow
+    // Removed marginRight as actions are gone
   },
   projectName: {
-    color: "var(--foreground-primary)", // Changed color
-    fontWeight: 600, // Adjusted weight
+    color: "var(--foreground-primary)",
+    fontWeight: 600,
     fontSize: 15,
-    cursor: "pointer", // Cursor only on the name
+    cursor: "pointer",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    display: "block", // Ensure ellipsis works
-    marginBottom: 2, // Space between name and path
+    // Removed display: block and marginBottom
+    marginRight: "16px", // Add space between name and path
+    flexShrink: 1, // Allow name to shrink if needed, but prioritize showing it
   },
   projectPath: {
-    color: "var(--foreground-secondary)",
-    fontSize: 12, // Smaller font size
+    color: "var(--accent-primary)", // Use accent color for path
+    fontSize: 13, // Slightly larger path font
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    display: "block", // Ensure ellipsis works
+    textAlign: "right", // Align path to the right
+    flexShrink: 0, // Prevent path from shrinking
+    // Removed display: block
   },
-  listItemActions: {
-    display: "flex",
-    alignItems: "center",
-    flexShrink: 0, // Prevent actions from shrinking
-  },
-  actionButton: {
+  // Removed listItemActions style block
+  actionButton: { // Kept for potential future use, but not used in list items now
     background: "none",
     border: "none",
     color: "var(--foreground-secondary)",
     padding: "4px",
-    marginLeft: 4, // Space between buttons
+    marginLeft: 4,
     cursor: "pointer",
-    fontSize: 16, // Adjust as needed for icons
+    fontSize: 16,
     lineHeight: 1,
-    display: "flex", // Center icon
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
@@ -470,6 +635,7 @@ const styles = {
     cursor: "pointer",
     fontSize: 13,
     fontWeight: 500,
+    marginTop: 8, // Ensure space below list before this button
   },
   footerLinks: {
     marginTop: 32,
@@ -552,7 +718,12 @@ const styles = {
     color: "var(--foreground-primary)",
     cursor: "pointer",
   },
-  modalButtonConfirm: {
+   modalButtonPrimary: { // Style for enabled Rename button
+    background: "var(--accent-primary)",
+    color: "white",
+    borderColor: "var(--accent-primary)",
+  },
+  modalButtonConfirm: { // Style for Delete button
     background: "var(--error-color)",
     color: "white",
     borderColor: "var(--error-color)",
@@ -561,11 +732,39 @@ const styles = {
     opacity: 0.5,
     cursor: "not-allowed",
   },
+  // Context Menu Styles
+  contextMenu: {
+    position: 'fixed',
+    background: 'var(--background-secondary)', // Ensure opaque background
+    border: '1px solid var(--border-color)', // Ensure border definition
+    borderRadius: '6px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)', // Keep shadow for depth
+    padding: '6px 0',
+    minWidth: '180px',
+    zIndex: 1001, // Ensure it's above modal overlay
+  },
+  contextMenuItem: {
+    padding: '8px 16px',
+    color: 'var(--foreground-primary)',
+    fontSize: '14px',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+     '&:hover': { // Pseudo-selector example
+       background: 'var(--hover-color)',
+     }
+  },
+   contextMenuSeparator: {
+    height: '1px',
+    background: 'var(--border-color)',
+    border: 'none',
+    margin: '6px 0',
+  },
 };
 
-// Add hover effects dynamically if needed, or use CSS classes
-styles.newProjectButton[':hover'] = { background: "var(--accent-primary-dark)" }; // Example
-styles.actionButton[':hover'] = { background: "var(--hover-color)", color: "var(--foreground-primary)" };
-styles.moreButton[':hover'] = { textDecoration: "underline" };
-styles.modalButton[':hover'] = { background: "var(--hover-color)" };
-styles.modalButtonConfirm[':hover'] = { background: "darkred" }; // Example hover for confirm
+// Add hover effects dynamically if needed, or use CSS classes / libraries like Radium/Styled Components
+// Note: Simple JS style objects don't directly support pseudo-classes like :hover.
+// The examples above are illustrative. For real hover effects, you'd typically use:
+// 1. CSS Modules or regular CSS classes.
+// 2. Styled-components or Emotion.
+// 3. Inline styles with onMouseEnter/onMouseLeave handlers to change styles.
+// For simplicity, explicit hover styles are omitted here but should be added via CSS.

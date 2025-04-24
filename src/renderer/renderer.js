@@ -28111,7 +28111,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
- // Assuming projectApi.js is in the same directory
+
 
 // --- Helper Components ---
 
@@ -28180,42 +28180,67 @@ function WelcomePage(_ref2) {
     _useState16 = _slicedToArray(_useState15, 2),
     deleteConfirmInput = _useState16[0],
     setDeleteConfirmInput = _useState16[1];
+
+  // Rename state
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState18 = _slicedToArray(_useState17, 2),
+    showRenameModal = _useState18[0],
+    setShowRenameModal = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState20 = _slicedToArray(_useState19, 2),
+    projectToRename = _useState20[0],
+    setProjectToRename = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState22 = _slicedToArray(_useState21, 2),
+    renameInput = _useState22[0],
+    setRenameInput = _useState22[1];
+
+  // Context Menu state
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState24 = _slicedToArray(_useState23, 2),
+    contextMenu = _useState24[0],
+    setContextMenu = _useState24[1]; // { x, y, project, isArchived }
+
   var reloadData = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var _yield$Promise$all, _yield$Promise$all2, recent, archived;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
+            // Close modals/menus on reload
+            setShowDeleteConfirm(false);
+            setShowRenameModal(false);
+            setContextMenu(null);
             setLoading(true);
             setError(null);
-            _context.prev = 2;
-            _context.next = 5;
+            _context.prev = 5;
+            _context.next = 8;
             return Promise.all([(0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.getRecentProjects)(5),
             // Fetch top 5 recent
             (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.getArchivedProjects)()]);
-          case 5:
+          case 8:
             _yield$Promise$all = _context.sent;
             _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
             recent = _yield$Promise$all2[0];
             archived = _yield$Promise$all2[1];
             setRecentProjects(recent);
             setArchivedProjects(archived);
-            _context.next = 17;
+            _context.next = 20;
             break;
-          case 13:
-            _context.prev = 13;
-            _context.t0 = _context["catch"](2);
+          case 16:
+            _context.prev = 16;
+            _context.t0 = _context["catch"](5);
             console.error("Failed to load projects:", _context.t0);
             setError(_context.t0.message || "Failed to load projects.");
-          case 17:
-            _context.prev = 17;
-            setLoading(false);
-            return _context.finish(17);
           case 20:
+            _context.prev = 20;
+            setLoading(false);
+            return _context.finish(20);
+          case 23:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[2, 13, 17, 20]]);
+      }, _callee, null, [[5, 16, 20, 23]]);
     }));
     return function reloadData() {
       return _ref3.apply(this, arguments);
@@ -28223,7 +28248,55 @@ function WelcomePage(_ref2) {
   }();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     reloadData();
-  }, []); // Load on mount
+  }, []); // Load on mount - Removed contextMenu dependency here
+
+  // Separate useEffect for managing document listeners based on menu/modal state
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Function to close menu on click outside
+    function handleClickOutside(event) {
+      // Use a class name to identify the context menu element
+      if (contextMenu && !event.target.closest('.context-menu-class')) {
+        setContextMenu(null);
+      }
+      // Could add similar logic for modals if needed, but Esc handler covers them
+    }
+
+    // Function to close menu/modals on Esc
+    function handleEsc(event) {
+      if (event.key === 'Escape') {
+        setContextMenu(null);
+        setShowDeleteConfirm(false);
+        setShowRenameModal(false);
+      }
+    }
+
+    // Conditionally add mousedown listener only when menu is open, using setTimeout
+    var timeoutId = null;
+    if (contextMenu) {
+      // Delay adding the listener slightly to prevent the opening click from closing it
+      timeoutId = setTimeout(function () {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 0);
+    } else {
+      // Ensure listener is removed if menu closes via Esc or action
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    // Always listen for Esc key when modals or menu might be open
+    if (contextMenu || showDeleteConfirm || showRenameModal) {
+      document.addEventListener('keydown', handleEsc);
+    } else {
+      document.removeEventListener('keydown', handleEsc);
+    }
+
+    // Cleanup function to remove listeners when component unmounts or effect re-runs
+    return function () {
+      clearTimeout(timeoutId); // Clear the timeout if component unmounts before listener is added
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEsc);
+    };
+    // Re-run this effect if any relevant state changes
+  }, [contextMenu, showDeleteConfirm, showRenameModal]); // Dependencies remain the same
 
   // --- Action Handlers ---
 
@@ -28382,6 +28455,65 @@ function WelcomePage(_ref2) {
       return _ref8.apply(this, arguments);
     };
   }();
+  var handleShowRenameModal = function handleShowRenameModal(project) {
+    setContextMenu(null); // Close context menu
+    setProjectToRename(project);
+    setRenameInput(project.name); // Pre-fill with current name
+    setShowRenameModal(true);
+  };
+  var handleCancelRename = function handleCancelRename() {
+    setShowRenameModal(false);
+    setProjectToRename(null);
+    setRenameInput("");
+  };
+  var handleConfirmRename = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            if (!(!projectToRename || !renameInput || renameInput === projectToRename.name)) {
+              _context7.next = 3;
+              break;
+            }
+            handleCancelRename(); // Close if no change or invalid
+            return _context7.abrupt("return");
+          case 3:
+            _context7.prev = 3;
+            _context7.next = 6;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_1__.renameProject)(projectToRename.name, renameInput);
+          case 6:
+            handleCancelRename(); // Close modal
+            reloadData(); // Refresh lists
+            _context7.next = 15;
+            break;
+          case 10:
+            _context7.prev = 10;
+            _context7.t0 = _context7["catch"](3);
+            console.error("Failed to rename project:", _context7.t0);
+            setError(_context7.t0.message || "Failed to rename project.");
+            // Keep modal open on error? Or close? Closing for now.
+            handleCancelRename();
+          case 15:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7, null, [[3, 10]]);
+    }));
+    return function handleConfirmRename() {
+      return _ref9.apply(this, arguments);
+    };
+  }();
+  var handleContextMenu = function handleContextMenu(event, project) {
+    var isArchived = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    event.preventDefault(); // Keep this to prevent default browser menu
+    // Removed event.stopPropagation();
+    setContextMenu({
+      x: event.clientX,
+      y: event.clientY,
+      project: project,
+      isArchived: isArchived
+    });
+  };
 
   // --- Render ---
 
@@ -28434,7 +28566,10 @@ function WelcomePage(_ref2) {
   }, "No recent projects found."), recentProjects.map(function (proj) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: proj.name,
-      style: styles.listItem
+      style: styles.listItem,
+      onContextMenu: function onContextMenu(e) {
+        return handleContextMenu(e, proj, false);
+      }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       style: styles.listItemContent
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
@@ -28446,21 +28581,7 @@ function WelcomePage(_ref2) {
     }, proj.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       style: styles.projectPath,
       title: proj.path
-    }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: styles.listItemActions
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      onClick: function onClick() {
-        return handleOpenLocation(proj);
-      },
-      style: styles.actionButton,
-      title: "Open Folder Location"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(FolderIcon, null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      onClick: function onClick() {
-        return handleArchive(proj);
-      },
-      style: styles.actionButton,
-      title: "Remove from Recent List (Archive)"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ArchiveIcon, null), " ")));
+    }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)));
   })), (archivedProjects.length > 0 || showArchived) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       marginTop: 16
@@ -28479,7 +28600,10 @@ function WelcomePage(_ref2) {
   }, "No archived projects."), archivedProjects.map(function (proj) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: proj.name,
-      style: styles.listItem
+      style: styles.listItem,
+      onContextMenu: function onContextMenu(e) {
+        return handleContextMenu(e, proj, true);
+      }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       style: styles.listItemContent
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
@@ -28490,23 +28614,7 @@ function WelcomePage(_ref2) {
       style: _objectSpread(_objectSpread({}, styles.projectPath), {}, {
         opacity: 0.7
       })
-    }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      style: styles.listItemActions
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      onClick: function onClick() {
-        return handleRestore(proj);
-      },
-      style: styles.actionButton,
-      title: "Restore to Recent List"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RestoreIcon, null), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-      onClick: function onClick() {
-        return handleShowDeleteConfirm(proj);
-      },
-      style: _objectSpread(_objectSpread({}, styles.actionButton), {}, {
-        color: "var(--error-color)"
-      }),
-      title: "Delete Permanently"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(DeleteIcon, null), " ")));
+    }, proj.path.length > 40 ? "...".concat(proj.path.slice(-37)) : proj.path)));
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: styles.footerLinks
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
@@ -28515,7 +28623,52 @@ function WelcomePage(_ref2) {
   }, "Documentation"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     href: "#",
     style: styles.link
-  }, "Support"), " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Modal, {
+  }, "Support"), " ")), contextMenu && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ContextMenu, {
+    x: contextMenu.x,
+    y: contextMenu.y,
+    project: contextMenu.project,
+    isArchived: contextMenu.isArchived,
+    onOpen: handleOpenProject,
+    onOpenLocation: handleOpenLocation,
+    onRename: handleShowRenameModal,
+    onArchive: handleArchive,
+    onRestore: handleRestore,
+    onDelete: handleShowDeleteConfirm,
+    onClose: function onClose() {
+      return setContextMenu(null);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Modal, {
+    isOpen: showRenameModal,
+    onClose: handleCancelRename,
+    title: "Rename Project \"".concat(projectToRename === null || projectToRename === void 0 ? void 0 : projectToRename.name, "\"")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    style: {
+      color: "var(--foreground-secondary)",
+      marginBottom: 16
+    }
+  }, "Enter the new name for the project:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    value: renameInput,
+    onChange: function onChange(e) {
+      return setRenameInput(e.target.value);
+    },
+    placeholder: "New project name",
+    style: styles.confirmInput // Reuse delete confirm input style
+    ,
+    onKeyDown: function onKeyDown(e) {
+      return e.key === 'Enter' && handleConfirmRename();
+    } // Submit on Enter
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.modalActions
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleCancelRename,
+    style: styles.modalButton
+  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleConfirmRename,
+    disabled: !renameInput || renameInput === (projectToRename === null || projectToRename === void 0 ? void 0 : projectToRename.name),
+    style: _objectSpread(_objectSpread({}, styles.modalButton), renameInput && renameInput !== (projectToRename === null || projectToRename === void 0 ? void 0 : projectToRename.name) ? styles.modalButtonPrimary // Use a primary style for enabled confirm
+    : styles.modalButtonDisabled)
+  }, "Rename"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Modal, {
     isOpen: showDeleteConfirm,
     onClose: handleCancelDelete,
     title: "Delete Project \"".concat(projectToDelete === null || projectToDelete === void 0 ? void 0 : projectToDelete.name, "\"?")
@@ -28544,22 +28697,72 @@ function WelcomePage(_ref2) {
   }, "Delete Permanently"))));
 }
 
-// --- Placeholder Icons ---
-// Replace these with actual SVG icons or an icon library (e.g., Material UI Icons)
-var FolderIcon = function FolderIcon() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " F ");
-};
-var ArchiveIcon = function ArchiveIcon() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " A ");
-};
-var RestoreIcon = function RestoreIcon() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " R ");
-};
-var DeleteIcon = function DeleteIcon() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " D ");
-};
+// --- Context Menu Component ---
+function ContextMenu(_ref10) {
+  var x = _ref10.x,
+    y = _ref10.y,
+    project = _ref10.project,
+    isArchived = _ref10.isArchived,
+    onOpen = _ref10.onOpen,
+    onOpenLocation = _ref10.onOpenLocation,
+    onRename = _ref10.onRename,
+    onArchive = _ref10.onArchive,
+    onRestore = _ref10.onRestore,
+    onDelete = _ref10.onDelete,
+    onClose = _ref10.onClose;
+  // Removed redundant useEffect for closing on outside click, parent handles this.
+
+  var handleAction = function handleAction(action) {
+    // Ensure project is passed to the action handler
+    action(project);
+    onClose();
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "context-menu-class" // Class for click outside detection
+    ,
+    style: _objectSpread(_objectSpread({}, styles.contextMenu), {}, {
+      top: y,
+      left: x
+    })
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.contextMenuItem,
+    onClick: function onClick() {
+      return handleAction(onOpen);
+    }
+  }, "Open"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.contextMenuItem,
+    onClick: function onClick() {
+      return handleAction(onOpenLocation);
+    }
+  }, "Open Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.contextMenuItem,
+    onClick: function onClick() {
+      return handleAction(onRename);
+    }
+  }, "Rename..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", {
+    style: styles.contextMenuSeparator
+  }), isArchived ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.contextMenuItem,
+    onClick: function onClick() {
+      return handleAction(onRestore);
+    }
+  }, "Restore") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: styles.contextMenuItem,
+    onClick: function onClick() {
+      return handleAction(onArchive);
+    }
+  }, "Remove from List (Archive)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: _objectSpread(_objectSpread({}, styles.contextMenuItem), {}, {
+      color: "var(--error-color)"
+    }),
+    onClick: function onClick() {
+      return handleAction(onDelete);
+    }
+  }, "Delete Permanently..."));
+}
 
 // --- Styles ---
+// (Styles remain largely the same, ensure contextMenu, contextMenuItem, contextMenuSeparator are defined)
 // Using JS objects for simplicity, consider CSS Modules or styled-components
 var styles = {
   pageContainer: {
@@ -28662,70 +28865,71 @@ var styles = {
   },
   listItem: {
     marginBottom: 6,
-    // Reduced margin
     display: "flex",
     alignItems: "center",
+    // Vertically align items if path wraps (though it shouldn't now)
     justifyContent: "space-between",
-    // Space between content and actions
     background: "var(--background-tertiary)",
     borderRadius: 6,
-    padding: "8px 12px",
-    // Adjusted padding
+    padding: "10px 12px",
+    // Slightly more vertical padding
     border: "1px solid var(--border-color)",
     transition: "background 0.2s",
-    cursor: "default" // Default cursor for the li itself
+    cursor: "default",
+    "&:hover": {
+      // Example for hover effect if not using dynamic styles
+      background: "var(--hover-color)"
+    }
   },
   listItemContent: {
     display: "flex",
-    flexDirection: "column",
-    // Stack name and path
+    // Changed to flex for inline layout
+    justifyContent: "space-between",
+    // Space out name and path
+    alignItems: "center",
+    // Align items vertically
     flexGrow: 1,
-    marginRight: 8,
-    // Space before actions
     overflow: "hidden" // Prevent overflow
+    // Removed marginRight as actions are gone
   },
   projectName: {
     color: "var(--foreground-primary)",
-    // Changed color
     fontWeight: 600,
-    // Adjusted weight
     fontSize: 15,
     cursor: "pointer",
-    // Cursor only on the name
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    display: "block",
-    // Ensure ellipsis works
-    marginBottom: 2 // Space between name and path
+    // Removed display: block and marginBottom
+    marginRight: "16px",
+    // Add space between name and path
+    flexShrink: 1 // Allow name to shrink if needed, but prioritize showing it
   },
   projectPath: {
-    color: "var(--foreground-secondary)",
-    fontSize: 12,
-    // Smaller font size
+    color: "var(--accent-primary)",
+    // Use accent color for path
+    fontSize: 13,
+    // Slightly larger path font
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    display: "block" // Ensure ellipsis works
+    textAlign: "right",
+    // Align path to the right
+    flexShrink: 0 // Prevent path from shrinking
+    // Removed display: block
   },
-  listItemActions: {
-    display: "flex",
-    alignItems: "center",
-    flexShrink: 0 // Prevent actions from shrinking
-  },
+  // Removed listItemActions style block
   actionButton: {
+    // Kept for potential future use, but not used in list items now
     background: "none",
     border: "none",
     color: "var(--foreground-secondary)",
     padding: "4px",
     marginLeft: 4,
-    // Space between buttons
     cursor: "pointer",
     fontSize: 16,
-    // Adjust as needed for icons
     lineHeight: 1,
     display: "flex",
-    // Center icon
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
@@ -28738,7 +28942,8 @@ var styles = {
     padding: "4px 0",
     cursor: "pointer",
     fontSize: 13,
-    fontWeight: 500
+    fontWeight: 500,
+    marginTop: 8 // Ensure space below list before this button
   },
   footerLinks: {
     marginTop: 32,
@@ -28828,7 +29033,14 @@ var styles = {
     color: "var(--foreground-primary)",
     cursor: "pointer"
   },
+  modalButtonPrimary: {
+    // Style for enabled Rename button
+    background: "var(--accent-primary)",
+    color: "white",
+    borderColor: "var(--accent-primary)"
+  },
   modalButtonConfirm: {
+    // Style for Delete button
     background: "var(--error-color)",
     color: "white",
     borderColor: "var(--error-color)"
@@ -28836,26 +29048,47 @@ var styles = {
   modalButtonDisabled: {
     opacity: 0.5,
     cursor: "not-allowed"
+  },
+  // Context Menu Styles
+  contextMenu: {
+    position: 'fixed',
+    background: 'var(--background-secondary)',
+    // Ensure opaque background
+    border: '1px solid var(--border-color)',
+    // Ensure border definition
+    borderRadius: '6px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+    // Keep shadow for depth
+    padding: '6px 0',
+    minWidth: '180px',
+    zIndex: 1001 // Ensure it's above modal overlay
+  },
+  contextMenuItem: {
+    padding: '8px 16px',
+    color: 'var(--foreground-primary)',
+    fontSize: '14px',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    '&:hover': {
+      // Pseudo-selector example
+      background: 'var(--hover-color)'
+    }
+  },
+  contextMenuSeparator: {
+    height: '1px',
+    background: 'var(--border-color)',
+    border: 'none',
+    margin: '6px 0'
   }
 };
 
-// Add hover effects dynamically if needed, or use CSS classes
-styles.newProjectButton[':hover'] = {
-  background: "var(--accent-primary-dark)"
-}; // Example
-styles.actionButton[':hover'] = {
-  background: "var(--hover-color)",
-  color: "var(--foreground-primary)"
-};
-styles.moreButton[':hover'] = {
-  textDecoration: "underline"
-};
-styles.modalButton[':hover'] = {
-  background: "var(--hover-color)"
-};
-styles.modalButtonConfirm[':hover'] = {
-  background: "darkred"
-}; // Example hover for confirm
+// Add hover effects dynamically if needed, or use CSS classes / libraries like Radium/Styled Components
+// Note: Simple JS style objects don't directly support pseudo-classes like :hover.
+// The examples above are illustrative. For real hover effects, you'd typically use:
+// 1. CSS Modules or regular CSS classes.
+// 2. Styled-components or Emotion.
+// 3. Inline styles with onMouseEnter/onMouseLeave handlers to change styles.
+// For simplicity, explicit hover styles are omitted here but should be added via CSS.
 
 /***/ }),
 
@@ -28875,6 +29108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   listProjects: () => (/* binding */ listProjects),
 /* harmony export */   markProjectAccessed: () => (/* binding */ markProjectAccessed),
 /* harmony export */   openProjectLocation: () => (/* binding */ openProjectLocation),
+/* harmony export */   renameProject: () => (/* binding */ renameProject),
 /* harmony export */   restoreProject: () => (/* binding */ restoreProject)
 /* harmony export */ });
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -29069,8 +29303,6 @@ function _createProject() {
 function deleteProject(_x4) {
   return _deleteProject.apply(this, arguments);
 }
-
-// --- New API Functions ---
 function _deleteProject() {
   _deleteProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(name) {
     var res;
@@ -29101,78 +29333,88 @@ function _deleteProject() {
   }));
   return _deleteProject.apply(this, arguments);
 }
-function markProjectAccessed(_x5) {
-  return _markProjectAccessed.apply(this, arguments);
+function renameProject(_x5, _x6) {
+  return _renameProject.apply(this, arguments);
 }
-function _markProjectAccessed() {
-  _markProjectAccessed = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(name) {
+
+// --- New API Functions ---
+function _renameProject() {
+  _renameProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(oldName, newName) {
     var res, data;
     return _regeneratorRuntime().wrap(function _callee7$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
         case 0:
           _context7.next = 2;
-          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/accessed"), {
-            method: "PUT"
+          return fetch("".concat(API_BASE, "/project/rename"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              old_name: oldName,
+              new_name: newName
+            })
           });
         case 2:
           res = _context7.sent;
           _context7.next = 5;
-          return handleResponse(res, 'mark project accessed');
+          return handleResponse(res, 'rename project');
         case 5:
           data = _context7.sent;
-          return _context7.abrupt("return", data.last_accessed);
+          return _context7.abrupt("return", data.new_path);
         case 7:
         case "end":
           return _context7.stop();
       }
     }, _callee7);
   }));
+  return _renameProject.apply(this, arguments);
+}
+function markProjectAccessed(_x7) {
   return _markProjectAccessed.apply(this, arguments);
 }
-function archiveProject(_x6) {
-  return _archiveProject.apply(this, arguments);
-}
-function _archiveProject() {
-  _archiveProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(name) {
-    var res;
+function _markProjectAccessed() {
+  _markProjectAccessed = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(name) {
+    var res, data;
     return _regeneratorRuntime().wrap(function _callee8$(_context8) {
       while (1) switch (_context8.prev = _context8.next) {
         case 0:
           _context8.next = 2;
-          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/archive"), {
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/accessed"), {
             method: "PUT"
           });
         case 2:
           res = _context8.sent;
           _context8.next = 5;
-          return handleResponse(res, 'archive project');
+          return handleResponse(res, 'mark project accessed');
         case 5:
-          return _context8.abrupt("return", true);
-        case 6:
+          data = _context8.sent;
+          return _context8.abrupt("return", data.last_accessed);
+        case 7:
         case "end":
           return _context8.stop();
       }
     }, _callee8);
   }));
+  return _markProjectAccessed.apply(this, arguments);
+}
+function archiveProject(_x8) {
   return _archiveProject.apply(this, arguments);
 }
-function restoreProject(_x7) {
-  return _restoreProject.apply(this, arguments);
-}
-function _restoreProject() {
-  _restoreProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(name) {
+function _archiveProject() {
+  _archiveProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9(name) {
     var res;
     return _regeneratorRuntime().wrap(function _callee9$(_context9) {
       while (1) switch (_context9.prev = _context9.next) {
         case 0:
           _context9.next = 2;
-          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/restore"), {
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/archive"), {
             method: "PUT"
           });
         case 2:
           res = _context9.sent;
           _context9.next = 5;
-          return handleResponse(res, 'restore project');
+          return handleResponse(res, 'archive project');
         case 5:
           return _context9.abrupt("return", true);
         case 6:
@@ -29181,25 +29423,25 @@ function _restoreProject() {
       }
     }, _callee9);
   }));
+  return _archiveProject.apply(this, arguments);
+}
+function restoreProject(_x9) {
   return _restoreProject.apply(this, arguments);
 }
-function openProjectLocation(_x8) {
-  return _openProjectLocation.apply(this, arguments);
-}
-function _openProjectLocation() {
-  _openProjectLocation = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(name) {
+function _restoreProject() {
+  _restoreProject = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(name) {
     var res;
     return _regeneratorRuntime().wrap(function _callee10$(_context10) {
       while (1) switch (_context10.prev = _context10.next) {
         case 0:
           _context10.next = 2;
-          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/open_location"), {
-            method: "POST"
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/restore"), {
+            method: "PUT"
           });
         case 2:
           res = _context10.sent;
           _context10.next = 5;
-          return handleResponse(res, 'open project location');
+          return handleResponse(res, 'restore project');
         case 5:
           return _context10.abrupt("return", true);
         case 6:
@@ -29207,6 +29449,33 @@ function _openProjectLocation() {
           return _context10.stop();
       }
     }, _callee10);
+  }));
+  return _restoreProject.apply(this, arguments);
+}
+function openProjectLocation(_x10) {
+  return _openProjectLocation.apply(this, arguments);
+}
+function _openProjectLocation() {
+  _openProjectLocation = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11(name) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+      while (1) switch (_context11.prev = _context11.next) {
+        case 0:
+          _context11.next = 2;
+          return fetch("".concat(API_BASE, "/project/").concat(encodeURIComponent(name), "/open_location"), {
+            method: "POST"
+          });
+        case 2:
+          res = _context11.sent;
+          _context11.next = 5;
+          return handleResponse(res, 'open project location');
+        case 5:
+          return _context11.abrupt("return", true);
+        case 6:
+        case "end":
+          return _context11.stop();
+      }
+    }, _callee11);
   }));
   return _openProjectLocation.apply(this, arguments);
 }

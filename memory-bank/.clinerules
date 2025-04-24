@@ -1,17 +1,22 @@
-# .clinerules – SeekerAug Project Intelligence
+# Cline Rules for SeekerAug Project
 
-## UI/UX Implementation Reference
+## UI/UX Patterns & Preferences
 
-- When implementing or refactoring UI/UX components, optionally reference `memory-bank/vscode-ui-patterns.md` for actionable design notes, code snippets, and implementation hints derived from VS Code analysis.
-- Only read the relevant lines/sections of this file as needed for the current task, to avoid unnecessary token usage.
-- Use this file for practical details on tab bar, sidebar, context panel, status bar, layout, theming, keyboard shortcuts, and general UI patterns.
-- Update this file with new patterns, snippets, and hints as they are discovered.
+*   **VS Code Aesthetic:** Adhere closely to VS Code layout, theming, and interaction patterns (Command Palette, Explorer, Tabs, Status Bar, Context Menus). See `systemPatterns.md` for detailed rules.
+*   **Theming:** All UI elements MUST use CSS variables defined in theme JSON files (e.g., `var(--background-primary)`, `var(--accent-primary)`). Do not use hardcoded colors.
+*   **Pop-up Elements (Modals, Context Menus):** Ensure these elements explicitly define `background` (usually `var(--background-secondary)`) and `border` (usually `var(--border-color)`) styles to avoid transparency issues and maintain visual consistency with the theme.
+*   **Information Density:** Prioritize clear information display, suitable for workstation use. Use tooltips for truncated text or complex icons.
+*   **Responsiveness:** While primarily desktop-focused, ensure layouts adapt reasonably to different window sizes.
 
-## General Rules
+## Technical Implementation
 
-- Always keep the Memory Bank up to date with all major design decisions, patterns, and implementation notes.
-- Reference systemPatterns.md for canonical architecture and design rules.
-- Reference activeContext.md for current work focus, next steps, and recent changes.
-- Use progress.md to track what works, what's left, and current status.
-- Use productContext.md and projectbrief.md for product vision and requirements.
-- Use techContext.md for technology stack, setup, and constraints.
+*   **State Management:** Use React `useState` for local component state and potentially `useContext` for shared UI state if Redux is overkill. Avoid prop drilling.
+*   **API Interaction:** All backend interactions go through the defined functions in `src/renderer/projectApi.js`. Keep API calls clean and handle errors gracefully, providing user feedback.
+*   **Backend Structure:** Follow the modular structure in `src/python/` (dataset, project management, API).
+*   **Persistence:** Project listing and core metadata are managed via the Python backend and stored in `project.json` within each project directory (`~/.seekeraug/projects/`). Internal project data (images, annotations) uses the SQLite DB within the project dir.
+
+## Workflow & Communication
+
+*   **Memory Bank:** ALWAYS read core memory bank files at the start. Update `activeContext.md` and `progress.md` after significant changes. Review ALL files if requested via "update memory bank".
+*   **Error Handling:** Implement `ErrorBoundary` components in React. Provide clear error messages to the user for both frontend and backend issues. Log detailed errors to the console.
+*   **Styling:** Prefer inline styles using JS objects mapped to CSS variables for component-level styling. Use CSS classes for global styles or complex selectors if necessary. Ensure hover/focus states are visually distinct.

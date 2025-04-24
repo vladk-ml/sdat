@@ -67,6 +67,16 @@ export async function deleteProject(name) {
   return true;
 }
 
+export async function renameProject(oldName, newName) {
+  const res = await fetch(`${API_BASE}/project/rename`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ old_name: oldName, new_name: newName }),
+  });
+  const data = await handleResponse(res, 'rename project');
+  return data.new_path;
+}
+
 // --- New API Functions ---
 
 export async function markProjectAccessed(name) {
