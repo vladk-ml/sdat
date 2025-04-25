@@ -440,6 +440,14 @@ function App() {
     );
   }
 
+  // New state for pane visibility
+  const [isExplorerMinimized, setIsExplorerMinimized] = useState(true);
+  const [isContextMinimized, setIsContextMinimized] = useState(true);
+
+  // Toggle handlers for panes
+  const toggleExplorer = () => setIsExplorerMinimized(!isExplorerMinimized);
+  const toggleContext = () => setIsContextMinimized(!isContextMinimized);
+
   if (showWelcome) {
     return (
       <>
@@ -469,11 +477,58 @@ function App() {
           onCloseProject={handleCloseProject}
           showClose={true}
         />
-        <ProjectDashboard
-          project={currentProject}
-          images={projectImages[currentProject.name] || []}
-          onImportImages={handleImportImages}
-        />
+        <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
+          {/* Explorer Pane */}
+          {!isExplorerMinimized && (
+            <Sidebar width={sidebarWidth} />
+          )}
+          {/* Minimized Explorer Icon */}
+          {isExplorerMinimized && (
+            <div
+              style={{
+                width: 40,
+                background: "var(--background-secondary)",
+                borderRight: "1px solid var(--border-color)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                userSelect: "none"
+              }}
+              title="Show Explorer"
+              onClick={toggleExplorer}
+            >
+              📁
+            </div>
+          )}
+
+          {/* Workspace */}
+          <Workspace activeTab={activeTab} />
+
+          {/* Context Panel */}
+          {!isContextMinimized && (
+            <ContextPanel width={contextWidth} />
+          )}
+          {/* Minimized Context Icon */}
+          {isContextMinimized && (
+            <div
+              style={{
+                width: 40,
+                background: "var(--background-secondary)",
+                borderLeft: "1px solid var(--border-color)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                userSelect: "none"
+              }}
+              title="Show Context Panel"
+              onClick={toggleContext}
+            >
+              ⚙️
+            </div>
+          )}
+        </div>
         <StatusBar />
       </div>
     );

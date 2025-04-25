@@ -27827,6 +27827,24 @@ function App() {
       disabled: createLoading
     }, "Cancel"))));
   }
+
+  // New state for pane visibility
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState24 = _slicedToArray(_useState23, 2),
+    isExplorerMinimized = _useState24[0],
+    setIsExplorerMinimized = _useState24[1];
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState26 = _slicedToArray(_useState25, 2),
+    isContextMinimized = _useState26[0],
+    setIsContextMinimized = _useState26[1];
+
+  // Toggle handlers for panes
+  var toggleExplorer = function toggleExplorer() {
+    return setIsExplorerMinimized(!isExplorerMinimized);
+  };
+  var toggleContext = function toggleContext() {
+    return setIsContextMinimized(!isContextMinimized);
+  };
   if (showWelcome) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
       projects: projects,
@@ -27851,11 +27869,45 @@ function App() {
       onOpenPalette: function onOpenPalette() {},
       onCloseProject: handleCloseProject,
       showClose: true
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ProjectDashboard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      project: currentProject,
-      images: projectImages[currentProject.name] || [],
-      onImportImages: handleImportImages
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(StatusBar, null));
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        display: "flex",
+        flex: 1,
+        minHeight: 0
+      }
+    }, !isExplorerMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Sidebar, {
+      width: sidebarWidth
+    }), isExplorerMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: 40,
+        background: "var(--background-secondary)",
+        borderRight: "1px solid var(--border-color)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        userSelect: "none"
+      },
+      title: "Show Explorer",
+      onClick: toggleExplorer
+    }, "\uD83D\uDCC1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Workspace, {
+      activeTab: activeTab
+    }), !isContextMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ContextPanel, {
+      width: contextWidth
+    }), isContextMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        width: 40,
+        background: "var(--background-secondary)",
+        borderLeft: "1px solid var(--border-color)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        userSelect: "none"
+      },
+      title: "Show Context Panel",
+      onClick: toggleContext
+    }, "\u2699\uFE0F")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(StatusBar, null));
   }
 
   // Fallback (should not happen)
