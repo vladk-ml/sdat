@@ -39,17 +39,20 @@
   - **Partially Fixed Pane Styling:**
     - Moved theme loading to `index.jsx` to ensure variables are available before initial render.
     - Replaced collapse icon `button` elements with `span` elements.
-    - Used CSS classes defined in `index.html` (`.sidebar-header-text`, `.sidebar-collapse-icon`, `.context-placeholder-text`) applied via `className` in `App.jsx`.
-    - **Result:** Sidebar header text and collapse icon colors are now correct. Context Panel header text and collapse icon were already correct. **Issue:** Context Panel placeholder text remains black despite applying the `.context-placeholder-text` class (which defines `color: var(--foreground-secondary)`).
+    - Used CSS classes defined in `index.html` (`.sidebar-header-text`, `.sidebar-collapse-icon`) applied via `className` in `App.jsx`. Sidebar header/icon colors are now correct.
+    - **Persistent Issue:** Context Panel placeholder text (`[Context Panel Placeholder]`) remains black despite multiple attempts to apply `var(--foreground-secondary)`:
+        - Applying CSS class `.context-placeholder-text` (defined in `index.html`).
+        - Increasing CSS specificity (`.context-panel .context-placeholder-text` in `index.html`).
+        - Applying inline style `color: var(--foreground-secondary)` directly to the element in `App.jsx`.
+        - Applying inline style `color: var(--foreground-secondary) !important` directly to the element.
+        - Applying hardcoded inline style `color: "#9D9D9D !important"` directly to the element.
+        - DevTools inspection confirms the styles are applied but the computed color remains black (`rgb(0, 0, 0)`). The root cause is unknown and likely involves a very specific override (potentially browser default with high specificity or JS interference). This issue is shelved for now.
   - **Fixed Raw Image Import:** Confirmed `projectApi.js` correctly uses `FormData` and expects `File` objects. Reverted incorrect change in `App.jsx` that was sending file paths instead. Image import is now functional.
 
 ## Styling Analysis & Next Steps
 
-- **Analysis:** The successful fix for the Sidebar header/icon involved moving theme loading earlier and applying specific CSS classes. The failure of the Context Panel placeholder text to adopt the `.context-placeholder-text` class suggests a persistent CSS specificity conflict or inheritance issue related to that specific `div` element or its parents within the `ContextPanel` component structure.
-- **Next Steps (Styling):** Further investigation is needed for the Context Panel placeholder text color. Potential next steps could involve:
-    - Using browser DevTools to inspect the computed styles and identify the conflicting rule.
-    - Refactoring the `ContextPanel` component structure slightly to see if it affects inheritance.
-    - Trying `!important` specifically on the `.context-placeholder-text` class definition in `index.html`.
+- **Analysis:** The Context Panel placeholder text color issue is highly persistent and resistant to standard CSS specificity increases, inline styles, and even `!important`. The root cause remains unidentified after extensive troubleshooting.
+- **Next Steps (Styling):** The Context Panel placeholder text color issue is **shelved**. No further attempts will be made at this time. Focus will shift to other UI/UX tasks.
 - **Next Steps (General):**
     - Address remaining image import issues (shelved for now).
     - **Refine Tab System:**

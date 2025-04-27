@@ -238,9 +238,9 @@ function ContextPanel({ width, onToggleMinimize }) {
           ›{/* Right-pointing chevron */}
         </span>
       </div>
-      {/* Apply color to parent div, remove from placeholder itself */}
+      {/* Apply color to parent div AND directly to placeholder via inline style with !important */}
       <div style={{ color: "var(--foreground-secondary)", flex: 1, overflowY: 'auto' }}>
-         <div className="context-placeholder-text" style={{ padding: "16px 24px" }}> {/* Apply class */}
+         <div className="context-placeholder-text" style={{ padding: "16px 24px", color: "var(--foreground-secondary) !important" }}> {/* Apply class AND inline color with !important */}
             [Context Panel Placeholder]
          </div>
       </div>

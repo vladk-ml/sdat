@@ -14,7 +14,8 @@
         /* Try to force color on button pseudo-elements if needed */
         -webkit-text-fill-color: var(--foreground-secondary);
       }
-      .context-placeholder-text {
+      /* Increase specificity for context panel placeholder */
+      .context-panel .context-placeholder-text {
         color: var(--foreground-secondary);
       }
       /* Ensure buttons generally inherit color unless overridden */

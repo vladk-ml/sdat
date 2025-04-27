@@ -27511,7 +27511,8 @@ function ContextPanel(_ref5) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "context-placeholder-text",
     style: {
-      padding: "16px 24px"
+      padding: "16px 24px",
+      color: "#9D9D9D !important"
     }
   }, " ", "[Context Panel Placeholder]")));
 }

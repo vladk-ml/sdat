@@ -19,5 +19,6 @@
 
 *   **Memory Bank:** ALWAYS read core memory bank files at the start. Update `activeContext.md` and `progress.md` after significant changes. Review ALL files if requested via "update memory bank".
 *   **Error Handling:** Implement `ErrorBoundary` components in React. Provide clear error messages to the user for both frontend and backend issues. Log detailed errors to the console.
-*   **Styling:** Prefer inline styles using JS objects mapped to CSS variables for component-level styling. Use CSS classes for global styles or complex selectors if necessary. Ensure hover/focus states are visually distinct.
+*   **Styling:** Prefer inline styles using JS objects mapped to CSS variables for component-level styling. Use CSS classes defined in `index.html` for global styles or reusable patterns. Ensure hover/focus states are visually distinct.
+*   **Text Colors & Specificity:** All text colors MUST be defined using theme CSS variables (e.g., `var(--foreground-primary)`, `var(--foreground-secondary)`). Apply via CSS classes or inline styles. If theme colors are overridden by default browser styles or other rules, increase CSS specificity in the relevant rule (e.g., by using `.parent-class .child-class` selectors in `index.html`).
 *   **Iterative Changes:** When addressing user feedback or fixing bugs, implement the complete intended solution for the specific issue before requesting testing. Avoid making minimal incremental changes that require multiple rounds of testing for a single problem. Clearly state the changes made and what is ready for testing.

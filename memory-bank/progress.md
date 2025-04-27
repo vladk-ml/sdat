@@ -54,7 +54,7 @@
 
 ## Known Issues
 
-- **Styling:** Context Panel placeholder text (`[Context Panel Placeholder]`) remains black despite attempts to style using CSS variables, inline styles, and CSS classes. Further investigation needed (potential specificity/inheritance issue).
+- **Styling (Shelved):** Context Panel placeholder text (`[Context Panel Placeholder]`) remains black despite extensive troubleshooting, including increasing CSS specificity, applying inline styles with and without `!important`, and hardcoding color values. DevTools confirm styles are applied, but the computed color remains black. The root cause is unknown and the issue is shelved for now.
 - Resizable panes lack persistence (widths and minimized state are not saved).
 - Explorer and Context Panel content is placeholder.
 - Only 'dashboard' tab type is implemented; other types (grid view, image viewer) need rendering logic.
