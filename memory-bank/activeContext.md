@@ -26,14 +26,37 @@
   - Command Palette closes on command.
 - Immediate import for empty projects; staged import for non-empty projects.
 - Backend endpoints for all major operations, with strict project scoping.
-- **Bugfixes:** Added missing import json to backend modules, resolving backend crashes on image import/delete. Added ErrorBoundary to the frontend, so React errors now show a clear message instead of a blank screen. Added useState for processedMetadata in App.jsx, fixing ReferenceError and preventing frontend crash. All processed dataset summary and grid views now have robust error handling and null checks.
+- **Tab System Foundation:** Implemented core state management (`openTabs`, `activeTabId`) and handlers (`handleOpenTab`, `handleSelectTab`, `handleCloseTab`) in `App.jsx`. Workspace now renders a `TabBar` and content based on the active tab. `handleOpenProject` automatically opens a dashboard tab. `handleCloseProject` clears tabs.
+- **Resizable Panes:** Implemented basic resizable sidebar and context panel using drag handles. Panes minimize if dragged below a threshold and can be restored by clicking the minimized icon. Resizers are hidden when panes are minimized.
+- **Bugfixes:**
+  - Added missing import json to backend modules, resolving backend crashes on image import/delete.
+  - Added ErrorBoundary to the frontend, so React errors now show a clear message instead of a blank screen.
+  - Added useState for processedMetadata in App.jsx, fixing ReferenceError and preventing frontend crash.
+  - All processed dataset summary and grid views now have robust error handling and null checks.
+  - Fixed crash on closing last tab by adjusting `Workspace` rendering logic.
+  - Fixed crash on opening project by ensuring `ProjectDashboard` receives `images` prop safely (fetching images in `handleOpenProject` and passing `images || []`).
+  - Improved tab close icon visibility using `var(--foreground-primary)`.
+  - **Fixed Sidebar text color:** Ensured text in the sidebar uses `var(--foreground-primary)` for proper theme adherence.
+  - **Added Pane Collapse Icons:** Added clickable icons to the headers of the Explorer (Sidebar) and Context panes to allow collapsing them instantly, improving usability.
+  - **Fixed Raw Image Import:** Resolved issue where selecting images via the "Import Images" button didn't trigger the import. Added missing state variables (`loading`, `error`) in `App.jsx` and ensured file paths (not `File` objects) are passed to the backend API.
 
 ## Next Steps
 
-- Implement VS Code-style tab system:
+- **Refine Tab System:**
+  - Implement rendering logic for different tab types (Grid view, Image viewer, etc.) within the `Workspace`.
+  - Add functionality to open specific tabs (e.g., image viewer) from interactions (e.g., clicking an image in the grid).
+- **Refine Resizable Panes:**
+  - Persist pane widths and minimized state to local storage.
+- **Implement Explorer Pane Content:**
+  - Display actual dataset tree (Raw, Refined, etc.) with badges and actions.
+  - Integrate explorer actions to open relevant tabs (e.g., clicking "Raw Dataset" opens a grid view tab).
+- **Implement Context Panel Content:**
+  - Add tabs/sections within the context panel (Metadata, History, etc.).
+  - Make content dynamic based on the active workspace tab.
+- Implement VS Code-style tab system features:
   - Tab types:
-    - Grid view (dataset overview)
-    - Image viewer (quick, lightweight)
+    - Grid view (dataset overview) - *Partially addressed by dashboard*
+    - Image viewer (quick, lightweight) - *Next*
     - Image annotator (bounding box, polygon, etc.)
     - Dataset manipulator (advanced dataset operations, grouping, filtering, reordering)
     - Class editor (explore/edit classes, ontological hierarchy, search, export, metadata/cropped previews)

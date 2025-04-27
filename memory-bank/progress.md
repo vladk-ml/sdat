@@ -1,4 +1,4 @@
-# Progress: SeekerAug
+ Progress: SeekerAug
 
 ## What Works
 
@@ -18,7 +18,10 @@
 - Immediate import for empty projects; staged import for non-empty projects.
 - Backend endpoints for all major operations, with strict project scoping.
 - Command palette, context menus, and VS Code-like navigation.
-- **Theming:** VS Code-style theming system implemented using JSON theme files and a dynamic loader that injects CSS variables at runtime. All UI components use these variables for styling.
+- **Theming:** VS Code-style theming system implemented using JSON theme files and a dynamic loader that injects CSS variables at runtime. All UI components use these variables for styling. Sidebar text color fixed to use theme variables.
+- **Tab System Foundation:** Core state management, tab bar rendering, open/close/select logic, and automatic dashboard tab opening are functional.
+- **Basic Resizable Panes:** Sidebar and context panel can be resized via drag handles, minimize when dragged small, and be restored via icon click. Collapse icons added to pane headers for instant minimizing.
+- **Raw Image Import:** Import via button click and file dialog is now functional.
 - Linux (Debian/Ubuntu) local-only operation, no cloud dependencies.
 
 ## What's Left to Build
@@ -46,10 +49,13 @@
 - Theming is handled via JSON theme files and dynamic CSS variable injection, matching VS Code's approach.
 - Raw/refined dataset pipeline, metadata extraction, and dataset history are implemented and fully functional.
 - UI/UX is professional, responsive, and optimized for workstation use.
-- **Planning phase complete:** Authoritative scaffold and feature roadmap established. Ready to proceed with incremental scaffold implementation as outlined above.
+- **Tab system and resizable panes implemented:** Core functionality for the VS Code-style layout (Explorer, Tabbed Workspace, Context Panel) is in place and functional, including basic resizing, tab management, and header collapse icons. Crashes related to tab closing and project opening have been resolved.
+- **Raw image import fixed:** Users can now import images using the "Import Images" button.
 
 ## Known Issues
 
-- No critical issues at this stage.
+- Resizable panes lack persistence (widths and minimized state are not saved).
+- Explorer and Context Panel content is placeholder.
+- Only 'dashboard' tab type is implemented; other types (grid view, image viewer) need rendering logic.
 - Further testing needed for large datasets and edge cases (e.g., very large TIFFs, unusual metadata).
 - Collaborative and advanced features are planned for future phases.
