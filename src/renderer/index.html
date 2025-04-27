@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <title>SeekerAug</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* Define classes for specific element styling */
+      .sidebar-header-text {
+        color: var(--foreground-primary);
+      }
+      .sidebar-collapse-icon {
+        color: var(--foreground-secondary);
+        /* Try to force color on button pseudo-elements if needed */
+        -webkit-text-fill-color: var(--foreground-secondary);
+      }
+      .context-placeholder-text {
+        color: var(--foreground-secondary);
+      }
+      /* Ensure buttons generally inherit color unless overridden */
+      button {
+        color: inherit;
+        background: inherit; /* Prevent default button backgrounds */
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

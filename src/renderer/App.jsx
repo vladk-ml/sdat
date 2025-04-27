@@ -47,7 +47,7 @@ function Sidebar({ width, onToggleMinimize }) {
         textTransform: "uppercase",
         fontSize: 11,
         fontWeight: 600,
-        color: "var(--foreground-secondary)",
+        color: "var(--foreground-primary)", // Keep outer div primary
         padding: "6px 12px",
         marginBottom: 4,
         letterSpacing: 0.5,
@@ -55,23 +55,23 @@ function Sidebar({ width, onToggleMinimize }) {
         justifyContent: "space-between", // Added for icon positioning
         alignItems: "center" // Added for icon positioning
       }}>
-        <span style={{ color: "var(--foreground-secondary)" }}>Datasets</span> {/* Re-apply explicit color */}
-        {/* Added Collapse Icon */}
-        <button
+        <span className="sidebar-header-text">Datasets</span> {/* Apply class */}
+        {/* Replaced button with span for icon */}
+        <span
           onClick={onToggleMinimize}
+          className="sidebar-collapse-icon" // Apply class
           title="Collapse Explorer"
           style={{
-            background: "none",
-            border: "none",
-            color: "var(--foreground-secondary)", // Explicit color again
+            // Remove inline color, rely on class
             cursor: "pointer",
             padding: "0 6px",
-            fontSize: "20px", // Increased size further
-            lineHeight: 1
+            fontSize: "20px",
+            lineHeight: 1,
+            userSelect: "none" // Prevent text selection on click
           }}
         >
           ‹{/* Left-pointing chevron */}
-        </button>
+        </span>
       </div>
       <div style={{ flex: 1, overflowY: "auto" }}>
         {/* TODO: Dataset tree, actions, badges */}
@@ -222,25 +222,27 @@ function ContextPanel({ width, onToggleMinimize }) {
         alignItems: "center" // Added for icon positioning
       }}>
         <span style={{ color: "var(--foreground-primary)" }}>Context Panel</span> {/* Use primary color for header */}
-         {/* Added Collapse Icon */}
-         <button
+         {/* Replaced button with span for icon */}
+         <span
           onClick={onToggleMinimize}
           title="Collapse Context Panel"
           style={{
-            background: "none",
-            border: "none",
-            color: "var(--foreground-secondary)", // Explicit color again
+            color: "var(--foreground-secondary)", // Keep explicit color for this icon
             cursor: "pointer",
             padding: "0 6px",
-            fontSize: "20px", // Increased size further
-            lineHeight: 1
+            fontSize: "20px",
+            lineHeight: 1,
+            userSelect: "none" // Prevent text selection on click
           }}
         >
           ›{/* Right-pointing chevron */}
-        </button>
+        </span>
       </div>
-      <div style={{ color: "var(--foreground-secondary)", padding: "16px 24px" }}> {/* Explicitly set color again */}
-        [Context Panel Placeholder]
+      {/* Apply color to parent div, remove from placeholder itself */}
+      <div style={{ color: "var(--foreground-secondary)", flex: 1, overflowY: 'auto' }}>
+         <div className="context-placeholder-text" style={{ padding: "16px 24px" }}> {/* Apply class */}
+            [Context Panel Placeholder]
+         </div>
       </div>
     </div>
   );
@@ -282,9 +284,7 @@ function StatusBar() {
 }
 
 function App() {
-  useEffect(() => {
-    loadAndApplyTheme("dark");
-  }, []);
+  // Removed useEffect for theme loading, now done in index.jsx
 
   const [showWelcome, setShowWelcome] = useState(true);
   const [sidebarWidth, setSidebarWidth] = useState(240);

@@ -36,11 +36,65 @@
   - Fixed crash on closing last tab by adjusting `Workspace` rendering logic.
   - Fixed crash on opening project by ensuring `ProjectDashboard` receives `images` prop safely (fetching images in `handleOpenProject` and passing `images || []`).
   - Improved tab close icon visibility using `var(--foreground-primary)`.
-  - **Fixed Sidebar text color:** Ensured text in the sidebar uses `var(--foreground-primary)` for proper theme adherence.
-  - **Added Pane Collapse Icons:** Added clickable icons to the headers of the Explorer (Sidebar) and Context panes to allow collapsing them instantly, improving usability.
-  - **Fixed Raw Image Import:** Resolved issue where selecting images via the "Import Images" button didn't trigger the import. Added missing state variables (`loading`, `error`) in `App.jsx` and ensured file paths (not `File` objects) are passed to the backend API.
+  - **Partially Fixed Pane Styling:**
+    - Moved theme loading to `index.jsx` to ensure variables are available before initial render.
+    - Replaced collapse icon `button` elements with `span` elements.
+    - Used CSS classes defined in `index.html` (`.sidebar-header-text`, `.sidebar-collapse-icon`, `.context-placeholder-text`) applied via `className` in `App.jsx`.
+    - **Result:** Sidebar header text and collapse icon colors are now correct. Context Panel header text and collapse icon were already correct. **Issue:** Context Panel placeholder text remains black despite applying the `.context-placeholder-text` class (which defines `color: var(--foreground-secondary)`).
+  - **Fixed Raw Image Import:** Confirmed `projectApi.js` correctly uses `FormData` and expects `File` objects. Reverted incorrect change in `App.jsx` that was sending file paths instead. Image import is now functional.
 
-## Next Steps
+## Styling Analysis & Next Steps
+
+- **Analysis:** The successful fix for the Sidebar header/icon involved moving theme loading earlier and applying specific CSS classes. The failure of the Context Panel placeholder text to adopt the `.context-placeholder-text` class suggests a persistent CSS specificity conflict or inheritance issue related to that specific `div` element or its parents within the `ContextPanel` component structure.
+- **Next Steps (Styling):** Further investigation is needed for the Context Panel placeholder text color. Potential next steps could involve:
+    - Using browser DevTools to inspect the computed styles and identify the conflicting rule.
+    - Refactoring the `ContextPanel` component structure slightly to see if it affects inheritance.
+    - Trying `!important` specifically on the `.context-placeholder-text` class definition in `index.html`.
+- **Next Steps (General):**
+    - Address remaining image import issues (shelved for now).
+    - **Refine Tab System:**
+      - Implement rendering logic for different tab types (Grid view, Image viewer, etc.) within the `Workspace`.
+      - Add functionality to open specific tabs (e.g., image viewer) from interactions (e.g., clicking an image in the grid).
+    - **Refine Resizable Panes:**
+      - Persist pane widths and minimized state to local storage.
+    - **Implement Explorer Pane Content:**
+      - Display actual dataset tree (Raw, Refined, etc.) with badges and actions.
+      - Integrate explorer actions to open relevant tabs (e.g., clicking "Raw Dataset" opens a grid view tab).
+    - **Implement Context Panel Content:**
+      - Add tabs/sections within the context panel (Metadata, History, etc.).
+      - Make content dynamic based on the active workspace tab.
+    - Implement VS Code-style tab system features:
+      - Tab types:
+        - Grid view (dataset overview) - *Partially addressed by dashboard*
+        - Image viewer (quick, lightweight) - *Next*
+        - Image annotator (bounding box, polygon, etc.)
+        - Dataset manipulator (advanced dataset operations, grouping, filtering, reordering)
+        - Class editor (explore/edit classes, ontological hierarchy, search, export, metadata/cropped previews)
+        - [Future] More tab types as needed (e.g., training, metrics, augmentation pipeline)
+      - Blank background when no tabs are open; tabs can be opened/closed.
+      - Clicking an image in the grid opens a viewer tab (default), with option to switch to annotation/augmentation.
+      - One image per tab (for now); future extensibility for multi-image tabs.
+      - Tabs can go full screen, optimized for ultrawide screens.
+      - Standard keyboard shortcuts (e.g., Ctrl+Tab to switch tabs, but not Ctrl+W to close).
+      - Switching datasets while tabs are open is not allowed; prompt user to close tabs first.
+      - Explorer is focused on information and quick actions; main work is done in the workspace/tabs.
+      - Advanced dataset/class manipulation (grouping, ontological hierarchy, export) is available in dedicated tabs, not the explorer.
+    - Implement auto-annotation feature:
+      - User annotates a small set of images (e.g., 10-20).
+      - System trains a quick PyTorch model (with augmentation) on the GPU.
+      - Model is used to auto-annotate remaining images (bounding boxes, polygons, pose [future]).
+      - User can review, correct, and accept/reject auto-annotations.
+    - Explorer pane always shows all datasets (raw, refined, augmented) and allows navigation, but switching datasets while tabs are open is not allowed. Attempting to switch prompts the user to close tabs first.
+      - Explorer can be resized or minimized (0:100, 30:70, 50:50 splits).
+      - Advanced dataset manipulation (e.g., grouping by time/place, reordering) should be available in a dedicated tab, not the explorer itself.
+      - Explorer is focused on information and quick actions; main work is done in the workspace/tabs.
+    - Implement annotation workflow: annotation UI, backend endpoints, and storage (COCO, YOLO, etc.).
+    - Develop augmentation pipeline: UI for building augmentation steps, backend for applying them, and visualization of augmented data.
+    - Integrate model training: training config UI, backend job management, and training dashboard.
+    - Advanced metadata: support for geospatial/scale info, especially for scientific/aerial imagery.
+    - Dataset/annotation versioning and diff tools.
+    - Continue to refine the UI for a dense, information-rich, and professional experience.
+    - Plan for future collaborative features (multi-client, P2P, real-time sync).
 
 - **Refine Tab System:**
   - Implement rendering logic for different tab types (Grid view, Image viewer, etc.) within the `Workspace`.

@@ -18,10 +18,10 @@
 - Immediate import for empty projects; staged import for non-empty projects.
 - Backend endpoints for all major operations, with strict project scoping.
 - Command palette, context menus, and VS Code-like navigation.
-- **Theming:** VS Code-style theming system implemented using JSON theme files and a dynamic loader that injects CSS variables at runtime. All UI components use these variables for styling. Sidebar text color fixed to use theme variables.
+- **Theming:** VS Code-style theming system implemented using JSON theme files and a dynamic loader (moved to `index.jsx`). Most UI elements use theme variables. Sidebar header/icon colors fixed using CSS classes.
 - **Tab System Foundation:** Core state management, tab bar rendering, open/close/select logic, and automatic dashboard tab opening are functional.
-- **Basic Resizable Panes:** Sidebar and context panel can be resized via drag handles, minimize when dragged small, and be restored via icon click. Collapse icons added to pane headers for instant minimizing.
-- **Raw Image Import:** Import via button click and file dialog is now functional.
+- **Basic Resizable Panes:** Sidebar and context panel can be resized via drag handles, minimize when dragged small, and be restored via icon click. Collapse icons (using `span` elements) added to pane headers for instant minimizing.
+- **Raw Image Import:** Import via button click and file dialog is functional (backend API expects `File` objects via `FormData`). Minor issues might exist but are shelved.
 - Linux (Debian/Ubuntu) local-only operation, no cloud dependencies.
 
 ## What's Left to Build
@@ -49,11 +49,12 @@
 - Theming is handled via JSON theme files and dynamic CSS variable injection, matching VS Code's approach.
 - Raw/refined dataset pipeline, metadata extraction, and dataset history are implemented and fully functional.
 - UI/UX is professional, responsive, and optimized for workstation use.
-- **Tab system and resizable panes implemented:** Core functionality for the VS Code-style layout (Explorer, Tabbed Workspace, Context Panel) is in place and functional, including basic resizing, tab management, and header collapse icons. Crashes related to tab closing and project opening have been resolved.
-- **Raw image import fixed:** Users can now import images using the "Import Images" button.
+- **Tab system and resizable panes implemented:** Core functionality for the VS Code-style layout (Explorer, Tabbed Workspace, Context Panel) is in place and functional, including basic resizing, tab management, and header collapse icons (using `span`s). Crashes related to tab closing and project opening have been resolved.
+- **Raw image import functional:** Users can import images using the "Import Images" button.
 
 ## Known Issues
 
+- **Styling:** Context Panel placeholder text (`[Context Panel Placeholder]`) remains black despite attempts to style using CSS variables, inline styles, and CSS classes. Further investigation needed (potential specificity/inheritance issue).
 - Resizable panes lack persistence (widths and minimized state are not saved).
 - Explorer and Context Panel content is placeholder.
 - Only 'dashboard' tab type is implemented; other types (grid view, image viewer) need rendering logic.

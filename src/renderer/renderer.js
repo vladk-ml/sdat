@@ -27278,7 +27278,8 @@ function Sidebar(_ref2) {
       textTransform: "uppercase",
       fontSize: 11,
       fontWeight: 600,
-      color: "var(--foreground-secondary)",
+      color: "var(--foreground-primary)",
+      // Keep outer div primary
       padding: "6px 12px",
       marginBottom: 4,
       letterSpacing: 0.5,
@@ -27289,22 +27290,19 @@ function Sidebar(_ref2) {
       alignItems: "center" // Added for icon positioning
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    style: {
-      color: "var(--foreground-secondary)"
-    }
-  }, "Datasets"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "sidebar-header-text"
+  }, "Datasets"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     onClick: onToggleMinimize,
+    className: "sidebar-collapse-icon" // Apply class
+    ,
     title: "Collapse Explorer",
     style: {
-      background: "none",
-      border: "none",
-      color: "var(--foreground-secondary)",
-      // Explicit color again
+      // Remove inline color, rely on class
       cursor: "pointer",
       padding: "0 6px",
       fontSize: "20px",
-      // Increased size further
-      lineHeight: 1
+      lineHeight: 1,
+      userSelect: "none" // Prevent text selection on click
     }
   }, "\u2039")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
@@ -27492,26 +27490,30 @@ function ContextPanel(_ref5) {
     style: {
       color: "var(--foreground-primary)"
     }
-  }, "Context Panel"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }, "Context Panel"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     onClick: onToggleMinimize,
     title: "Collapse Context Panel",
     style: {
-      background: "none",
-      border: "none",
       color: "var(--foreground-secondary)",
-      // Explicit color again
+      // Keep explicit color for this icon
       cursor: "pointer",
       padding: "0 6px",
       fontSize: "20px",
-      // Increased size further
-      lineHeight: 1
+      lineHeight: 1,
+      userSelect: "none" // Prevent text selection on click
     }
   }, "\u203A")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       color: "var(--foreground-secondary)",
+      flex: 1,
+      overflowY: 'auto'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "context-placeholder-text",
+    style: {
       padding: "16px 24px"
     }
-  }, " ", "[Context Panel Placeholder]"));
+  }, " ", "[Context Panel Placeholder]")));
 }
 function StatusBar() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -27553,9 +27555,8 @@ function StatusBar() {
   }, "\u2699\uFE0F"));
 }
 function App() {
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    (0,_themeLoader_js__WEBPACK_IMPORTED_MODULE_3__.loadAndApplyTheme)("dark");
-  }, []);
+  // Removed useEffect for theme loading, now done in index.jsx
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     _useState2 = _slicedToArray(_useState, 2),
     showWelcome = _useState2[0],
@@ -30102,10 +30103,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./src/renderer/App.jsx");
 /* harmony import */ var _ErrorBoundary_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ErrorBoundary.jsx */ "./src/renderer/ErrorBoundary.jsx");
+/* harmony import */ var _themeLoader_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./themeLoader.js */ "./src/renderer/themeLoader.js");
 
 
 
 
+ // Import theme loader
+
+// Load theme before rendering the app
+(0,_themeLoader_js__WEBPACK_IMPORTED_MODULE_4__.loadAndApplyTheme)("dark");
 var container = document.getElementById("root");
 var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
 root.render(/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ErrorBoundary_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
