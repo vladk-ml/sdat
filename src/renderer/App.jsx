@@ -208,7 +208,8 @@ function ContextPanel({ width, onToggleMinimize }) {
       borderLeft: "1px solid var(--border-color)",
       minHeight: 0,
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      color: "var(--foreground-primary)" // Ensure all children inherit theme color
     }}>
       <div className="context-header" style={{
         fontSize: 12,
@@ -217,30 +218,29 @@ function ContextPanel({ width, onToggleMinimize }) {
         borderBottom: "1px solid var(--border-color)",
         color: "var(--foreground-primary)",
         textTransform: "uppercase",
-        display: "flex", // Added for icon positioning
-        justifyContent: "space-between", // Added for icon positioning
-        alignItems: "center" // Added for icon positioning
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
       }}>
-        <span style={{ color: "var(--foreground-primary)" }}>Context Panel</span> {/* Use primary color for header */}
-         {/* Replaced button with span for icon */}
-         <span
+        <span style={{ color: "var(--foreground-primary)" }}>Context Panel</span>
+        <span
           onClick={onToggleMinimize}
           title="Collapse Context Panel"
           style={{
-            color: "var(--foreground-secondary)", // Keep explicit color for this icon
+            color: "var(--foreground-secondary)",
             cursor: "pointer",
             padding: "0 6px",
             fontSize: "20px",
             lineHeight: 1,
-            userSelect: "none" // Prevent text selection on click
+            userSelect: "none"
           }}
         >
-          ›{/* Right-pointing chevron */}
+          ›
         </span>
       </div>
       {/* Apply color to parent div AND directly to placeholder via inline style with !important */}
-      <div style={{ color: "var(--foreground-secondary)", flex: 1, overflowY: 'auto' }}>
-         <div className="context-placeholder-text" style={{ padding: "16px 24px", color: "var(--foreground-secondary) !important" }}> {/* Apply class AND inline color with !important */}
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+         <div className="context-placeholder-text">
             [Context Panel Placeholder]
          </div>
       </div>
@@ -783,6 +783,14 @@ function App() {
 
   // Fallback (should not happen)
   return null;
+}
+
+// Ensure themeable placeholder text class is injected before React renders
+if (typeof document !== 'undefined' && !document.getElementById('context-placeholder-style')) {
+  const style = document.createElement('style');
+  style.id = 'context-placeholder-style';
+  style.innerHTML = `.context-placeholder-text { color: var(--foreground-secondary); font-size: 20px; padding: 16px 24px; }`;
+  document.head.appendChild(style);
 }
 
 export default App;

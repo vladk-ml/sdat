@@ -48,6 +48,7 @@
         - Applying hardcoded inline style `color: "#9D9D9D !important"` directly to the element.
         - DevTools inspection confirms the styles are applied but the computed color remains black (`rgb(0, 0, 0)`). The root cause is unknown and likely involves a very specific override (potentially browser default with high specificity or JS interference). This issue is shelved for now.
   - **Fixed Raw Image Import:** Confirmed `projectApi.js` correctly uses `FormData` and expects `File` objects. Reverted incorrect change in `App.jsx` that was sending file paths instead. Image import is now functional.
+  - **Fixed Context Panel Text Color:** Explicitly set `color: var(--foreground-primary)` on the `.context-panel` root to ensure all children inherit the correct theme color variable, resolving the persistent black text issue.
 
 ## Styling Analysis & Next Steps
 

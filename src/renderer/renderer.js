@@ -27469,7 +27469,8 @@ function ContextPanel(_ref5) {
       borderLeft: "1px solid var(--border-color)",
       minHeight: 0,
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      color: "var(--foreground-primary)" // Ensure all children inherit theme color
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "context-header",
@@ -27481,40 +27482,32 @@ function ContextPanel(_ref5) {
       color: "var(--foreground-primary)",
       textTransform: "uppercase",
       display: "flex",
-      // Added for icon positioning
       justifyContent: "space-between",
-      // Added for icon positioning
-      alignItems: "center" // Added for icon positioning
+      alignItems: "center"
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     style: {
       color: "var(--foreground-primary)"
     }
-  }, "Context Panel"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+  }, "Context Panel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     onClick: onToggleMinimize,
     title: "Collapse Context Panel",
     style: {
       color: "var(--foreground-secondary)",
-      // Keep explicit color for this icon
       cursor: "pointer",
       padding: "0 6px",
       fontSize: "20px",
       lineHeight: 1,
-      userSelect: "none" // Prevent text selection on click
+      userSelect: "none"
     }
   }, "\u203A")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      color: "var(--foreground-secondary)",
       flex: 1,
       overflowY: 'auto'
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "context-placeholder-text",
-    style: {
-      padding: "16px 24px",
-      color: "#9D9D9D !important"
-    }
-  }, " ", "[Context Panel Placeholder]")));
+    className: "context-placeholder-text"
+  }, "[Context Panel Placeholder]")));
 }
 function StatusBar() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -28215,6 +28208,14 @@ function App() {
 
   // Fallback (should not happen)
   return null;
+}
+
+// Ensure themeable placeholder text class is injected before React renders
+if (typeof document !== 'undefined' && !document.getElementById('context-placeholder-style')) {
+  var style = document.createElement('style');
+  style.id = 'context-placeholder-style';
+  style.innerHTML = ".context-placeholder-text { color: var(--foreground-secondary); font-size: 20px; padding: 16px 24px; }";
+  document.head.appendChild(style);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
@@ -29990,6 +29991,9 @@ function _loadAndApplyTheme() {
               return "-" + m.toLowerCase();
             });
             document.documentElement.style.setProperty(cssVar, value);
+            if (document.body) document.body.style.setProperty(cssVar, value);
+            var root = document.getElementById("root");
+            if (root) root.style.setProperty(cssVar, value);
           });
           _context.next = 19;
           break;

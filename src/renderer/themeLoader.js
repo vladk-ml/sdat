@@ -11,6 +11,9 @@ export async function loadAndApplyTheme(themeName = "dark") {
     Object.entries(theme).forEach(([key, value]) => {
       const cssVar = "--" + key.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
       document.documentElement.style.setProperty(cssVar, value);
+      if (document.body) document.body.style.setProperty(cssVar, value);
+      const root = document.getElementById("root");
+      if (root) root.style.setProperty(cssVar, value);
     });
   } catch (err) {
     // Fallback: set a minimal dark theme
