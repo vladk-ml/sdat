@@ -236,22 +236,6 @@ def delete_image():
 
 from dataset.processor import DatasetProcessor
 
-@app.route("/dataset/intake", methods=["POST"])
-def intake_to_refined():
-    data = request.json
-    project_name = data.get("project_name")
-    if not project_name:
-        return jsonify({"error": "Missing project_name"}), 400
-    try:
-        project_path = project_manager.base_dir / project_name
-        if not project_path.exists():
-            return jsonify({"error": "Project does not exist"}), 404
-        processor = DatasetProcessor(project_path)
-        metadata = processor.process()
-        return jsonify({"status": "success", "metadata": metadata})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
 @app.route("/dataset/process", methods=["POST"])
 def process_dataset():
     data = request.json
@@ -304,62 +288,6 @@ def dataset_history():
                 for row in rows
             ]
         return jsonify({"status": "success", "history": history})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-import json
-from pathlib import Path
-
-@app.route("/annotation", methods=["GET"])
-def get_annotation():
-    project_name = request.args.get("project_name")
-    image_filename = request.args.get("image_filename")
-    if not project_name or not image_filename:
-        return jsonify({"error": "Missing project_name or image_filename"}), 400
-    try:
-        project_path = project_manager.base_dir / project_name
-        processed_dir = project_path / "processed"
-        annotation_path = processed_dir / f"{Path(image_filename).stem}.json"
-        if not annotation_path.exists():
-            return jsonify({"error": "Annotation file not found"}), 404
-        with open(annotation_path, "r") as f:
-            annotation = json.load(f)
-        return jsonify({"status": "success", "annotation": annotation})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/annotation", methods=["POST"])
-def save_annotation():
-    data = request.json
-    project_name = data.get("project_name")
-    image_filename = data.get("image_filename")
-    annotation = data.get("annotation")
-    if not project_name or not image_filename or not annotation:
-        return jsonify({"error": "Missing project_name, image_filename, or annotation"}), 400
-    try:
-        project_path = project_manager.base_dir / project_name
-        processed_dir = project_path / "processed"
-        annotation_path = processed_dir / f"{Path(image_filename).stem}.json"
-        with open(annotation_path, "w") as f:
-            json.dump(annotation, f, indent=2)
-        return jsonify({"status": "success"})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/raw/metadata", methods=["GET"])
-def get_raw_metadata():
-    project_name = request.args.get("project_name")
-    if not project_name:
-        return jsonify({"error": "Missing project_name"}), 400
-    try:
-        project_path = project_manager.base_dir / project_name
-        raw_dir = project_path / "raw"
-        metadata_path = raw_dir / "raw_metadata.json"
-        if not metadata_path.exists():
-            return jsonify({"status": "success", "metadata": {}})
-        with open(metadata_path, "r") as f:
-            metadata = json.load(f)
-        return jsonify({"status": "success", "metadata": metadata})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

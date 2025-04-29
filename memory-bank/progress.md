@@ -1,46 +1,96 @@
-# Progress: SeekerAug (Memory Bank Update, 2025-04-28)
+Progress: SeekerAug
 
 ## What Works
 
-- Projects are fully isolated: each has its own directory, database, and raw/refined datasets.
-- Project management (list, create, delete) is robust and handled via the Flask backend API.
+- Projects are fully isolated: each has its own directory, database, and raw/processed datasets.
+- Project management (list, create, delete) is fully persistent and handled via the Flask backend API; no localStorage/in-memory logic remains.
 - Welcome Page and Project Dashboard are fully integrated with backend persistence and provide a professional, VS Code-inspired experience.
-- **Raw dataset workflow:** 
-  - Import of images (jpg, png, tif, etc.) with original filenames preserved in the raw directory.
-  - All metadata (unique ID, original filename, current filename, import time) is tracked in a central `raw_metadata.json` file.
-  - Renaming in the UI updates the metadata file, not the file on disk.
-  - Grid view and explorer use metadata for display and management.
-- **Refined dataset workflow:**
-  - Intake process ("Ingest to Refined Dataset") copies images from raw to refined, standardizes format, extracts metadata, and creates per-image annotation files.
-  - Per-image annotation files (JSON/YAML) in the refined directory contain all extracted metadata, lineage, and an empty annotation list.
-- **Explorer Pane:** Shows both "Raw Dataset" and "Refined Dataset" entries, each opening their respective grid views.
-- **Tab System:** Tabs are opened for each dataset type, with stateful management.
-- **Ingest Button:** The grid view for the raw dataset includes an "Ingest to Refined Dataset" button to trigger the intake process.
-- **Backend API:** 
-  - `/raw/metadata` serves the contents of `raw_metadata.json`.
-  - `/dataset/intake` triggers the intake process to the refined dataset.
-  - All renaming and display logic for raw images is metadata-driven.
-- **UI/UX:** Professional, responsive, and optimized for workstation use.
+- Raw dataset workflow: import of images (jpg, png, tif, etc.) with original filenames preserved.
+- Refined dataset workflow: all raw images can be processed to high-quality JPGs, with metadata (dimensions, format, TIFF tags, etc.) extracted and stored.
+- Dataset history: all additions/removals to the raw dataset are logged in a per-project audit trail, viewable in the UI.
+- Wide, responsive image grid with original filenames, metadata, and professional UI/UX.
+- Main application window structure scaffolded: persistent explorer pane, centered command bar with command palette button, tabbed workspace, context panel, and status bar.
+- Explorer Pane implemented: shows dataset types (Raw, Refined, Annotated, Augmented) with color-coded badges and action buttons (open in file explorer, export).
+- Command Palette button is centered in the top bar; modal overlay is centered on screen.
+- "New Project" modal and logic restored; users can create new projects from the welcome screen.
+- Workspace now displays a dashboard with the project name and welcome message after opening a project.
+- Command Palette closes on command.
+- Immediate import for empty projects; staged import for non-empty projects.
+- Backend endpoints for all major operations, with strict project scoping.
+- Command palette, context menus, and VS Code-like navigation.
+- **Theming:** VS Code-style theming system implemented using JSON theme files and a dynamic loader (moved to `index.jsx`). Most UI elements use theme variables. Sidebar header/icon colors fixed using CSS classes.
+- **Tab System Foundation:** Core state management, tab bar rendering, open/close/select logic, and automatic dashboard tab opening are functional.
+- **Basic Resizable Panes:** Sidebar and context panel can be resized via drag handles, minimize when dragged small, and be restored via icon click. Collapse icons (using `span` elements) added to pane headers for instant minimizing.
+- **Raw Image Import:** Import via button click and file dialog is functional (backend API expects `File` objects via `FormData`). Minor issues might exist but are shelved.
+- Linux (Debian/Ubuntu) local-only operation, no cloud dependencies.
 
 ## What's Left to Build
 
-- Complete the grid view and management UI for the refined dataset, using per-image annotation files.
-- Implement robust error handling and UI feedback for all dataset operations.
-- Continue to refine the explorer and tab system for seamless navigation between dataset types.
-- Plan and implement annotation workflows and augmentation pipeline integration.
-- Add batch operations, export/import, and advanced metadata/lineage features.
+**Reference:** See "UI/UX Scaffold & Feature Roadmap (2025-04-21)" in `memory-bank/activeContext.md` for the authoritative, detailed roadmap.
+
+**Incremental, Testable Implementation Steps:**
+1. Finalize UI scaffold (all panes, bars, panels, resizable).
+2. Implement tab system (basic open/close, types, state).
+3. Explorer integration (dataset actions to tabs/context).
+4. Context panel (context-sensitive logic, metadata).
+5. Status bar (project info, operation status, notifications).
+6. Command bar & palette (global actions, palette, navigation).
+7. Navigation (forward/back, tab history, state restoration).
+8. Dataset operations (import, process, annotate, augment, train, export).
+9. Annotation/augmentation workflows (UI, backend).
+10. Lineage/versioning (usage marking, visualization, history).
+11. Shortcuts/customization (keyboard, workspace).
+12. Testing & regression prevention (tests, validation).
+
+## Current Status
+
+- Core project and dataset management workflows are complete and robust, with all persistence handled by the Flask backend API.
+- Welcome Page and Project Dashboard are fully integrated with backend persistence and provide a professional, VS Code-inspired experience.
+- Theming is handled via JSON theme files and dynamic CSS variable injection, matching VS Code's approach.
+- Raw/refined dataset pipeline, metadata extraction, and dataset history are implemented and fully functional.
+- UI/UX is professional, responsive, and optimized for workstation use.
+- **Tab system and resizable panes implemented:** Core functionality for the VS Code-style layout (Explorer, Tabbed Workspace, Context Panel) is in place and functional, including basic resizing, tab management, and header collapse icons (using `span`s). Crashes related to tab closing and project opening have been resolved.
+- **Raw image import functional:** Users can import images using the "Import Images" button.
 
 ## Known Issues
 
-- Some edge cases in project creation (duplicate names, manual deletion) may cause inconsistent state; further robustness needed.
-- Refined dataset grid view and annotation management are pending full implementation.
+- **Styling (Shelved):** Context Panel placeholder text (`[Context Panel Placeholder]`) remains black despite extensive troubleshooting, including increasing CSS specificity, applying inline styles with and without `!important`, and hardcoding color values. DevTools confirm styles are applied, but the computed color remains black. The root cause is unknown and the issue is shelved for now.
+- Resizable panes lack persistence (widths and minimized state are not saved).
+- Explorer and Context Panel content is placeholder.
+- Only 'dashboard' tab type is implemented; other types (grid view, image viewer) need rendering logic.
 - Further testing needed for large datasets and edge cases (e.g., very large TIFFs, unusual metadata).
 - Collaborative and advanced features are planned for future phases.
 
-## Next Steps
+---
 
-1. Implement grid view and management UI for the refined dataset, using per-image annotation files.
-2. Add error handling and UI feedback for all dataset operations.
-3. Refine explorer and tab system for seamless navigation.
-4. Plan and implement annotation workflows and augmentation pipeline integration.
-5. Test with real datasets and edge cases.
+## April 29, 2025: Recovery & Codebase Integrity Review
+
+### Context
+- Performed a full review of all changes between the last good commit and the "fixing garbage" commit, as well as the current state of the main and recovery-fresh branches.
+- Used CLI tools to compare line-by-line additions, focusing on meaningful source code and excluding build artifacts.
+
+### Key Findings
+- Most changes in the "fixing garbage" commit and related LLM-generated commits were destructive (removals, overwrites, or regressions).
+- The only positive, progressive change found and kept was the addition of the CopyWebpackPlugin config for theme support in webpack.renderer.config.js, and the move of dark.json to the themes/ directory.
+- All valuable features, documentation, and UI logic were preserved in the recovery-fresh branch.
+- Build artifacts (renderer.js, renderer.js.map) were excluded from all reviews and merges.
+
+### Actions Taken
+- Restored and committed annotation-schema.md and AnnotationEditor.jsx to preserve documentation and features.
+- Kept all current, working versions of source files (App.jsx, ImageGrid.jsx, projectApi.js, etc.) in recovery-fresh.
+- Ensured package.json and package-lock.json were kept as-is, as they only contained dependency changes.
+- Verified that all positive progress is present in recovery-fresh, and all destructive edits are excluded.
+- Documented the CLI commands used for future reference:
+  - `git diff main recovery-fresh --unified=0 --diff-filter=AM | grep '^+[^+]'` (shows new lines, excluding build artifacts)
+  - Exclude build artifacts with: `-- ':!src/renderer/renderer.js' ':!src/renderer/renderer.js.map'`
+
+### Lessons Learned
+- LLM-generated changes can be highly destructive if not guided by a strong memory bank and clear context.
+- Always work from a known good commit and cherry-pick only clear, positive changes.
+- Maintain a strong Memory Bank and document every feature, pattern, and workflow.
+- Exclude build artifacts from version control and code reviews.
+
+### Next Steps
+- Continue incremental, testable implementation as outlined in the feature roadmap.
+- Use the Memory Bank as the single source of truth for all future work and recovery efforts.
+- Update .clinerules with project intelligence and workflow patterns as they are discovered.

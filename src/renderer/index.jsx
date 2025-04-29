@@ -4,8 +4,6 @@ import App from "./App";
 import ErrorBoundary from "./ErrorBoundary.jsx";
 import { loadAndApplyTheme } from "./themeLoader.js"; // Import theme loader
 
-console.log("Renderer loaded!");
-
 // Load theme before rendering the app
 loadAndApplyTheme("dark");
 

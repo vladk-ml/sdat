@@ -254,3 +254,20 @@ flowchart TD
 12. Testing & regression prevention (tests, validation).
 
 **This roadmap is the reference for all future UI/UX and feature work.**
+
+---
+
+## April 29, 2025: Recovery & Review Session
+
+- Full review of destructive and constructive changes between main, recovery-fresh, and the "fixing garbage" commit.
+- CLI-based diffing confirmed that nearly all LLM-generated changes in the problematic commits were destructive (removals, overwrites, or regressions).
+- Only positive, progressive changes found and kept:
+  - CopyWebpackPlugin config for theme support in webpack.renderer.config.js
+  - Move of dark.json to the themes/ directory
+  - Restoration of annotation-schema.md and AnnotationEditor.jsx
+- All valuable features, documentation, and UI logic are preserved in recovery-fresh.
+- Build artifacts are excluded from all reviews and merges.
+- CLI commands for future reference:
+  - `git diff main recovery-fresh --unified=0 --diff-filter=AM | grep '^+[^+]'`
+  - Exclude build artifacts with: `-- ':!src/renderer/renderer.js' ':!src/renderer/renderer.js.map'`
+- Lessons learned: Always work from a known good commit, cherry-pick only clear, positive changes, and maintain a strong Memory Bank.
