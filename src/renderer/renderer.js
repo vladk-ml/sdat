@@ -27506,19 +27506,13 @@ __webpack_require__.r(__webpack_exports__);
  // Add these to projectApi.js
 
 function App() {
-  // ...all App state and handlers above unchanged...
-
-  // --- Refined Dataset Tab Handler ---
-  function handleOpenRefinedTab() {
-    if (!currentProject) return;
-    handleOpenTab({
-      id: "refined-".concat(currentProject.name),
-      title: "".concat(currentProject.name, " Refined"),
-      type: 'refined'
-    });
-  }
-
-  // ...rest of App function unchanged, including rendering Sidebar with onOpenRefinedTab={handleOpenRefinedTab}...
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "white",
+      padding: 40,
+      fontSize: 32
+    }
+  }, "App Loaded");
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
@@ -30275,6 +30269,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Import theme loader
+
+console.log("Renderer loaded!");
 
 // Load theme before rendering the app
 (0,_themeLoader_js__WEBPACK_IMPORTED_MODULE_4__.loadAndApplyTheme)("dark");
