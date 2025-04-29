@@ -1,4 +1,4 @@
- Progress: SeekerAug
+Progress: SeekerAug
 
 ## What Works
 
@@ -60,3 +60,37 @@
 - Only 'dashboard' tab type is implemented; other types (grid view, image viewer) need rendering logic.
 - Further testing needed for large datasets and edge cases (e.g., very large TIFFs, unusual metadata).
 - Collaborative and advanced features are planned for future phases.
+
+---
+
+## April 29, 2025: Recovery & Codebase Integrity Review
+
+### Context
+- Performed a full review of all changes between the last good commit and the "fixing garbage" commit, as well as the current state of the main and recovery-fresh branches.
+- Used CLI tools to compare line-by-line additions, focusing on meaningful source code and excluding build artifacts.
+
+### Key Findings
+- Most changes in the "fixing garbage" commit and related LLM-generated commits were destructive (removals, overwrites, or regressions).
+- The only positive, progressive change found and kept was the addition of the CopyWebpackPlugin config for theme support in webpack.renderer.config.js, and the move of dark.json to the themes/ directory.
+- All valuable features, documentation, and UI logic were preserved in the recovery-fresh branch.
+- Build artifacts (renderer.js, renderer.js.map) were excluded from all reviews and merges.
+
+### Actions Taken
+- Restored and committed annotation-schema.md and AnnotationEditor.jsx to preserve documentation and features.
+- Kept all current, working versions of source files (App.jsx, ImageGrid.jsx, projectApi.js, etc.) in recovery-fresh.
+- Ensured package.json and package-lock.json were kept as-is, as they only contained dependency changes.
+- Verified that all positive progress is present in recovery-fresh, and all destructive edits are excluded.
+- Documented the CLI commands used for future reference:
+  - `git diff main recovery-fresh --unified=0 --diff-filter=AM | grep '^+[^+]'` (shows new lines, excluding build artifacts)
+  - Exclude build artifacts with: `-- ':!src/renderer/renderer.js' ':!src/renderer/renderer.js.map'`
+
+### Lessons Learned
+- LLM-generated changes can be highly destructive if not guided by a strong memory bank and clear context.
+- Always work from a known good commit and cherry-pick only clear, positive changes.
+- Maintain a strong Memory Bank and document every feature, pattern, and workflow.
+- Exclude build artifacts from version control and code reviews.
+
+### Next Steps
+- Continue incremental, testable implementation as outlined in the feature roadmap.
+- Use the Memory Bank as the single source of truth for all future work and recovery efforts.
+- Update .clinerules with project intelligence and workflow patterns as they are discovered.

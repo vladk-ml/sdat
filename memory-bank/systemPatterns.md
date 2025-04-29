@@ -92,3 +92,16 @@
 ---
 
 **This section is the canonical reference for all future UI/UX work in SeekerAug.**
+
+---
+
+## April 29, 2025: Recovery & LLM Workflow Lessons
+
+- LLM-generated changes can be highly destructive if not guided by a strong memory bank and clear context.
+- Always work from a known good commit and cherry-pick only clear, positive changes.
+- Maintain a strong Memory Bank and document every feature, pattern, and workflow.
+- Exclude build artifacts from version control and code reviews.
+- Use CLI tools to compare only meaningful source code changes:
+  - `git diff main recovery-fresh --unified=0 --diff-filter=AM | grep '^+[^+]'`
+  - Exclude build artifacts with: `-- ':!src/renderer/renderer.js' ':!src/renderer/renderer.js.map'`
+- Keep .clinerules updated with project intelligence and workflow patterns as they are discovered.
