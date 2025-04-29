@@ -17,6 +17,14 @@ class DatasetImporter:
     def import_images(self, image_paths):
         """Import a list of image file paths into the project."""
         imported = []
+        raw_metadata_path = self.raw_dir / "raw_metadata.json"
+        # Load or initialize metadata
+        if raw_metadata_path.exists():
+            with open(raw_metadata_path, "r") as f:
+                raw_metadata = json.load(f)
+        else:
+            raw_metadata = {}
+
         with sqlite3.connect(self.db_path) as conn:
             # Add original_filename column if not present
             try:
@@ -37,10 +45,17 @@ class DatasetImporter:
             for src_path in image_paths:
                 ext = os.path.splitext(src_path)[1]
                 image_id = str(uuid.uuid4())
-                dest_filename = f"{image_id}{ext}"
-                dest_path = self.raw_dir / dest_filename
-                shutil.copy2(src_path, dest_path)
                 original_filename = os.path.basename(src_path)
+                # Ensure unique filename in raw directory
+                dest_filename = original_filename
+                dest_path = self.raw_dir / dest_filename
+                counter = 1
+                while dest_path.exists():
+                    name, ext = os.path.splitext(original_filename)
+                    dest_filename = f"{name}_{counter}{ext}"
+                    dest_path = self.raw_dir / dest_filename
+                    counter += 1
+                shutil.copy2(src_path, dest_path)
                 # Register in database
                 conn.execute(
                     "INSERT INTO images (id, filename, original_filename) VALUES (?, ?, ?)",
@@ -51,6 +66,14 @@ class DatasetImporter:
                     "INSERT INTO dataset_history (action, filename, original_filename, details) VALUES (?, ?, ?, ?)",
                     ("add", dest_filename, original_filename, json.dumps({"src_path": src_path}))
                 )
+                # Update central metadata file
+                raw_metadata[image_id] = {
+                    "id": image_id,
+                    "filename": dest_filename,
+                    "original_filename": original_filename,
+                    "imported_at": str(Path(dest_path).stat().st_mtime),
+                    "original_path": src_path
+                }
                 imported.append({
                     "id": image_id,
                     "filename": dest_filename,
@@ -58,4 +81,7 @@ class DatasetImporter:
                     "original_path": src_path
                 })
             conn.commit()
+        # Save updated metadata
+        with open(raw_metadata_path, "w") as f:
+            json.dump(raw_metadata, f, indent=2)
         return imported

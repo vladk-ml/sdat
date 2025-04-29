@@ -53,4 +53,33 @@ class DatasetProcessor:
         # Save metadata
         with open(self.metadata_path, "w") as f:
             json.dump(metadata, f, indent=2)
+
+        # Create per-image annotation/metadata files
+        import uuid
+        from datetime import datetime
+
+        for jpg_name, meta in metadata.items():
+            if "error" in meta:
+                continue
+            annotation = {
+                "image_id": str(uuid.uuid4()),
+                "filename": jpg_name,
+                "dimensions": [meta.get("width"), meta.get("height")],
+                "geotags": meta.get("tiff_tags", {}),
+                "ingested_at": datetime.utcnow().isoformat() + "Z",
+                "parent_raw_id": None,  # TODO: link to raw image UUID if available
+                "parent_raw_filename": meta.get("original_filename"),
+                "annotations": [],
+                "history": [
+                    {
+                        "action": "ingested",
+                        "by": "system",
+                        "at": datetime.utcnow().isoformat() + "Z"
+                    }
+                ]
+            }
+            annotation_path = self.processed_dir / f"{Path(jpg_name).stem}.json"
+            with open(annotation_path, "w") as af:
+                json.dump(annotation, af, indent=2)
+
         return metadata

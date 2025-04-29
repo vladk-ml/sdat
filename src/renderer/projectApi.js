@@ -141,6 +141,72 @@ export async function listProjectImages(projectName) {
   return res.json();
 }
 
+export async function intakeToRefined(projectName) {
+  const res = await fetch(`${API_BASE}/dataset/intake`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ project_name: projectName }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to intake to refined dataset');
+  }
+  const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || 'Failed to intake to refined dataset');
+  }
+  return data.metadata;
+}
+
+export async function getRawMetadata(projectName) {
+  const url = `${API_BASE}/raw/metadata?project_name=${encodeURIComponent(projectName)}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to load raw metadata');
+  }
+  const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || 'Failed to load raw metadata');
+  }
+  return data.metadata;
+}
+
+export async function getAnnotation(projectName, imageFilename) {
+  const url = `${API_BASE}/annotation?project_name=${encodeURIComponent(projectName)}&image_filename=${encodeURIComponent(imageFilename)}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to load annotation');
+  }
+  const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || 'Failed to load annotation');
+  }
+  return data.annotation;
+}
+
+export async function saveAnnotation(projectName, imageFilename, annotation) {
+  const res = await fetch(`${API_BASE}/annotation`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      project_name: projectName,
+      image_filename: imageFilename,
+      annotation: annotation
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to save annotation');
+  }
+  const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || 'Failed to save annotation');
+  }
+  return true;
+}
+
 // Rename an image in a project
 export async function renameProjectImage(projectName, imageId, newFilename) {
   const res = await fetch(`${API_BASE}/image/rename`, {

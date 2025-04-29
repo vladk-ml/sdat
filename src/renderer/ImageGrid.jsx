@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AnnotationEditor from "./AnnotationEditor";
 
 /**
  * ImageGrid component for displaying project images with selection, rename, and delete features.
@@ -9,11 +10,16 @@ import React, { useState } from "react";
  */
 import { useRef } from "react";
 
+import { intakeToRefined } from "./projectApi";
+
 export default function ImageGrid({ images, onRename, onDelete, project, onImportImages }) {
   const [selected, setSelected] = useState([]);
   const [renameTarget, setRenameTarget] = useState(null);
   const [renameInput, setRenameInput] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [editorImage, setEditorImage] = useState(null);
+  const [ingesting, setIngesting] = useState(false);
+  const [ingestStatus, setIngestStatus] = useState("");
 
   const fileInputRef = useRef();
 
@@ -65,7 +71,7 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-      {/* Header with import button */}
+      {/* Header with import and ingest button */}
       <div style={{
         padding: "24px 32px 12px 32px",
         borderBottom: "1px solid var(--border-color)",
@@ -88,7 +94,7 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
             {images.length} images imported
           </div>
         </div>
-        <div>
+        <div style={{ display: "flex", gap: 12 }}>
           <button
             className="button primary"
             style={{
@@ -113,6 +119,41 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
+          <button
+            className="button"
+            style={{
+              background: "#2C5D93",
+              color: "#fff",
+              border: "none",
+              borderRadius: 4,
+              padding: "8px 24px",
+              fontWeight: 600,
+              fontSize: 14,
+              cursor: ingesting ? "not-allowed" : "pointer",
+              opacity: ingesting ? 0.7 : 1
+            }}
+            disabled={ingesting}
+            onClick={async () => {
+              if (!project) return;
+              setIngesting(true);
+              setIngestStatus("");
+              try {
+                await intakeToRefined(project.name);
+                setIngestStatus("Ingested to Refined Dataset!");
+              } catch (err) {
+                setIngestStatus(err.message || "Failed to ingest");
+              } finally {
+                setIngesting(false);
+                setTimeout(() => setIngestStatus(""), 2000);
+              }
+            }}
+            title="Ingest all raw images to the Refined Dataset"
+          >
+            {ingesting ? "Ingesting..." : "Ingest to Refined Dataset"}
+          </button>
+          {ingestStatus && (
+            <span style={{ marginLeft: 12, color: "#7fd1b9" }}>{ingestStatus}</span>
+          )}
         </div>
       </div>
 
@@ -178,6 +219,15 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
               padding: 8,
               position: "relative",
               userSelect: "none",
+              cursor: "pointer"
+            }}
+            onClick={e => {
+              // Only open editor if not clicking on checkbox or action buttons
+              if (
+                e.target.tagName === "INPUT" ||
+                e.target.tagName === "BUTTON"
+              ) return;
+              setEditorImage(img);
             }}
           >
             {/* Checkbox for selection */}
@@ -291,6 +341,44 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
           </div>
         ))}
       </div>
+
+      {/* Annotation Editor Modal */}
+      {editorImage && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+          onClick={() => setEditorImage(null)}
+        >
+          <div
+            style={{
+              background: "var(--background-primary)",
+              borderRadius: 8,
+              boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
+              minWidth: 400,
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              overflowY: "auto"
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <AnnotationEditor
+              project={project}
+              image={editorImage}
+              onClose={() => setEditorImage(null)}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Rename Modal */}
       {renameTarget && (
