@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WelcomePage from "./WelcomePage.jsx";
 import ProjectDashboard from "./ProjectDashboard.jsx";
+import ImageGrid from "./ImageGrid.jsx";
 import { loadAndApplyTheme } from "./themeLoader.js";
 import { listProjects, createProject, deleteProject, importProjectImages, listProjectImages } from "./projectApi";
 
@@ -33,7 +34,7 @@ function CommandBar({ onOpenPalette, onCloseProject, showClose }) {
 }
 
 // Modified Sidebar to accept onToggleMinimize prop
-function Sidebar({ width, onToggleMinimize }) {
+function Sidebar({ width, onToggleMinimize, onOpenGridTab }) {
   return (
     <div className="sidebar" style={{
       width,
@@ -81,7 +82,9 @@ function Sidebar({ width, onToggleMinimize }) {
           padding: "6px 12px",
           cursor: "pointer",
           color: "var(--foreground-primary)" // Added theme color for text
-        }}>
+        }}
+        onClick={onOpenGridTab}
+        >
           <span className="sidebar-item-icon" style={{ marginRight: 8, color: "var(--raw-dataset-color)" }}>📁</span>
           Raw Dataset
         </div>
@@ -146,7 +149,17 @@ function TabBar({ tabs, activeTab, onSelectTab, onCloseTab }) {
 }
 
 // Updated Workspace component - Added projectImages and handleImportImages to props
-function Workspace({ openTabs, activeTabId, onSelectTab, onCloseTab, currentProject, projectImages, handleImportImages }) { // Note: handleImportImages prop exists but isn't used here yet
+function Workspace({
+  openTabs,
+  activeTabId,
+  onSelectTab,
+  onCloseTab,
+  currentProject,
+  projectImages,
+  handleImportImages,
+  handleRenameImage,
+  handleDeleteImages
+}) {
   const activeTab = openTabs.find(tab => tab.id === activeTabId);
 
   return (
@@ -169,27 +182,31 @@ function Workspace({ openTabs, activeTabId, onSelectTab, onCloseTab, currentProj
       <div style={{
         flex: 1,
         display: "flex",
-        alignItems: "stretch", // Changed to stretch content
-        justifyContent: "flex-start" // Changed alignment
+        alignItems: "stretch",
+        justifyContent: "flex-start"
       }}>
-        {/* Render content ONLY based on the activeTab object */}
         {activeTab ? (
-          // Render specific component based on tab type
           activeTab.type === 'dashboard' ? (
-            // Pass images safely to ProjectDashboard
+            // Only show dashboard content, NOT image grid
             <ProjectDashboard
               project={currentProject}
-              images={projectImages[currentProject?.name] || []} // Pass images or empty array
-              onImportImages={handleImportImages} // Pass import handler
+              images={[]} // No images in dashboard
+              onImportImages={handleImportImages}
+            />
+          ) : activeTab.type === 'grid' ? (
+            <ImageGrid
+              images={projectImages[currentProject?.name] || []}
+              onRename={handleRenameImage}
+              onDelete={handleDeleteImages}
+              project={currentProject}
+              onImportImages={handleImportImages}
             />
           ) : (
-            // Placeholder for other tab types
             <div style={{ padding: 20 }}>
               Content for Tab: {activeTab.title} (Type: {activeTab.type || 'unknown'})
             </div>
           )
         ) : (
-          // Default empty state if no tab is active
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--foreground-secondary)", fontSize: 20 }}>
             [Workspace Empty]
           </div>
@@ -282,6 +299,8 @@ function StatusBar() {
     </div>
   );
 }
+
+import { renameProjectImage, deleteProjectImage } from "./projectApi"; // Add these to projectApi.js
 
 function App() {
   // Removed useEffect for theme loading, now done in index.jsx
@@ -442,12 +461,9 @@ function App() {
       }));
     }
 
-    // Now open the dashboard tab
-    handleOpenTab({
-      id: `dashboard-${proj.name}`, // Unique ID for the dashboard tab
-      title: `${proj.name} Dashboard`,
-      type: 'dashboard'
-    });
+    // Do not open any tab by default; workspace will be empty
+    setOpenTabs([]);
+    setActiveTabId(null);
   }
   async function handleDeleteProject(proj) {
     try {
@@ -476,6 +492,15 @@ function App() {
   }
 
   // --- Tab Management ---
+  function handleOpenGridTab() {
+    if (!currentProject) return;
+    handleOpenTab({
+      id: `grid-${currentProject.name}`,
+      title: `${currentProject.name} Images`,
+      type: 'grid'
+    });
+  }
+
   function handleSelectTab(tabId) {
     setActiveTabId(tabId);
   }
@@ -643,6 +668,43 @@ function App() {
     );
   }
 
+  // --- Image Rename/Delete Handlers ---
+  async function handleRenameImage(image, newName) {
+    if (!currentProject) return;
+    try {
+      await renameProjectImage(currentProject.name, image.id, newName);
+      // Refresh image list
+      const result = await listProjectImages(currentProject.name);
+      setProjectImages(prev => ({
+        ...prev,
+        [currentProject.name]: result.images || []
+      }));
+    } catch (err) {
+      alert("Failed to rename image: " + (err.message || err));
+      // Optionally, log error for debugging
+      console.error("Rename image error:", err);
+    }
+  }
+
+  async function handleDeleteImages(imageIds) {
+    if (!currentProject) return;
+    try {
+      // Support batch delete by calling API for each image
+      for (const id of imageIds) {
+        await deleteProjectImage(currentProject.name, id);
+      }
+      // Refresh image list
+      const result = await listProjectImages(currentProject.name);
+      setProjectImages(prev => ({
+        ...prev,
+        [currentProject.name]: result.images || []
+      }));
+    } catch (err) {
+      alert("Failed to delete image(s): " + (err.message || err));
+    }
+  }
+  // --- End Image Rename/Delete Handlers ---
+
   // New state for pane visibility
   const [isExplorerMinimized, setIsExplorerMinimized] = useState(true);
   const [isContextMinimized, setIsContextMinimized] = useState(true);
@@ -691,7 +753,11 @@ function App() {
         <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
           {/* Explorer Pane - Pass toggle function */}
           {!isExplorerMinimized && (
-            <Sidebar width={sidebarWidth} onToggleMinimize={toggleExplorer} />
+            <Sidebar
+              width={sidebarWidth}
+              onToggleMinimize={toggleExplorer}
+              onOpenGridTab={handleOpenGridTab}
+            />
           )}
           {/* Minimized Explorer Icon */}
           {isExplorerMinimized && (
@@ -733,9 +799,11 @@ function App() {
             activeTabId={activeTabId}
             onSelectTab={handleSelectTab}
             onCloseTab={handleCloseTab}
-            currentProject={currentProject} // Pass currentProject
-            projectImages={projectImages} // Pass projectImages state
-            handleImportImages={handleImportImages} // Pass import handler
+            currentProject={currentProject}
+            projectImages={projectImages}
+            handleImportImages={handleImportImages}
+            handleRenameImage={handleRenameImage}
+            handleDeleteImages={handleDeleteImages}
           />
 
           {/* Context Panel Resizer (only show if pane is not minimized) */}

@@ -27193,9 +27193,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _WelcomePage_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WelcomePage.jsx */ "./src/renderer/WelcomePage.jsx");
 /* harmony import */ var _ProjectDashboard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProjectDashboard.jsx */ "./src/renderer/ProjectDashboard.jsx");
-/* harmony import */ var _themeLoader_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./themeLoader.js */ "./src/renderer/themeLoader.js");
-/* harmony import */ var _projectApi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./projectApi */ "./src/renderer/projectApi.js");
+/* harmony import */ var _ImageGrid_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ImageGrid.jsx */ "./src/renderer/ImageGrid.jsx");
+/* harmony import */ var _themeLoader_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./themeLoader.js */ "./src/renderer/themeLoader.js");
+/* harmony import */ var _projectApi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./projectApi */ "./src/renderer/projectApi.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
@@ -27214,6 +27216,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
 
 
 
@@ -27261,7 +27264,8 @@ function CommandBar(_ref) {
 // Modified Sidebar to accept onToggleMinimize prop
 function Sidebar(_ref2) {
   var width = _ref2.width,
-    onToggleMinimize = _ref2.onToggleMinimize;
+    onToggleMinimize = _ref2.onToggleMinimize,
+    onOpenGridTab = _ref2.onOpenGridTab;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "sidebar",
     style: {
@@ -27317,7 +27321,8 @@ function Sidebar(_ref2) {
       padding: "6px 12px",
       cursor: "pointer",
       color: "var(--foreground-primary)" // Added theme color for text
-    }
+    },
+    onClick: onOpenGridTab
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "sidebar-item-icon",
     style: {
@@ -27396,8 +27401,9 @@ function Workspace(_ref4) {
     onCloseTab = _ref4.onCloseTab,
     currentProject = _ref4.currentProject,
     projectImages = _ref4.projectImages,
-    handleImportImages = _ref4.handleImportImages;
-  // Note: handleImportImages prop exists but isn't used here yet
+    handleImportImages = _ref4.handleImportImages,
+    handleRenameImage = _ref4.handleRenameImage,
+    handleDeleteImages = _ref4.handleDeleteImages;
   var activeTab = openTabs.find(function (tab) {
     return tab.id === activeTabId;
   });
@@ -27422,30 +27428,27 @@ function Workspace(_ref4) {
       flex: 1,
       display: "flex",
       alignItems: "stretch",
-      // Changed to stretch content
-      justifyContent: "flex-start" // Changed alignment
+      justifyContent: "flex-start"
     }
-  }, activeTab ?
-  // Render specific component based on tab type
-  activeTab.type === 'dashboard' ?
+  }, activeTab ? activeTab.type === 'dashboard' ?
   /*#__PURE__*/
-  // Pass images safely to ProjectDashboard
+  // Only show dashboard content, NOT image grid
   react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ProjectDashboard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
     project: currentProject,
-    images: projectImages[currentProject === null || currentProject === void 0 ? void 0 : currentProject.name] || [] // Pass images or empty array
+    images: [] // No images in dashboard
     ,
-    onImportImages: handleImportImages // Pass import handler
-  }) :
-  /*#__PURE__*/
-  // Placeholder for other tab types
-  react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onImportImages: handleImportImages
+  }) : activeTab.type === 'grid' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ImageGrid_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    images: projectImages[currentProject === null || currentProject === void 0 ? void 0 : currentProject.name] || [],
+    onRename: handleRenameImage,
+    onDelete: handleDeleteImages,
+    project: currentProject,
+    onImportImages: handleImportImages
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       padding: 20
     }
-  }, "Content for Tab: ", activeTab.title, " (Type: ", activeTab.type || 'unknown', ")") :
-  /*#__PURE__*/
-  // Default empty state if no tab is active
-  react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, "Content for Tab: ", activeTab.title, " (Type: ", activeTab.type || 'unknown', ")") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
       flex: 1,
       display: "flex",
@@ -27548,6 +27551,8 @@ function StatusBar() {
     }
   }, "\u2699\uFE0F"));
 }
+ // Add these to projectApi.js
+
 function App() {
   // Removed useEffect for theme loading, now done in index.jsx
 
@@ -27686,7 +27691,7 @@ function App() {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.listProjects)();
+              return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjects)();
             case 3:
               list = _context.sent;
               setProjects(list);
@@ -27756,11 +27761,11 @@ function App() {
             setCreateLoading(true);
             _context2.prev = 12;
             _context2.next = 15;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.createProject)(name);
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.createProject)(name);
           case 15:
             proj = _context2.sent;
             _context2.next = 18;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.listProjects)();
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjects)();
           case 18:
             list = _context2.sent;
             setProjects(list);
@@ -27801,7 +27806,7 @@ function App() {
             // Fetch images for the project before opening the tab
             _context3.prev = 2;
             _context3.next = 5;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.listProjectImages)(proj.name);
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjectImages)(proj.name);
           case 5:
             result = _context3.sent;
             setProjectImages(function (prev) {
@@ -27817,14 +27822,10 @@ function App() {
               return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, proj.name, []));
             });
           case 13:
-            // Now open the dashboard tab
-            handleOpenTab({
-              id: "dashboard-".concat(proj.name),
-              // Unique ID for the dashboard tab
-              title: "".concat(proj.name, " Dashboard"),
-              type: 'dashboard'
-            });
-          case 14:
+            // Do not open any tab by default; workspace will be empty
+            setOpenTabs([]);
+            setActiveTabId(null);
+          case 15:
           case "end":
             return _context3.stop();
         }
@@ -27843,10 +27844,10 @@ function App() {
           case 0:
             _context4.prev = 0;
             _context4.next = 3;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.deleteProject)(proj.name);
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.deleteProject)(proj.name);
           case 3:
             _context4.next = 5;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.listProjects)();
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjects)();
           case 5:
             list = _context4.sent;
             setProjects(list);
@@ -27882,6 +27883,14 @@ function App() {
   }
 
   // --- Tab Management ---
+  function handleOpenGridTab() {
+    if (!currentProject) return;
+    handleOpenTab({
+      id: "grid-".concat(currentProject.name),
+      title: "".concat(currentProject.name, " Images"),
+      type: 'grid'
+    });
+  }
   function handleSelectTab(tabId) {
     setActiveTabId(tabId);
   }
@@ -27951,10 +27960,10 @@ function App() {
             setError(null);
             _context5.prev = 4;
             _context5.next = 7;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.importProjectImages)(currentProject.name, files);
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.importProjectImages)(currentProject.name, files);
           case 7:
             _context5.next = 9;
-            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_4__.listProjectImages)(currentProject.name);
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjectImages)(currentProject.name);
           case 9:
             result = _context5.sent;
             setProjectImages(function (prev) {
@@ -28091,7 +28100,114 @@ function App() {
     }, "Cancel"))));
   }
 
+  // --- Image Rename/Delete Handlers ---
+  function handleRenameImage(_x4, _x5) {
+    return _handleRenameImage.apply(this, arguments);
+  }
+  function _handleRenameImage() {
+    _handleRenameImage = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(image, newName) {
+      var result;
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
+          case 0:
+            if (currentProject) {
+              _context6.next = 2;
+              break;
+            }
+            return _context6.abrupt("return");
+          case 2:
+            _context6.prev = 2;
+            _context6.next = 5;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.renameProjectImage)(currentProject.name, image.id, newName);
+          case 5:
+            _context6.next = 7;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjectImages)(currentProject.name);
+          case 7:
+            result = _context6.sent;
+            setProjectImages(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, currentProject.name, result.images || []));
+            });
+            _context6.next = 15;
+            break;
+          case 11:
+            _context6.prev = 11;
+            _context6.t0 = _context6["catch"](2);
+            alert("Failed to rename image: " + (_context6.t0.message || _context6.t0));
+            // Optionally, log error for debugging
+            console.error("Rename image error:", _context6.t0);
+          case 15:
+          case "end":
+            return _context6.stop();
+        }
+      }, _callee6, null, [[2, 11]]);
+    }));
+    return _handleRenameImage.apply(this, arguments);
+  }
+  function handleDeleteImages(_x6) {
+    return _handleDeleteImages.apply(this, arguments);
+  } // --- End Image Rename/Delete Handlers ---
   // New state for pane visibility
+  function _handleDeleteImages() {
+    _handleDeleteImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(imageIds) {
+      var _iterator, _step, id, result;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            if (currentProject) {
+              _context7.next = 2;
+              break;
+            }
+            return _context7.abrupt("return");
+          case 2:
+            _context7.prev = 2;
+            // Support batch delete by calling API for each image
+            _iterator = _createForOfIteratorHelper(imageIds);
+            _context7.prev = 4;
+            _iterator.s();
+          case 6:
+            if ((_step = _iterator.n()).done) {
+              _context7.next = 12;
+              break;
+            }
+            id = _step.value;
+            _context7.next = 10;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.deleteProjectImage)(currentProject.name, id);
+          case 10:
+            _context7.next = 6;
+            break;
+          case 12:
+            _context7.next = 17;
+            break;
+          case 14:
+            _context7.prev = 14;
+            _context7.t0 = _context7["catch"](4);
+            _iterator.e(_context7.t0);
+          case 17:
+            _context7.prev = 17;
+            _iterator.f();
+            return _context7.finish(17);
+          case 20:
+            _context7.next = 22;
+            return (0,_projectApi__WEBPACK_IMPORTED_MODULE_5__.listProjectImages)(currentProject.name);
+          case 22:
+            result = _context7.sent;
+            setProjectImages(function (prev) {
+              return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, currentProject.name, result.images || []));
+            });
+            _context7.next = 29;
+            break;
+          case 26:
+            _context7.prev = 26;
+            _context7.t1 = _context7["catch"](2);
+            alert("Failed to delete image(s): " + (_context7.t1.message || _context7.t1));
+          case 29:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7, null, [[2, 26], [4, 14, 17, 20]]);
+    }));
+    return _handleDeleteImages.apply(this, arguments);
+  }
   var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     _useState34 = _slicedToArray(_useState33, 2),
     isExplorerMinimized = _useState34[0],
@@ -28143,7 +28259,8 @@ function App() {
       }
     }, !isExplorerMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Sidebar, {
       width: sidebarWidth,
-      onToggleMinimize: toggleExplorer
+      onToggleMinimize: toggleExplorer,
+      onOpenGridTab: handleOpenGridTab
     }), isExplorerMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       style: {
         width: 40,
@@ -28172,11 +28289,11 @@ function App() {
       activeTabId: activeTabId,
       onSelectTab: handleSelectTab,
       onCloseTab: handleCloseTab,
-      currentProject: currentProject // Pass currentProject
-      ,
-      projectImages: projectImages // Pass projectImages state
-      ,
-      handleImportImages: handleImportImages // Pass import handler
+      currentProject: currentProject,
+      projectImages: projectImages,
+      handleImportImages: handleImportImages,
+      handleRenameImage: handleRenameImage,
+      handleDeleteImages: handleDeleteImages
     }), !isContextMinimized && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "resizer vertical",
       style: {
@@ -28299,6 +28416,467 @@ var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
   }]);
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
+
+/***/ }),
+
+/***/ "./src/renderer/ImageGrid.jsx":
+/*!************************************!*\
+  !*** ./src/renderer/ImageGrid.jsx ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ImageGrid)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+/**
+ * ImageGrid component for displaying project images with selection, rename, and delete features.
+ * Props:
+ *   images: Array of image objects ({ id, filename, original_filename, path, size, width, height, added })
+ *   onRename: function(image, newName)
+ *   onDelete: function(imageIds)
+ */
+
+function ImageGrid(_ref) {
+  var images = _ref.images,
+    onRename = _ref.onRename,
+    onDelete = _ref.onDelete,
+    project = _ref.project,
+    onImportImages = _ref.onImportImages;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    selected = _useState2[0],
+    setSelected = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    renameTarget = _useState4[0],
+    setRenameTarget = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState6 = _slicedToArray(_useState5, 2),
+    renameInput = _useState6[0],
+    setRenameInput = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    showDeleteConfirm = _useState8[0],
+    setShowDeleteConfirm = _useState8[1];
+  var fileInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  function handleFileChange(e) {
+    var files = Array.from(e.target.files || []);
+    if (files.length > 0 && onImportImages) {
+      onImportImages(files);
+    }
+  }
+  function handleDrop(e) {
+    e.preventDefault();
+    var files = Array.from(e.dataTransfer.files || []);
+    if (files.length > 0 && onImportImages) {
+      onImportImages(files);
+    }
+  }
+
+  // Selection logic
+  var toggleSelect = function toggleSelect(id) {
+    setSelected(function (prev) {
+      return prev.includes(id) ? prev.filter(function (x) {
+        return x !== id;
+      }) : [].concat(_toConsumableArray(prev), [id]);
+    });
+  };
+  var selectAll = function selectAll() {
+    return setSelected(images.map(function (img) {
+      return img.id;
+    }));
+  };
+  var clearSelection = function clearSelection() {
+    return setSelected([]);
+  };
+
+  // Rename logic
+  var openRename = function openRename(img) {
+    setRenameTarget(img);
+    setRenameInput(img.original_filename || img.filename);
+  };
+  var handleRename = function handleRename() {
+    if (renameTarget && renameInput.trim()) {
+      onRename(renameTarget, renameInput.trim());
+      setRenameTarget(null);
+      setRenameInput("");
+    }
+  };
+
+  // Delete logic
+  var handleDelete = function handleDelete() {
+    if (selected.length > 0) {
+      onDelete(selected);
+      setShowDeleteConfirm(false);
+      setSelected([]);
+    }
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      padding: "24px 32px 12px 32px",
+      borderBottom: "1px solid var(--border-color)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+    style: {
+      margin: 0,
+      fontSize: 22,
+      fontWeight: 700,
+      color: "var(--accent-primary)"
+    }
+  }, (project === null || project === void 0 ? void 0 : project.name) || "Dataset"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "var(--foreground-secondary)",
+      fontSize: 13,
+      marginTop: 4
+    }
+  }, images.length, " images imported")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "button primary",
+    style: {
+      background: "var(--accent-primary)",
+      color: "white",
+      border: "none",
+      borderRadius: 4,
+      padding: "8px 24px",
+      fontWeight: 600,
+      fontSize: 14,
+      cursor: "pointer"
+    },
+    onClick: function onClick() {
+      return fileInputRef.current && fileInputRef.current.click();
+    }
+  }, "+ Import Images"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    ref: fileInputRef,
+    type: "file",
+    accept: ".jpg,.jpeg,.png,.tif,.tiff",
+    multiple: true,
+    style: {
+      display: "none"
+    },
+    onChange: handleFileChange
+  }))), selected.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      background: "var(--background-tertiary)",
+      borderBottom: "1px solid var(--border-color)",
+      padding: "8px 16px",
+      display: "flex",
+      alignItems: "center",
+      gap: 16,
+      zIndex: 2
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, selected.length, " selected"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: function onClick() {
+      return setShowDeleteConfirm(true);
+    }
+  }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: clearSelection
+  }, "Deselect All")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "image-grid",
+    style: {
+      flex: 1,
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+      gap: 16,
+      padding: 32,
+      background: "var(--background-primary)",
+      overflowY: "auto"
+    },
+    onDragOver: function onDragOver(e) {
+      return e.preventDefault();
+    },
+    onDrop: handleDrop
+  }, images.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      gridColumn: "1 / -1",
+      color: "var(--foreground-secondary)",
+      textAlign: "center",
+      padding: 40,
+      fontSize: 16,
+      opacity: 0.7
+    }
+  }, "No images imported yet. Drag and drop files here or use the import button."), images.map(function (img) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      key: img.id,
+      className: "image-grid-item",
+      style: {
+        borderRadius: 3,
+        background: "var(--background-tertiary)",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: 8,
+        position: "relative",
+        userSelect: "none"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "checkbox",
+      checked: selected.includes(img.id),
+      onChange: function onChange() {
+        return toggleSelect(img.id);
+      },
+      style: {
+        position: "absolute",
+        top: 8,
+        left: 8,
+        zIndex: 1,
+        accentColor: "var(--accent-color, #7fd1b9)"
+      },
+      title: "Select image"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+      src: "file://".concat(img.path),
+      alt: img.original_filename || img.filename,
+      className: "image-grid-thumbnail",
+      style: {
+        width: 120,
+        height: 90,
+        objectFit: "cover",
+        borderRadius: 2,
+        marginBottom: 8,
+        background: "#222"
+      },
+      loading: "lazy"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "image-grid-info",
+      style: {
+        width: "100%",
+        padding: 4,
+        textAlign: "center"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "image-grid-filename",
+      style: {
+        fontWeight: 600,
+        fontSize: 13,
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        maxWidth: 120
+      },
+      title: img.original_filename || img.filename
+    }, img.original_filename || img.filename), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "image-grid-id",
+      style: {
+        color: "var(--foreground-secondary)",
+        fontSize: 11,
+        marginTop: 2,
+        wordBreak: "break-all"
+      },
+      title: img.id
+    }, "ID: ", img.id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: {
+        display: "flex",
+        gap: 8,
+        marginTop: 4,
+        justifyContent: "center"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        return openRename(img);
+      },
+      title: "Rename",
+      style: {
+        fontSize: 12,
+        padding: "2px 8px",
+        borderRadius: 2,
+        border: "none",
+        background: "var(--background-secondary)",
+        color: "var(--accent-color, #7fd1b9)",
+        cursor: "pointer"
+      }
+    }, "Rename"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      onClick: function onClick() {
+        setSelected([img.id]);
+        setShowDeleteConfirm(true);
+      },
+      title: "Delete",
+      style: {
+        fontSize: 12,
+        padding: "2px 8px",
+        borderRadius: 2,
+        border: "none",
+        background: "var(--background-secondary)",
+        color: "#e57373",
+        cursor: "pointer"
+      }
+    }, "Delete")));
+  })), renameTarget && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      background: "rgba(0,0,0,0.4)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 1000
+    },
+    onClick: function onClick() {
+      return setRenameTarget(null);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      background: "var(--background-primary)",
+      padding: 24,
+      borderRadius: 6,
+      minWidth: 320,
+      boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
+      display: "flex",
+      flexDirection: "column",
+      gap: 12
+    },
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      fontWeight: 600,
+      fontSize: 16
+    }
+  }, "Rename Image"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    value: renameInput,
+    onChange: function onChange(e) {
+      return setRenameInput(e.target.value);
+    },
+    style: {
+      padding: 8,
+      fontSize: 14,
+      borderRadius: 3,
+      border: "1px solid var(--border-color)",
+      background: "var(--background-secondary)",
+      color: "var(--foreground-primary)"
+    },
+    autoFocus: true,
+    onKeyDown: function onKeyDown(e) {
+      return e.key === "Enter" && handleRename();
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      justifyContent: "flex-end"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: function onClick() {
+      return setRenameTarget(null);
+    },
+    style: {
+      padding: "6px 16px",
+      borderRadius: 3,
+      border: "none",
+      background: "var(--background-tertiary)",
+      color: "var(--foreground-secondary)",
+      cursor: "pointer"
+    }
+  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleRename,
+    disabled: !renameInput.trim(),
+    style: {
+      padding: "6px 16px",
+      borderRadius: 3,
+      border: "none",
+      background: "var(--accent-color, #7fd1b9)",
+      color: "#fff",
+      fontWeight: 600,
+      cursor: renameInput.trim() ? "pointer" : "not-allowed"
+    }
+  }, "Rename")))), showDeleteConfirm && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      background: "rgba(0,0,0,0.4)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 1000
+    },
+    onClick: function onClick() {
+      return setShowDeleteConfirm(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      background: "var(--background-primary)",
+      padding: 24,
+      borderRadius: 6,
+      minWidth: 320,
+      boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
+      display: "flex",
+      flexDirection: "column",
+      gap: 12
+    },
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      fontWeight: 600,
+      fontSize: 16
+    }
+  }, "Delete ", selected.length, " image", selected.length > 1 ? "s" : "", "?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      color: "var(--foreground-secondary)",
+      fontSize: 13
+    }
+  }, "This action cannot be undone. Are you sure you want to delete the selected image", selected.length > 1 ? "s" : "", "?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      justifyContent: "flex-end"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: function onClick() {
+      return setShowDeleteConfirm(false);
+    },
+    style: {
+      padding: "6px 16px",
+      borderRadius: 3,
+      border: "none",
+      background: "var(--background-tertiary)",
+      color: "var(--foreground-secondary)",
+      cursor: "pointer"
+    }
+  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleDelete,
+    style: {
+      padding: "6px 16px",
+      borderRadius: 3,
+      border: "none",
+      background: "#e57373",
+      color: "#fff",
+      fontWeight: 600,
+      cursor: "pointer"
+    }
+  }, "Delete")))));
+}
 
 /***/ }),
 
@@ -29454,6 +30032,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   archiveProject: () => (/* binding */ archiveProject),
 /* harmony export */   createProject: () => (/* binding */ createProject),
 /* harmony export */   deleteProject: () => (/* binding */ deleteProject),
+/* harmony export */   deleteProjectImage: () => (/* binding */ deleteProjectImage),
 /* harmony export */   getArchivedProjects: () => (/* binding */ getArchivedProjects),
 /* harmony export */   getRecentProjects: () => (/* binding */ getRecentProjects),
 /* harmony export */   importProjectImages: () => (/* binding */ importProjectImages),
@@ -29462,6 +30041,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   markProjectAccessed: () => (/* binding */ markProjectAccessed),
 /* harmony export */   openProjectLocation: () => (/* binding */ openProjectLocation),
 /* harmony export */   renameProject: () => (/* binding */ renameProject),
+/* harmony export */   renameProjectImage: () => (/* binding */ renameProjectImage),
 /* harmony export */   restoreProject: () => (/* binding */ restoreProject)
 /* harmony export */ });
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -29888,6 +30468,8 @@ function _importProjectImages() {
 function listProjectImages(_x13) {
   return _listProjectImages.apply(this, arguments);
 }
+
+// Rename an image in a project
 function _listProjectImages() {
   _listProjectImages = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13(projectName) {
     var res, err;
@@ -29926,6 +30508,77 @@ function _listProjectImages() {
     }, _callee13);
   }));
   return _listProjectImages.apply(this, arguments);
+}
+function renameProjectImage(_x14, _x15, _x16) {
+  return _renameProjectImage.apply(this, arguments);
+}
+
+// Delete an image in a project
+function _renameProjectImage() {
+  _renameProjectImage = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee14(projectName, imageId, newFilename) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+      while (1) switch (_context14.prev = _context14.next) {
+        case 0:
+          _context14.next = 2;
+          return fetch("".concat(API_BASE, "/image/rename"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              project_name: projectName,
+              image_id: imageId,
+              new_filename: newFilename
+            })
+          });
+        case 2:
+          res = _context14.sent;
+          _context14.next = 5;
+          return handleResponse(res, 'rename image');
+        case 5:
+          return _context14.abrupt("return", true);
+        case 6:
+        case "end":
+          return _context14.stop();
+      }
+    }, _callee14);
+  }));
+  return _renameProjectImage.apply(this, arguments);
+}
+function deleteProjectImage(_x17, _x18) {
+  return _deleteProjectImage.apply(this, arguments);
+}
+function _deleteProjectImage() {
+  _deleteProjectImage = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee15(projectName, imageId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+      while (1) switch (_context15.prev = _context15.next) {
+        case 0:
+          _context15.next = 2;
+          return fetch("".concat(API_BASE, "/image/delete"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              project_name: projectName,
+              image_id: imageId
+            })
+          });
+        case 2:
+          res = _context15.sent;
+          _context15.next = 5;
+          return handleResponse(res, 'delete image');
+        case 5:
+          return _context15.abrupt("return", true);
+        case 6:
+        case "end":
+          return _context15.stop();
+      }
+    }, _callee15);
+  }));
+  return _deleteProjectImage.apply(this, arguments);
 }
 
 /***/ }),

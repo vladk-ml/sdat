@@ -140,3 +140,32 @@ export async function listProjectImages(projectName) {
   }
   return res.json();
 }
+
+// Rename an image in a project
+export async function renameProjectImage(projectName, imageId, newFilename) {
+  const res = await fetch(`${API_BASE}/image/rename`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      project_name: projectName,
+      image_id: imageId,
+      new_filename: newFilename
+    }),
+  });
+  await handleResponse(res, 'rename image');
+  return true;
+}
+
+// Delete an image in a project
+export async function deleteProjectImage(projectName, imageId) {
+  const res = await fetch(`${API_BASE}/image/delete`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      project_name: projectName,
+      image_id: imageId
+    }),
+  });
+  await handleResponse(res, 'delete image');
+  return true;
+}
