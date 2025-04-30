@@ -48,6 +48,24 @@ class DatasetProcessor:
                             tiff_tags[str(tag_name)] = value
                         meta["tiff_tags"] = tiff_tags
                     metadata[jpg_name] = meta
+                    # --- APPEND: Per-image annotation/metadata file creation ---
+                    annotation_path = self.processed_dir / f"{file.stem}.json"
+                    if not annotation_path.exists():
+                        with open(annotation_path, "w") as f:
+                            json.dump({
+                                "image_id": file.stem,
+                                "filename": jpg_name,
+                                "original_filename": orig_name,
+                                "width": img.width,
+                                "height": img.height,
+                                "format": img.format,
+                                "mode": img.mode,
+                                "size_bytes": file.stat().st_size,
+                                "annotations": [],
+                                "history": [
+                                    {"action": "created", "at": None}
+                                ]
+                            }, f, indent=2)
             except Exception as e:
                 metadata[orig_name] = {"error": str(e)}
         # Save metadata

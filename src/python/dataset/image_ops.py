@@ -12,21 +12,23 @@ class ImageOps:
         self.raw_dir = self.project_path / "raw"
 
     def rename_image(self, image_id, new_filename):
+        # Update central metadata file
+        raw_metadata_path = self.raw_dir / "raw_metadata.json"
+        if not raw_metadata_path.exists():
+            raise FileNotFoundError("raw_metadata.json not found.")
+        with open(raw_metadata_path, "r") as f:
+            raw_metadata = json.load(f)
+        if image_id not in raw_metadata:
+            raise FileNotFoundError(f"Image id {image_id} not found in metadata.")
+        # Only update the filename in metadata, do not rename the file on disk
+        raw_metadata[image_id]["filename"] = new_filename
+        with open(raw_metadata_path, "w") as f:
+            json.dump(raw_metadata, f, indent=2)
+        # Optionally update the database for consistency
         with sqlite3.connect(self.db_path) as conn:
-            row = conn.execute("SELECT filename FROM images WHERE id = ?", (image_id,)).fetchone()
-            if not row:
-                raise FileNotFoundError(f"Image id {image_id} not found.")
-            old_filename = row[0]
-            old_path = self.raw_dir / old_filename
-            new_path = self.raw_dir / new_filename
-            if not old_path.exists():
-                raise FileNotFoundError(f"File {old_filename} not found.")
-            if new_path.exists():
-                raise FileExistsError(f"File {new_filename} already exists.")
-            os.rename(old_path, new_path)
             conn.execute("UPDATE images SET filename = ? WHERE id = ?", (new_filename, image_id))
             conn.commit()
-        return str(new_path)
+        return new_filename
 
     def delete_image(self, image_id):
         with sqlite3.connect(self.db_path) as conn:

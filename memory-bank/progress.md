@@ -94,3 +94,17 @@ Progress: SeekerAug
 - Continue incremental, testable implementation as outlined in the feature roadmap.
 - Use the Memory Bank as the single source of truth for all future work and recovery efforts.
 - Update .clinerules with project intelligence and workflow patterns as they are discovered.
+
+---
+
+## April 30, 2025: Cline Code Extraction & Backend Recovery
+
+- Successfully extracted and appended all positive Cline-generated logic from the "fixing garbage" commit to the following backend Python files:
+  - api.py: Restored dataset intake, annotation CRUD, and raw metadata endpoints.
+  - importer.py: Appended logic to maintain a central raw_metadata.json file for all imported images.
+  - processor.py: Appended logic to create per-image annotation/metadata files in the processed directory.
+  - image_ops.py: Integrated metadata-driven image renaming, updating raw_metadata.json and the database.
+- Used algorithmic git diff commands to identify and recover missing code blocks, ensuring only positive, non-destructive logic was restored.
+- All changes were made in an append-only, non-destructive manner, preserving existing working code and workflows.
+- Memory Bank and annotation-schema.md were referenced to ensure all restored logic matches intended data flow and schema.
+- Next: Review and extract any remaining Cline-generated code from non-Python files (e.g., frontend JS/JSX, projectApi.js, etc.).
