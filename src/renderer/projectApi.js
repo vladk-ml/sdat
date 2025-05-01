@@ -182,3 +182,40 @@ export async function intakeToRefined(projectName) {
   await handleResponse(res, 'process images to refined dataset');
   return true;
 }
+
+// Load annotation data for an image
+export async function getAnnotation(projectName, imageFilename) {
+  const url = `${API_BASE}/annotation?project_name=${encodeURIComponent(projectName)}&image_filename=${encodeURIComponent(imageFilename)}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to load annotation');
+  }
+  const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || 'Failed to load annotation');
+  }
+  return data.annotation;
+}
+
+// Save annotation data for an image
+export async function saveAnnotation(projectName, imageFilename, annotation) {
+  const res = await fetch(`${API_BASE}/annotation`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      project_name: projectName,
+      image_filename: imageFilename,
+      annotation: annotation
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to save annotation');
+  }
+  const data = await res.json();
+  if (data.status !== "success") {
+    throw new Error(data.error || 'Failed to save annotation');
+  }
+  return true;
+}

@@ -10,6 +10,7 @@
 
 ## Recent Changes
 
+- **April 30, 2025: Resolved "fixing garbage" incident** - Successfully recovered and integrated all valuable code from the problematic commit. Implemented refined dataset workflow with tab functionality in App.jsx, ingestion button in ImageGrid.jsx, and proper API endpoints in projectApi.js. Restored theme handling configuration in webpack.
 - Projects are now fully isolated: each has its own directory, database, and raw/processed datasets.
 - Project management (list, create, delete) is now fully persistent and handled via the Flask backend API; no localStorage/in-memory logic remains.
 - Welcome Page and Project Dashboard are fully integrated with backend persistence and provide a professional, VS Code-inspired experience.

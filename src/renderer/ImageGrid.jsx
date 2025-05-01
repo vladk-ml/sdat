@@ -9,6 +9,7 @@ import React, { useState } from "react";
  */
 import { useRef } from "react";
 import { intakeToRefined } from "./projectApi"; // Add import for refined dataset functionality
+import AnnotationEditor from "./AnnotationEditor"; // Import AnnotationEditor component
 
 export default function ImageGrid({ images, onRename, onDelete, project, onImportImages }) {
   const [selected, setSelected] = useState([]);
@@ -18,6 +19,8 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
   // Add state for refined dataset ingestion
   const [ingesting, setIngesting] = useState(false);
   const [ingestStatus, setIngestStatus] = useState("");
+  // Add state for annotation editor
+  const [editorImage, setEditorImage] = useState(null);
 
   const fileInputRef = useRef();
 
@@ -217,6 +220,15 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
               padding: 8,
               position: "relative",
               userSelect: "none",
+              cursor: "pointer"
+            }}
+            onClick={e => {
+              // Only open editor if not clicking on checkbox or action buttons
+              if (
+                e.target.tagName === "INPUT" ||
+                e.target.tagName === "BUTTON"
+              ) return;
+              setEditorImage(img);
             }}
           >
             {/* Checkbox for selection */}
@@ -476,6 +488,44 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
                 Delete
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Annotation Editor Modal */}
+      {editorImage && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+          onClick={() => setEditorImage(null)}
+        >
+          <div
+            style={{
+              background: "var(--background-primary)",
+              borderRadius: 8,
+              boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
+              minWidth: 400,
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              overflowY: "auto"
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <AnnotationEditor
+              project={project}
+              image={editorImage}
+              onClose={() => setEditorImage(null)}
+            />
           </div>
         </div>
       )}
