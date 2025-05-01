@@ -34,7 +34,7 @@ function CommandBar({ onOpenPalette, onCloseProject, showClose }) {
 }
 
 // Modified Sidebar to accept onToggleMinimize prop
-function Sidebar({ width, onToggleMinimize, onOpenGridTab }) {
+function Sidebar({ width, onToggleMinimize, onOpenGridTab, onOpenRefinedTab }) {
   return (
     <div className="sidebar" style={{
       width,
@@ -87,6 +87,18 @@ function Sidebar({ width, onToggleMinimize, onOpenGridTab }) {
         >
           <span className="sidebar-item-icon" style={{ marginRight: 8, color: "var(--raw-dataset-color)" }}>📁</span>
           Raw Dataset
+        </div>
+        <div className="sidebar-item" style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "6px 12px",
+          cursor: "pointer",
+          color: "var(--foreground-primary)"
+        }}
+        onClick={onOpenRefinedTab}
+        >
+          <span className="sidebar-item-icon" style={{ marginRight: 8, color: "var(--refined-dataset-color, #75b798)" }}>📊</span>
+          Refined Dataset
         </div>
         {/* More dataset types... */}
       </div>
@@ -201,6 +213,35 @@ function Workspace({
               project={currentProject}
               onImportImages={handleImportImages}
             />
+          ) : activeTab.type === 'refined' ? (
+            // Refined dataset tab
+            <div style={{ padding: 20 }}>
+              <h2 style={{ color: "var(--accent-primary)", marginBottom: 16 }}>
+                Refined Dataset: {currentProject?.name}
+              </h2>
+              <div style={{ 
+                backgroundColor: "var(--background-secondary)",
+                borderRadius: 8, 
+                padding: 16,
+                marginBottom: 20,
+                color: "var(--foreground-secondary)"
+              }}>
+                <p>The refined dataset contains processed versions of raw images, converted to optimal formats with extracted metadata.</p>
+              </div>
+              <div style={{ 
+                display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center", 
+                height: 200, 
+                fontSize: 16,
+                color: "var(--foreground-secondary)",
+                backgroundColor: "var(--background-tertiary)",
+                borderRadius: 8,
+                padding: 16
+              }}>
+                Refined dataset content will be implemented in upcoming releases.
+              </div>
+            </div>
           ) : (
             <div style={{ padding: 20 }}>
               Content for Tab: {activeTab.title} (Type: {activeTab.type || 'unknown'})
@@ -501,6 +542,16 @@ function App() {
     });
   }
 
+  // --- Refined Dataset Tab Handler --- 
+  function handleOpenRefinedTab() {
+    if (!currentProject) return;
+    handleOpenTab({
+      id: `refined-${currentProject.name}`,
+      title: `${currentProject.name} Refined`,
+      type: 'refined'
+    });
+  }
+
   function handleSelectTab(tabId) {
     setActiveTabId(tabId);
   }
@@ -757,6 +808,7 @@ function App() {
               width={sidebarWidth}
               onToggleMinimize={toggleExplorer}
               onOpenGridTab={handleOpenGridTab}
+              onOpenRefinedTab={handleOpenRefinedTab}
             />
           )}
           {/* Minimized Explorer Icon */}
