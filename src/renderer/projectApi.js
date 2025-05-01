@@ -169,3 +169,16 @@ export async function deleteProjectImage(projectName, imageId) {
   await handleResponse(res, 'delete image');
   return true;
 }
+
+// Process raw images to the refined dataset
+export async function intakeToRefined(projectName) {
+  const res = await fetch(`${API_BASE}/dataset/process`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      project_name: projectName
+    }),
+  });
+  await handleResponse(res, 'process images to refined dataset');
+  return true;
+}

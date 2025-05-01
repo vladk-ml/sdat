@@ -8,12 +8,16 @@ import React, { useState } from "react";
  *   onDelete: function(imageIds)
  */
 import { useRef } from "react";
+import { intakeToRefined } from "./projectApi"; // Add import for refined dataset functionality
 
 export default function ImageGrid({ images, onRename, onDelete, project, onImportImages }) {
   const [selected, setSelected] = useState([]);
   const [renameTarget, setRenameTarget] = useState(null);
   const [renameInput, setRenameInput] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  // Add state for refined dataset ingestion
+  const [ingesting, setIngesting] = useState(false);
+  const [ingestStatus, setIngestStatus] = useState("");
 
   const fileInputRef = useRef();
 
@@ -88,7 +92,7 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
             {images.length} images imported
           </div>
         </div>
-        <div>
+        <div style={{ display: "flex", gap: 12 }}>
           <button
             className="button primary"
             style={{
@@ -113,6 +117,41 @@ export default function ImageGrid({ images, onRename, onDelete, project, onImpor
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
+          <button
+            className="button"
+            style={{
+              background: "#2C5D93",
+              color: "#fff",
+              border: "none",
+              borderRadius: 4,
+              padding: "8px 24px",
+              fontWeight: 600,
+              fontSize: 14,
+              cursor: ingesting ? "not-allowed" : "pointer",
+              opacity: ingesting ? 0.7 : 1
+            }}
+            disabled={ingesting}
+            onClick={async () => {
+              if (!project) return;
+              setIngesting(true);
+              setIngestStatus("");
+              try {
+                await intakeToRefined(project.name);
+                setIngestStatus("Ingested to Refined Dataset!");
+              } catch (err) {
+                setIngestStatus(err.message || "Failed to ingest");
+              } finally {
+                setIngesting(false);
+                setTimeout(() => setIngestStatus(""), 2000);
+              }
+            }}
+            title="Ingest all raw images to the Refined Dataset"
+          >
+            {ingesting ? "Ingesting..." : "Ingest to Refined Dataset"}
+          </button>
+          {ingestStatus && (
+            <span style={{ marginLeft: 12, color: "#7fd1b9" }}>{ingestStatus}</span>
+          )}
         </div>
       </div>
 
