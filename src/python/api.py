@@ -365,6 +365,36 @@ def get_raw_metadata():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/dataset/refined/list", methods=["POST"])
+def list_refined_images():
+    data = request.json
+    project_name = data.get("project_name")
+    if not project_name:
+        return jsonify({"error": "Missing project_name"}), 400
+    try:
+        project_path = project_manager.base_dir / project_name
+        if not project_path.exists():
+            return jsonify({"error": "Project does not exist"}), 404
+        processed_dir = project_path / "processed"
+        metadata_path = processed_dir / "metadata.json"
+        if not metadata_path.exists():
+            return jsonify({"status": "success", "images": []})
+        with open(metadata_path, "r") as f:
+            metadata = json.load(f)
+        # Convert dict to list, add file existence check
+        images = []
+        for fname, meta in metadata.items():
+            img_path = processed_dir / fname
+            if img_path.exists():
+                images.append({
+                    **meta,
+                    "filename": fname,
+                    "path": str(img_path)
+                })
+        return jsonify({"status": "success", "images": images})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="127.0.0.1", port=port, debug=True)

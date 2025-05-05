@@ -3,7 +3,8 @@ import WelcomePage from "./WelcomePage.jsx";
 import ProjectDashboard from "./ProjectDashboard.jsx";
 import ImageGrid from "./ImageGrid.jsx";
 import { loadAndApplyTheme } from "./themeLoader.js";
-import { listProjects, createProject, deleteProject, importProjectImages, listProjectImages } from "./projectApi";
+import { listProjects, createProject, deleteProject, importProjectImages, listProjectImages, listRefinedImages, renameProjectImage, deleteProjectImage } from "./projectApi";
+import CommandPalette from "./CommandPalette.jsx";
 
 function CommandBar({ onOpenPalette, onCloseProject, showClose }) {
   return (
@@ -16,19 +17,20 @@ function CommandBar({ onOpenPalette, onCloseProject, showClose }) {
       paddingLeft: 32,
       fontWeight: 700,
       fontSize: 18,
-      borderBottom: "1px solid var(--border-color)"
+      borderBottom: "1px solid var(--border-color)",
+      position: "relative"
     }}>
-      SeekerAug
-      <div style={{ marginLeft: "auto", marginRight: 32, display: "flex", gap: 12 }}>
-        <button className="button" onClick={onOpenPalette} title="Command Palette (Ctrl+Shift+P)">
+      <span style={{ flex: 1, textAlign: "left" }}>SeekerAug</span>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+        <button className="button" onClick={onOpenPalette} title="Command Palette (Ctrl+Shift+P)" style={{ pointerEvents: "auto" }}>
           <span className="button-icon">⌨️</span> Command Palette
         </button>
-        {showClose && (
-          <button className="button" onClick={onCloseProject} title="Close Project">
-            <span className="button-icon">⏏️</span> Close Project
-          </button>
-        )}
       </div>
+      {showClose && (
+        <button className="button" onClick={onCloseProject} title="Close Project" style={{ marginLeft: 24 }}>
+          <span className="button-icon">⏏️</span> Close Project
+        </button>
+      )}
     </div>
   );
 }
@@ -168,6 +170,7 @@ function Workspace({
   onCloseTab,
   currentProject,
   projectImages,
+  refinedImages,
   handleImportImages,
   handleRenameImage,
   handleDeleteImages
@@ -214,34 +217,13 @@ function Workspace({
               onImportImages={handleImportImages}
             />
           ) : activeTab.type === 'refined' ? (
-            // Refined dataset tab
-            <div style={{ padding: 20 }}>
-              <h2 style={{ color: "var(--accent-primary)", marginBottom: 16 }}>
-                Refined Dataset: {currentProject?.name}
-              </h2>
-              <div style={{ 
-                backgroundColor: "var(--background-secondary)",
-                borderRadius: 8, 
-                padding: 16,
-                marginBottom: 20,
-                color: "var(--foreground-secondary)"
-              }}>
-                <p>The refined dataset contains processed versions of raw images, converted to optimal formats with extracted metadata.</p>
-              </div>
-              <div style={{ 
-                display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center", 
-                height: 200, 
-                fontSize: 16,
-                color: "var(--foreground-secondary)",
-                backgroundColor: "var(--background-tertiary)",
-                borderRadius: 8,
-                padding: 16
-              }}>
-                Refined dataset content will be implemented in upcoming releases.
-              </div>
-            </div>
+            <ImageGrid
+              images={refinedImages[currentProject?.name] || []}
+              onRename={handleRenameImage}
+              onDelete={handleDeleteImages}
+              project={currentProject}
+              onImportImages={handleImportImages}
+            />
           ) : (
             <div style={{ padding: 20 }}>
               Content for Tab: {activeTab.title} (Type: {activeTab.type || 'unknown'})
@@ -341,8 +323,6 @@ function StatusBar() {
   );
 }
 
-import { renameProjectImage, deleteProjectImage } from "./projectApi"; // Add these to projectApi.js
-
 function App() {
   // Removed useEffect for theme loading, now done in index.jsx
 
@@ -354,6 +334,7 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [currentProject, setCurrentProject] = useState(null);
   const [projectImages, setProjectImages] = useState({}); // { [projectName]: [images] }
+  const [refinedImages, setRefinedImages] = useState({}); // { [projectName]: [images] }
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [createError, setCreateError] = useState("");
   const [createLoading, setCreateLoading] = useState(false);
@@ -543,8 +524,21 @@ function App() {
   }
 
   // --- Refined Dataset Tab Handler --- 
-  function handleOpenRefinedTab() {
+  async function handleOpenRefinedTab() {
     if (!currentProject) return;
+    // Fetch refined images for the project
+    try {
+      const result = await listRefinedImages(currentProject.name);
+      setRefinedImages(prev => ({
+        ...prev,
+        [currentProject.name]: result.images || []
+      }));
+    } catch (err) {
+      setRefinedImages(prev => ({
+        ...prev,
+        [currentProject.name]: []
+      }));
+    }
     handleOpenTab({
       id: `refined-${currentProject.name}`,
       title: `${currentProject.name} Refined`,
@@ -760,6 +754,29 @@ function App() {
   const [isExplorerMinimized, setIsExplorerMinimized] = useState(true);
   const [isContextMinimized, setIsContextMinimized] = useState(true);
 
+  // Command Palette state
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+
+  // Keyboard shortcut for Command Palette (Ctrl+Shift+P)
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'P' || e.key === 'p')) {
+        setIsPaletteOpen(true);
+        e.preventDefault();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Command handler for Command Palette
+  function handleCommandPaletteAction(action) {
+    // TODO: Implement command actions
+    // Example: if (action === 'createProject') { ... }
+    // For now, just log
+    console.log('Command selected:', action);
+  }
+
   // Toggle handlers for panes - ensure click on minimized icon always shows the pane
   const toggleExplorer = () => {
     // If minimized, clicking the icon should always show it.
@@ -782,6 +799,11 @@ function App() {
           onDelete={handleDeleteProject}
         />
         <ProjectCreateModal />
+        <CommandPalette
+          open={isPaletteOpen}
+          onClose={() => setIsPaletteOpen(false)}
+          onCommand={handleCommandPaletteAction}
+        />
       </>
     );
   }
@@ -797,7 +819,7 @@ function App() {
         flexDirection: "column"
       }}>
         <CommandBar
-          onOpenPalette={() => {}}
+          onOpenPalette={() => setIsPaletteOpen(true)}
           onCloseProject={handleCloseProject}
           showClose={true}
         />
@@ -853,6 +875,7 @@ function App() {
             onCloseTab={handleCloseTab}
             currentProject={currentProject}
             projectImages={projectImages}
+            refinedImages={refinedImages}
             handleImportImages={handleImportImages}
             handleRenameImage={handleRenameImage}
             handleDeleteImages={handleDeleteImages}
@@ -897,6 +920,11 @@ function App() {
           )}
         </div>
         <StatusBar />
+        <CommandPalette
+          open={isPaletteOpen}
+          onClose={() => setIsPaletteOpen(false)}
+          onCommand={handleCommandPaletteAction}
+        />
       </div>
     );
   }

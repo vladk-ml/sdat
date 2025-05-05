@@ -60,7 +60,7 @@ export default function CommandPalette({ open, onClose, onCommand }) {
         top: 0,
         width: "100vw",
         height: "100vh",
-        background: "rgba(20,22,30,0.6)",
+        background: "rgba(20,22,30,0.55)",
         zIndex: 1000,
         display: "flex",
         alignItems: "flex-start",
@@ -71,14 +71,14 @@ export default function CommandPalette({ open, onClose, onCommand }) {
       <div
         style={{
           marginTop: "10vh",
-          background: "#232837",
-          borderRadius: 10,
+          background: "var(--background-tertiary)",
+          borderRadius: 8,
           boxShadow: "0 8px 32px #000a",
           minWidth: 420,
           maxWidth: 600,
           width: "40vw",
           padding: 0,
-          border: "1.5px solid #333a",
+          border: "1.5px solid var(--border-color)",
           display: "flex",
           flexDirection: "column"
         }}
@@ -91,29 +91,38 @@ export default function CommandPalette({ open, onClose, onCommand }) {
           onKeyDown={handleKeyDown}
           placeholder="Type a command..."
           style={{
-            background: "#181c24",
-            color: "#e0e6ef",
+            background: "var(--background-tertiary)",
+            color: "var(--foreground-primary)",
             border: "none",
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-            fontSize: 18,
-            padding: "18px 20px",
-            outline: "none"
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            borderBottom: "1.5px solid var(--border-color)",
+            fontSize: 17,
+            padding: "16px 20px",
+            outline: "none",
+            fontFamily: "'Segoe UI', system-ui, sans-serif"
           }}
         />
-        <div style={{ maxHeight: 320, overflowY: "auto" }}>
+        <div style={{ maxHeight: 320, overflowY: "auto", background: "var(--background-tertiary)" }}>
           {filtered.length === 0 && (
-            <div style={{ color: "#b0bacf", padding: 18 }}>No commands found</div>
+            <div style={{ color: "var(--foreground-secondary)", padding: 18, fontSize: 15 }}>
+              No commands found
+            </div>
           )}
           {filtered.map((cmd, i) => (
             <div
               key={cmd.action}
               style={{
-                background: i === selected ? "#2e3647" : "none",
-                color: i === selected ? "#7fd1b9" : "#e0e6ef",
-                padding: "14px 20px",
+                background: i === selected ? "var(--active-color)" : "none",
+                color: i === selected ? "var(--accent-primary)" : "var(--foreground-primary)",
+                padding: "13px 20px",
                 cursor: "pointer",
-                fontWeight: i === selected ? "bold" : "normal"
+                fontWeight: i === selected ? 600 : 400,
+                fontSize: 16,
+                borderLeft: i === selected ? "3px solid var(--accent-primary)" : "3px solid transparent",
+                display: "flex",
+                alignItems: "center",
+                transition: "background 0.15s, color 0.15s"
               }}
               onMouseEnter={() => setSelected(i)}
               onMouseDown={() => {
@@ -121,7 +130,8 @@ export default function CommandPalette({ open, onClose, onCommand }) {
                 onClose();
               }}
             >
-              {cmd.label}
+              <span style={{ minWidth: 32, textAlign: 'center', marginRight: 18, color: "var(--foreground-secondary)", fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⌨️</span>
+              <span style={{ flex: 1 }}>{cmd.label}</span>
             </div>
           ))}
         </div>

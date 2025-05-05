@@ -141,6 +141,20 @@ export async function listProjectImages(projectName) {
   return res.json();
 }
 
+// List refined images in a project
+export async function listRefinedImages(projectName) {
+  const res = await fetch(`${API_BASE}/dataset/refined/list`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ project_name: projectName }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to list refined images');
+  }
+  return res.json();
+}
+
 // Rename an image in a project
 export async function renameProjectImage(projectName, imageId, newFilename) {
   const res = await fetch(`${API_BASE}/image/rename`, {
